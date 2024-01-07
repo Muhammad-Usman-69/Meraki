@@ -12,26 +12,23 @@
 <body>
     <header class="h-20">
         <nav class="flex fixed shadow-sm shadow-black w-full bg-white justify-between items-center">
+            <!--navigation bar logo-->
             <div class="logo flex items-center">
-                <a href="/">
-                    <img class="w-20" src="images/logo.jpg" alt="">
+                <a href="/" class="flex items-center">
+                    <img class="w-20" src="images/logo.jpg">
+                    <p class="text-xlg font-semibold font-mono">Meraki</p>
                 </a>
-                <p class="text-xlg font-semibold font-mono">Meraki</p>
             </div>
-            <div class="menu mx-6">
-                <button onclick="menu()" type="button" class="border-black border-2 rounded-sm w-8">
-                    <img class="" src="images/menu.png" alt="">
+
+            <!--menu section-->
+            <div class="mx-6">
+                <button onclick="menu()" type="button" class="border-black border-2 rounded">
+                    <img class="w-8" src="images/menu.png">
                 </button>
-                <ul class="menu-list absolute flex flex-col list-none border-black border-y bg-slate-50 w-full right-1/2 translate-x-1/2 translate-y-5 h-0 overflow-hidden ease-in-out duration-200 transition-all">
-                    <li class="border-y border-black py-1.5 px-3 text-lg">
-                        <a href="">Profile</a>
-                    </li>
-                    <li class="border-y border-black py-1.5 px-3 text-lg">
-                        <a href="">Log in</a>
-                    </li>
-                    <li class="border-y border-black py-1.5 px-3 text-lg">
-                        <a href="">Sign up</a>
-                    </li>
+                <ul class="menu-list absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all h-0">
+                    <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Profile</a>
+                    <a href="" class="block w-full py-1.5 px-3 bg-slate-100 hover:bg-slate-300">Log in</a>
+                    <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Sign up</a>
                 </ul>
             </div>
         </nav>
