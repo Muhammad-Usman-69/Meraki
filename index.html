@@ -25,7 +25,8 @@
                 <button onclick="menu()" type="button" class="border-black border-2 rounded">
                     <img class="w-8" src="images/menu.png">
                 </button>
-                <ul class="menu-list absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all h-0">
+                <ul
+                    class="menu-list absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all h-0">
                     <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Profile</a>
                     <a href="" class="block w-full py-1.5 px-3 bg-slate-100 hover:bg-slate-300">Log in</a>
                     <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Sign up</a>
@@ -33,6 +34,10 @@
             </div>
         </nav>
     </header>
+
+    <!--form add section-->
+    <iframe scrolling="no" class="h-fit w-full overflow-hidden" src="partials/add.html" frameborder="0" onload="resizeIframe(this)"></iframe>
+
     <div class="h-[100vh]"></div>
     <div class="h-[100vh]"></div>
     <script src="side/script.js"></script>
