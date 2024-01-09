@@ -11,34 +11,42 @@
 
 <body>
     <header class="h-20">
-        <nav class="flex fixed shadow-sm shadow-black w-full bg-white justify-between items-center">
+        <nav class="flex fixed shadow-sm shadow-black w-full bg-gray-300 justify-between items-center dark:bg-gray-800">
             <!--navigation bar logo-->
             <div class="logo flex items-center">
-                <a href="/" class="flex items-center">
-                    <img class="w-20" src="images/logo.jpg">
-                    <p class="text-xlg font-semibold font-mono">Meraki</p>
+                <a href="/" class="flex items-center space-x-2">
+                    <img class="w-20 rounded-full p-2" src="images/logo.jpg">
+                    <p class="text-lg font-semibold font-mono dark:text-white">Meraki</p>
                 </a>
             </div>
 
             <!--menu section-->
             <div class="mx-6">
-                <button onclick="menu()" type="button" class="border-black border-2 rounded">
-                    <img class="w-8" src="images/menu.png">
+                <button onclick="menu()" type="button" class="border-black border-2 rounded dark:border-white">
+                    <img class="w-8 dark:invert" src="images/menu.png">
                 </button>
                 <ul
                     class="menu-list absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all h-0">
-                    <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Profile</a>
-                    <a href="" class="block w-full py-1.5 px-3 bg-slate-100 hover:bg-slate-300">Log in</a>
-                    <a href="" class="block w-full py-1.5 px-3 bg-slate-200 hover:bg-slate-300">Sign up</a>
+                    <li class="list-none w-0 overflow-hidden duration-300">
+                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Profile</a>
+                    </li>
+                    <li class="list-none w-0 overflow-hidden duration-300">
+                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-300 hover:bg-cyan-100 overflow-hidden whitespace-nowrap">Log
+                            in</a>
+                    </li>
+                    <li class="list-none w-0 overflow-hidden duration-300">
+                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Sign
+                            up</a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
 
     <!--form add section-->
-    <iframe scrolling="no" class="h-fit w-full overflow-hidden" src="partials/add.html" frameborder="0" onload="resizeIframe(this)"></iframe>
+    <iframe scrolling="no" class="h-fit w-full overflow-hidden bg-gray-200 dark:bg-gray-700" src="partials/_add.html"
+        frameborder="0" onload="resizeIframe(this)"></iframe>
 
-    <div class="h-[100vh]"></div>
     <div class="h-[100vh]"></div>
     <script src="side/script.js"></script>
 </body>
