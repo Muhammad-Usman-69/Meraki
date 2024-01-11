@@ -11,30 +11,31 @@
 
 <body>
     <header class="h-20">
-        <nav class="flex fixed shadow-sm shadow-black w-full bg-gray-300 justify-between items-center dark:bg-gray-800">
+        <nav class="flex fixed shadow-sm shadow-black w-full justify-between items-center bg-gray-800">
             <!--navigation bar logo-->
             <div class="logo flex items-center">
                 <a href="/" class="flex items-center space-x-2">
                     <img class="w-20 rounded-full p-2" src="images/logo.jpg">
-                    <p class="text-lg font-semibold font-mono dark:text-white">Meraki</p>
+                    <p class="text-lg font-semibold font-mono text-white">Meraki</p>
                 </a>
             </div>
 
             <!--menu section-->
             <div class="mx-6">
-                <button onclick="menu()" type="button" class="border-black border-2 rounded dark:border-white">
-                    <img class="w-8 dark:invert" src="images/menu.png">
+                <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-9 h-9">
+                    <img class="menu-img w-8 invert transition-all duration-300 absolute top-0 left-0" src="images/menu.png">
+                    <img class="close-img w-8 invert p-1 opacity-0 transition-all duration-300 absolute top-0 left-0" src="images/close.png">
                 </button>
                 <ul
-                    class="menu-list absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all h-0">
-                    <li class="list-none w-0 overflow-hidden duration-300">
+                    class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
+                    <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0">
                         <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Profile</a>
                     </li>
-                    <li class="list-none w-0 overflow-hidden duration-300">
+                    <li class="list-none overflow-hidden transition-all duration-300 ease-in-ou h-0">
                         <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-300 hover:bg-cyan-100 overflow-hidden whitespace-nowrap">Log
                             in</a>
                     </li>
-                    <li class="list-none w-0 overflow-hidden duration-300">
+                    <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0">
                         <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Sign
                             up</a>
                     </li>
@@ -44,10 +45,10 @@
     </header>
 
     <!--form add section-->
-    <iframe scrolling="no" class="h-fit w-full overflow-hidden bg-gray-200 dark:bg-gray-700" src="partials/_add.html"
-        frameborder="0" onload="resizeIframe(this)"></iframe>
+    <iframe scrolling="no" class="h-fit w-full overflow-hidden bg-gray-700" src="partials/_add.html"
+        frameborder="0" onload="resizeIframe(this)" id="iframe"></iframe>
 
-    <div class="h-[100vh]"></div>
+    <div class="h-9"></div>
     <script src="side/script.js"></script>
 </body>
 
