@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Muhammad Usman">
     <title>Meraki - To Do List</title>
     <link rel="stylesheet" href="side/style.css">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
     <header class="h-20">
         <nav class="flex fixed shadow-sm shadow-black w-full justify-between items-center bg-gray-800">
             <!--navigation bar logo-->
@@ -23,20 +24,25 @@
             <!--menu section-->
             <div class="mx-6">
                 <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-9 h-9">
-                    <img class="menu-img w-8 invert transition-all duration-300 absolute top-0 left-0" src="images/menu.png">
-                    <img class="close-img w-8 invert p-1 opacity-0 transition-all duration-300 absolute top-0 left-0" src="images/close.png">
+                    <img class="menu-img w-8 invert transition-all duration-300 absolute top-0 left-0"
+                        src="images/menu.png">
+                    <img class="close-img w-8 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
+                        src="images/close.png">
                 </button>
                 <ul
                     class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
                     <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0">
-                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Profile</a>
+                        <a href=""
+                            class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Profile</a>
                     </li>
                     <li class="list-none overflow-hidden transition-all duration-300 ease-in-ou h-0">
-                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-300 hover:bg-cyan-100 overflow-hidden whitespace-nowrap">Log
+                        <a href=""
+                            class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-300 hover:bg-cyan-100 overflow-hidden whitespace-nowrap">Log
                             in</a>
                     </li>
                     <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0">
-                        <a href="" class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Sign
+                        <a href=""
+                            class="block w-full py-1.5 px-3 text-gray-700 bg-cyan-400 hover:bg-cyan-200 overflow-hidden whitespace-nowrap">Sign
                             up</a>
                     </li>
                 </ul>
@@ -45,10 +51,126 @@
     </header>
 
     <!--form add section-->
-    <iframe scrolling="no" class="h-fit w-full overflow-hidden bg-gray-700" src="partials/_add.html"
-        frameborder="0" onload="resizeIframe(this)" id="iframe"></iframe>
+    <iframe scrolling="no" class="w-full overflow-hidden bg-gray-700" src="partials/_add.html" frameborder="0"
+        onload="resizeIframe(this)" id="iframe"></iframe>
 
-    <div class="h-9"></div>
+    <hr>
+
+    <!--table section-->
+    <div class="">
+        <table class="w-full">
+            <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Id</th>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Time</th>
+                    <th scope="col" class="px-6 py-3">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-gray-800 border-gray-700 text-white border-b">
+                    <td class="px-6 py-4">1</td>
+                    <td class="px-6 py-4">Head</td>
+                    <td class="px-6 py-4">12/12/12</td>
+                    <td class="py-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-blue-500 p-2">
+                                <img class="invert w-6" src="images/detail.png" alt="detail">
+                            </button>
+                            <button href="" class="rounded-md bg-yellow-500 p-2">
+                                <img class="invert w-6" src="images/edit.png" alt="edit">
+                            </button>
+                        </div>
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-green-600 p-2">
+                                <img class="invert w-6" src="images/finish.png" alt="finish">
+                            </button>
+                            <button href="" class="rounded-md bg-red-600 p-2">
+                                <img class="invert w-6" src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bg-gray-800 border-gray-700 text-white border-b">
+                    <td class="px-6 py-4">2</td>
+                    <td class="px-6 py-4">Tail</td>
+                    <td class="px-6 py-4">12/12/12</td>
+                    <td class="py-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-blue-500 p-2">
+                                <img class="invert w-6" src="images/detail.png" alt="detail">
+                            </button>
+                            <button href="" class="rounded-md bg-yellow-500 p-2">
+                                <img class="invert w-6" src="images/edit.png" alt="edit">
+                            </button>
+                        </div>
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-green-600 p-2">
+                                <img class="invert w-6" src="images/finish.png" alt="finish">
+                            </button>
+                            <button href="" class="rounded-md bg-red-600 p-2">
+                                <img class="invert w-6" src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bg-gray-800 border-gray-700 text-white border-b">
+                    <td class="px-6 py-4">2</td>
+                    <td class="px-6 py-4">Tail</td>
+                    <td class="px-6 py-4">12/12/12</td>
+                    <td class="py-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-blue-500 p-2">
+                                <img class="invert w-6" src="images/detail.png" alt="detail">
+                            </button>
+                            <button href="" class="rounded-md bg-yellow-500 p-2">
+                                <img class="invert w-6" src="images/edit.png" alt="edit">
+                            </button>
+                        </div>
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-green-600 p-2">
+                                <img class="invert w-6" src="images/finish.png" alt="finish">
+                            </button>
+                            <button href="" class="rounded-md bg-red-600 p-2">
+                                <img class="invert w-6" src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="bg-gray-800 border-gray-700 text-white border-b">
+                    <td class="px-6 py-4">2</td>
+                    <td class="px-6 py-4">Tail</td>
+                    <td class="px-6 py-4">12/12/12</td>
+                    <td class="py-4 grid grid-cols-1 gap-1 sm:grid-cols-2">
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-blue-500 p-2">
+                                <img class="invert w-6" src="images/detail.png" alt="detail">
+                            </button>
+                            <button href="" class="rounded-md bg-yellow-500 p-2">
+                                <img class="invert w-6" src="images/edit.png" alt="edit">
+                            </button>
+                        </div>
+                        <div class="w-fit">
+                            <button href="" class="rounded-md bg-green-600 p-2">
+                                <img class="invert w-6" src="images/finish.png" alt="finish">
+                            </button>
+                            <button href="" class="rounded-md bg-red-600 p-2">
+                                <img class="invert w-6" src="images/delete.png" alt="delete">
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <footer class="py-4 text-center bg-gray-800 text-white mt-auto">
+        <p>Copyright &copy; 2024 Meraki | All rights reserved</p>
+    </footer>
+
+    <!-- <div class="h-screen"></div> -->
     <script src="side/script.js"></script>
 </body>
 

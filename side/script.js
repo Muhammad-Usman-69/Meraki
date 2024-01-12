@@ -1,6 +1,7 @@
 // adding showing function for menu list
 let menuSec = document.querySelector(".menu");
 let menuList = document.querySelectorAll(".menu li");
+let x = 180;
 function menu() {
     menuList.forEach((list, i) => {
         list.classList.toggle("h-9");
@@ -10,11 +11,19 @@ function menu() {
     let menuImage = document.querySelector(".menu-img");
     let closeImage = document.querySelector(".close-img");
 
-    //adding rotating function for menu
-    /* menuImage.classList.toggle("opacity-0");
-    menuImage.style.transform = "rotate(180deg)";
+    //adding changing photo function for menu
+    menuImage.classList.toggle("opacity-0");
     closeImage.classList.toggle("opacity-0");
-    closeImage.style.transform = "rotate(180deg)"; */
+
+    //adding rotating function for menu
+    menuImage.style.transform = `rotate(${x}deg)`;
+    closeImage.style.transform = `rotate(${x}deg)`;
+    
+    menuImage.style.transform = `rotate(${x}deg)`;
+    closeImage.style.transform = `rotate(${x}deg)`;
+
+    //increamenting value of x to rotate menu
+    x+= 180;
 }
 
 //automatically adjusts height of form frame
