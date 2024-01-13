@@ -1,8 +1,8 @@
-// adding showing function for menu list
 let menuSec = document.querySelector(".menu");
 let menuList = document.querySelectorAll(".menu li");
 let x = 180;
 function menu() {
+    // adding showing function for menu list
     menuList.forEach((list, i) => {
         list.classList.toggle("h-9");
         list.style.transitionDelay = i * 0.1 + "s";
@@ -18,15 +18,15 @@ function menu() {
     //adding rotating function for menu
     menuImage.style.transform = `rotate(${x}deg)`;
     closeImage.style.transform = `rotate(${x}deg)`;
-    
-    menuImage.style.transform = `rotate(${x}deg)`;
-    closeImage.style.transform = `rotate(${x}deg)`;
 
     //increamenting value of x to rotate menu
-    x+= 180;
+    x += 180;
 }
 
-//automatically adjusts height of form frame
-function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+//automatically adjusts height of form frame from message by _add.html
+function resizeIframe(event) {
+    const height = event.data.height;
+    document.getElementById('iframe').style.height = height + 'px';
 }
+
+window.addEventListener('message', resizeIframe, false);
