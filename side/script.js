@@ -2,9 +2,10 @@ let menuSec = document.querySelector(".menu");
 let menuList = document.querySelectorAll(".menu li");
 let x = 180;
 function menu() {
-    // adding showing function for menu list
+    // adding showing function for menu list and adding border
     menuList.forEach((list, i) => {
         list.classList.toggle("h-9");
+        list.classList.toggle("border-b");
         list.style.transitionDelay = i * 0.1 + "s";
     });
 
@@ -23,10 +24,16 @@ function menu() {
     x += 180;
 }
 
-//automatically adjusts height of form frame from message by _add.html
+//automatically adjusts height of form frame from message
 function resizeIframe(event) {
     const height = event.data.height;
-    document.getElementById('iframe').style.height = height + 'px';
+    const iframeId = event.data.iframeId;
+
+    const iframe = document.getElementById(iframeId);
+
+    if (iframe) {
+        iframe.style.height = height + 'px';
+    }
 }
 
 window.addEventListener('message', resizeIframe, false);
