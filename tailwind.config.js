@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "**",
-    "partials/*"
+    "partials/"
   ],
   theme: {
     extend: {},
