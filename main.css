@@ -6,6 +6,29 @@
     @apply cursor-pointer p-1 rounded border-none bg-gray-300;
 }
 
-/* .border-y {
-    @apply border-y;    
-} */
+.hide-scrollbar::-webkit-scrollbar {
+    height: 0.25em;
+    width: 4px;
+    background-color: #e8e8e8;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgb(42, 42, 255);
+    border-radius: 25px;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.bg-gray-900\/50 {
+    background-color: rgb(17 24 39 / 0.5);
+}
+
+.z-40 {
+    z-index: 40;
+}
+
+.inset-0 {
+    inset: 0px;
+}

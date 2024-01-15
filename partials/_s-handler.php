@@ -22,7 +22,7 @@
                         $sql = "INSERT INTO `users` (`name`, `email`, `pass`) VALUES (?, ?, ?)";
                         $stmt = mysqli_prepare($conn, $sql);
                         mysqli_stmt_bind_param($stmt, "sss", $name, $email, $pass_hash);
-                        $result = mysqli_execute($stmt);
+                        $result = mysqli_stmt_execute($stmt);
                         if ($result) {
                             header("location: /?alert=You have been signed up");
                             exit();
