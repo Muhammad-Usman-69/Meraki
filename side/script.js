@@ -25,7 +25,7 @@ function menu() {
 }
 
 //automatically adjusts height of form frame from message
-function resizeIframe(event) {
+/* function resizeIframe(event) {
     const height = event.data.height;
     const iframeId = event.data.iframeId;
 
@@ -36,4 +36,36 @@ function resizeIframe(event) {
     }
 }
 
-window.addEventListener('message', resizeIframe, false);
+window.addEventListener('message', resizeIframe, false); */
+
+//dividing the datetimes from database
+let datetimes = document.querySelectorAll(".datetime");
+let dates = document.querySelectorAll(".date");
+let times = document.querySelectorAll(".time");
+let arr = [];
+
+//looping through input
+datetimes.forEach(datetime => {
+    let values = datetime.value;
+
+    //spliting the value and pushing them into array
+    arr.push(values.split("T"));
+})
+
+//declaring i as an index
+let i = 0;
+
+//putting value of date
+dates.forEach(date => {
+    date.value = arr[i][0];
+    i++;
+})
+
+//reseting value of index
+i = 0;
+
+//putting value of time
+times.forEach(time => {
+    time.value = arr[i][1];
+    i++;
+})

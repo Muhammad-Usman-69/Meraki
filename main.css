@@ -6,6 +6,10 @@
     @apply cursor-pointer p-1 rounded border-none bg-gray-300;
 }
 
+.hide-cal::-webkit-calendar-picker-indicator {
+    @apply hidden;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
     height: 0.25em;
     width: 4px;
@@ -13,8 +17,7 @@
 }
 
 .hide-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgb(42, 42, 255);
-    border-radius: 25px;
+    background-color: rgb(24, 33, 44);
 }
 
 .fixed {

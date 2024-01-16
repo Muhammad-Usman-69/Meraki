@@ -130,18 +130,21 @@ session_start();
                 <div class="flex flex-col space-y-3">
                     <label for="title" class="text-gray-200">Title</label>
                     <input type="text" name="title" id="title" placeholder="Shadi krni ha"
-                        class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500" required>
+                        class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500"
+                        required>
                 </div>
                 <div class="flex flex-col space-y-3">
                     <label for="desc" class="text-gray-200">Description</label>
                     <textarea name="desc" id="desc" rows="6"
                         placeholder="Sail ko aik adad shadi krni ha take apni zindagi sukhi guzare"
-                        class="border border-black outline-none px-3 py-2 rounded resize-none  text-white bg-gray-700 placeholder:text-gray-500" required></textarea>
+                        class="border border-black outline-none px-3 py-2 rounded resize-none  text-white bg-gray-700 placeholder:text-gray-500 hide-scrollbar"
+                        required></textarea>
                 </div>
                 <div class="flex flex-col space-y-3">
                     <label for="time" class="text-gray-200">Time</label>
                     <input type="datetime-local" name="time" id="time" placeholder="10:10:2010"
-                        class="border border-black outline-none px-3 py-2 rounded text-gray-500 bg-gray-700 w-full calender" required>
+                        class="border border-black outline-none px-3 py-2 rounded text-gray-500 bg-gray-700 w-full calender"
+                        required>
                 </div>
                 <div class="grid place-items-end pt-3">
                     <button type="submit"
@@ -154,8 +157,165 @@ session_start();
     <hr>
 
     <!--table section-->
-    <iframe scrolling="no" class="w-full overflow-hidden" src="partials/_table.html" frameborder="0"
-        id="_table"></iframe>
+    <!-- <iframe scrolling="no" class="w-full overflow-hidden" src="partials/_table.php" frameborder="0"
+        id="_table"></iframe> -->
+    <!--table section-->
+    <div class="w-full overflow-hidden">
+
+        <!-- search and select -->
+        <form action="" class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
+            <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+            <div class="search grid grid-cols-[1fr_40px] gap-[2px]">
+                <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none"
+                    placeholder="Search">
+                <button type="submit" class="bg-gray-700 hover:bg-gray-600">
+                    <img src="../images/search.png" class="p-2 invert" alt="">
+                </button>
+            </div>
+        </form>
+
+        <!-- table -->
+        <table class="w-full">
+            <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
+                <tr>
+                    <th scope="col" class="px-2 py-3">Id</th>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Time</th>
+                    <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
+                    $id = $_SESSION["id"];
+                    $sql = "SELECT * FROM `work` WHERE `id` = ?";
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "i", $id);
+                    mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_get_result($stmt);
+                    $num = mysqli_num_rows($result);
+                    if ($num != 0) {
+                        $i = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $title = $row["work_title"];
+                            $desc = $row["work_desc"];
+                            $time = $row["work_time"];
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b">
+                            <td class="px-6 py-4">' . $i . '</td>
+                            <!--max 150-->
+                            <td class="py-4">' . $title . '</td>
+                            <td class="px-3 py-4">
+                                <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
+                                <input type="date" class="bg-gray-800 outline-none w-24 hide-cal date" readonly>
+                                <input type="time" class="bg-gray-800 outline-none w-24 hide-cal time" readonly>
+                            </td>
+                            <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                                <div class="w-fit">
+                                    <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
+                                        <img class="invert w-6" src="../images/detail.png" alt="detail">
+                                    </button>
+                                    <button href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
+                                        <img class="invert w-6" src="../images/edit.png" alt="edit">
+                                    </button>
+                                </div>
+                                <div class="w-fit">
+                                    <button href="" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
+                                        <img class="invert w-6" src="../images/finish.png" alt="finish">
+                                    </button>
+                                    <button href="" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
+                                        <img class="invert w-6" src="../images/delete.png" alt="delete">
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>';
+
+                            //echo detail modal
+                        echo '<div id="detail-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                            class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <div class="relative shadow bg-gray-700 border border-white rounded-md">
+                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                                            <h3 class="text-xl font-semibold text-white">
+                                                Review your work
+                                            </h3>
+                                            <button type="button"
+                                                class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                                                data-modal-hide="detail-modal-' . $i . '">
+                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <div class="p-4 md:p-5">
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <label for="word-id" class="block mb-2 text-sm font-medium text-white">Your work id</label>
+                                                    <input type="text" id="word-id" name="word-id" value="' . $i . '"
+                                                        class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                                                        readonly>
+                                                </div>
+                                                <div>
+                                                    <label for="word-title" class="block mb-2 text-sm font-medium text-white">Your work
+                                                        title</label>
+                                                    <input type="text" id="word-title" name="word-title" value="' . $title . '"
+                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                                                        readonly>
+                                                </div>
+                                                <div>
+                                                    <label for="word-desc" class="block mb-2 text-sm font-medium text-white">Your work desc</label>
+                                                    <textarea id="word-desc" name="word-desc"
+                                                        rows="5" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none"
+                                                        readonly>' . $desc . '</textarea>
+                                                </div>
+                                                <div>
+                                                    <label for="work-time"
+                                                        class="block mb-2 text-sm font-medium text-white">Your work time</label>
+                                                    <input type="datetime-local" value="' . $time . '" minlength="8" id="work-time" name="work-time"
+                                                        class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-cal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+                            $i++;
+                        }
+                    }
+                }
+                ?>
+
+            </tbody>
+        </table>
+
+        <!-- pagination -->
+        <nav class="bg-gray-800 py-5 px-4 text-gray-400">
+            <ul class="flex flex-row items-center justify-center space-x-[1px]">
+                <li>
+                    <a href=""
+                        class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white">Previous</a>
+                </li>
+                <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">1</a>
+                </li>
+                <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">2</a>
+                </li>
+                <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">3</a>
+                </li>
+                <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <hr>
 
     <footer class="py-4 text-center bg-gray-800 text-white mt-auto">
