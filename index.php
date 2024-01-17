@@ -129,7 +129,7 @@ session_start();
             <form action="partials/_add-handler.php" class="p-6 space-y-3" method="post">
                 <div class="flex flex-col space-y-3">
                     <label for="title" class="text-gray-200">Title</label>
-                    <input type="text" name="title" id="title" placeholder="Shadi krni ha"
+                    <input type="text" maxlength="50" name="title" id="title" placeholder="Shadi krni ha"
                         class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500"
                         required>
                 </div>
@@ -157,9 +157,6 @@ session_start();
     <hr>
 
     <!--table section-->
-    <!-- <iframe scrolling="no" class="w-full overflow-hidden" src="partials/_table.php" frameborder="0"
-        id="_table"></iframe> -->
-    <!--table section-->
     <div class="w-full overflow-hidden">
 
         <!-- search and select -->
@@ -182,7 +179,7 @@ session_start();
         <table class="w-full">
             <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
                 <tr>
-                    <th scope="col" class="px-2 py-3">Id</th>
+                    <th scope="col" class="px-4 py-3">Num</th>
                     <th scope="col" class="px-6 py-3">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
                     <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
@@ -204,21 +201,22 @@ session_start();
                             $title = $row["work_title"];
                             $desc = $row["work_desc"];
                             $time = $row["work_time"];
+                            $work_id = $row["work_id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b">
                             <td class="px-6 py-4">' . $i . '</td>
                             <!--max 150-->
-                            <td class="py-4">' . $title . '</td>
+                            <td class="py-4 text-sm sm:text-base">' . $title . '</td>
                             <td class="px-3 py-4">
                                 <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
-                                <input type="date" class="bg-gray-800 outline-none w-24 hide-cal date" readonly>
-                                <input type="time" class="bg-gray-800 outline-none w-24 hide-cal time" readonly>
+                                <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
+                                <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
                             </td>
                             <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
                                 <div class="w-fit">
                                     <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                         <img class="invert w-6" src="../images/detail.png" alt="detail">
                                     </button>
-                                    <button href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
+                                    <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '"  href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
                                         <img class="invert w-6" src="../images/edit.png" alt="edit">
                                     </button>
                                 </div>
@@ -234,7 +232,7 @@ session_start();
                         </tr>';
 
                             //echo detail modal
-                        echo '<div id="detail-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                            echo '<div id="detail-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
                             class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                     <div class="relative shadow bg-gray-700 border border-white rounded-md">
@@ -256,35 +254,93 @@ session_start();
                                         <div class="p-4 md:p-5">
                                             <div class="space-y-4">
                                                 <div>
-                                                    <label for="word-id" class="block mb-2 text-sm font-medium text-white">Your work id</label>
-                                                    <input type="text" id="word-id" name="word-id" value="' . $i . '"
+                                                    <label for="work-id-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work Id</label>
+                                                    <input type="text" id="work-id-' . $work_id . '" name="work-id-' . $work_id . '" value="#' . $work_id . '"
                                                         class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                                                         readonly>
                                                 </div>
                                                 <div>
-                                                    <label for="word-title" class="block mb-2 text-sm font-medium text-white">Your work
-                                                        title</label>
-                                                    <input type="text" id="word-title" name="word-title" value="' . $title . '"
+                                                    <label for="work-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work
+                                                        Title</label>
+                                                    <input type="text" id="work-title-' . $work_id . '" name="work-title-' . $work_id . '" value="' . $title . '"
                                                         class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                                                         readonly>
                                                 </div>
                                                 <div>
-                                                    <label for="word-desc" class="block mb-2 text-sm font-medium text-white">Your work desc</label>
-                                                    <textarea id="word-desc" name="word-desc"
-                                                        rows="5" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none"
+                                                    <label for="work-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work Description</label>
+                                                    <textarea id="work-desc-' . $work_id . '" name="work-desc-' . $work_id . '"
+                                                        rows="4" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none"
                                                         readonly>' . $desc . '</textarea>
                                                 </div>
                                                 <div>
-                                                    <label for="work-time"
-                                                        class="block mb-2 text-sm font-medium text-white">Your work time</label>
-                                                    <input type="datetime-local" value="' . $time . '" minlength="8" id="work-time" name="work-time"
-                                                        class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-cal">
+                                                    <label for="work-time' . $work_id . '"
+                                                        class="block mb-2 text-sm font-medium text-white">Your Work Time</label>
+                                                    <input type="datetime-local" value="' . $time . '" minlength="8" id="work-time' . $work_id . '" name="work-time' . $work_id . '"
+                                                        class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-cal" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>';
+
+                            //echo edit modal
+                            echo '<div id="edit-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                            class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <div class="relative shadow bg-gray-700 border border-white rounded-md">
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                                        <h3 class="text-xl font-semibold text-white">
+                                            Edit your work
+                                        </h3>
+                                        <button type="button"
+                                            class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
+                                            data-modal-hide="edit-modal-' . $i . '">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <form action="partials/_update.php?id=' . $work_id . '" method="post">
+                                    <div class="p-4 md:p-5 space-y-4">
+                                            <div>
+                                                <label for="work-edit-id-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
+                                                    Work Id</label>
+                                                <input type="text" id="work-edit-id-' . $work_id . '" name="work-edit-id-' . $work_id . '"
+                                                    value="#' . $work_id . '"
+                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                                                    readonly>
+                                            </div>
+                                            <div>
+                                                <label for="work-edit-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
+                                                    Work Title</label>
+                                                <input type="text" id="work-edit-title-' . $work_id . '" name="work-edit-title-' . $work_id . '"
+                                                    value="' . $title . '"
+                                                    class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                                            </div>
+                                            <div>
+                                                <label for="work-edit-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
+                                                    Work Description</label>
+                                                <textarea id="work-edit-desc-' . $work_id . '" name="work-edit-desc-' . $work_id . '" rows="4"
+                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none">' . $desc . '</textarea>
+                                            </div>
+                                            <div>
+                                                <label for="work-time-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
+                                                    Work Time</label>
+                                                <input type="datetime-local" value="' . $time . '" id="work-edit-time-' . $work_id . '"
+                                                    name="work-edit-time-' . $work_id . '"
+                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white calender">
+                                            </div>
+                                            <button type="submit"
+                                                class="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>';
                             $i++;
                         }
                     }
