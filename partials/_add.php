@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $status = "progress";
             $sql = "INSERT INTO `work` (`id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "isss", $id, $title, $desc, $time, $status);
+            mysqli_stmt_bind_param($stmt, "issss", $id, $title, $desc, $time, $status);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 header("location: /?alert=Added successfully");

@@ -161,8 +161,8 @@ session_start();
 
         <!-- search and select -->
         <form action="" class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
-            <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none">
-                <option value="5">5</option>
+            <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none" oninput="pagination(this)">
+                <option value="5" class="default">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
@@ -203,7 +203,7 @@ session_start();
                             $desc = $row["work_desc"];
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
-                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b">
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr">
                                 <td class="px-6 py-4">' . $i . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base">' . $title . '</td>
@@ -424,22 +424,22 @@ session_start();
         <!-- pagination -->
         <nav class="bg-gray-800 py-5 px-4 text-gray-400">
             <ul class="flex flex-row items-center justify-center space-x-[1px]">
-                <li>
+                <!-- <li>
                     <a href=""
-                        class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white">Previous</a>
+                        class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg" value="5">Previous</a>
+                </li> -->
+                <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg" value>1</a>
                 </li>
                 <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">1</a>
+                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white pg" value>2</a>
                 </li>
                 <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">2</a>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg" value>3</a>
                 </li>
-                <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white">3</a>
-                </li>
-                <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white">Next</a>
-                </li>
+                <!-- <li>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg" value>Next</a>
+                </li> -->
             </ul>
         </nav>
     </div>

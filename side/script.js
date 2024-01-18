@@ -24,20 +24,6 @@ function menu() {
     x += 180;
 }
 
-//automatically adjusts height of form frame from message
-/* function resizeIframe(event) {
-    const height = event.data.height;
-    const iframeId = event.data.iframeId;
-
-    const iframe = document.getElementById(iframeId);
-
-    if (iframe) {
-        iframe.style.height = height + 'px';
-    }
-}
-
-window.addEventListener('message', resizeIframe, false); */
-
 //dividing the datetimes from database
 let datetimes = document.querySelectorAll(".datetime");
 let dates = document.querySelectorAll(".date");
@@ -69,3 +55,35 @@ times.forEach(time => {
     time.value = arr[i][1];
     i++;
 })
+
+let tableRows = document.querySelectorAll(".tr");
+
+function pagination(num) {
+    //making rows visible
+    let index = num.value;
+    console.log(index);
+
+    //initializing increamenting value
+    let i = 1;
+
+    tableRows.forEach(rows => {
+        if (i <= index) {
+            rows.classList.remove("hidden");
+        } else {
+            rows.classList.add("hidden");
+        }
+        i++;
+    })
+}
+
+//taking default value of 5
+let df = document.querySelector(".default");
+
+//initiating events to start function of pagination
+window.addEventListener("load", pagination(df));
+
+/* let pages = document.querySelectorAll(".pg");
+
+pages.forEach(page => {
+    console.log(Number(page.innerHTML));
+}) */
