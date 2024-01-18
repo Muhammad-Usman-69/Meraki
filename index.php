@@ -3,7 +3,7 @@ include("partials/_dbconnect.php");
 session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -160,20 +160,17 @@ session_start();
     <div class="w-full overflow-hidden">
 
         <!-- search and select -->
-        <form action="" class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
-            <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none" oninput="pagination(this)">
+        <div class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
+            <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none"
+                oninput="pagination(this)">
                 <option value="5" class="default">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
-            <div class="search grid grid-cols-[1fr_40px] gap-[2px]">
-                <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none"
-                    placeholder="Search">
-                <button type="submit" class="bg-gray-700 hover:bg-gray-600">
-                    <img src="../images/search.png" class="p-2 invert" alt="">
-                </button>
-            </div>
-        </form>
+
+            <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
+                placeholder="Search" maxlength="50" oninput="search(this.value)">
+        </div>
 
         <!-- table -->
         <table class="w-full">
@@ -203,7 +200,7 @@ session_start();
                             $desc = $row["work_desc"];
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
-                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr">
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
                                 <td class="px-6 py-4">' . $i . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base">' . $title . '</td>
@@ -264,13 +261,13 @@ session_start();
                                                     <label for="work-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work
                                                         Title</label>
                                                     <input type="text" id="work-title-' . $work_id . '" name="work-title-' . $work_id . '" value="' . $title . '"
-                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white title"
                                                         readonly>
                                                 </div>
                                                 <div>
                                                     <label for="work-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work Description</label>
                                                     <textarea id="work-desc-' . $work_id . '" name="work-desc-' . $work_id . '"
-                                                        rows="4" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none"
+                                                        rows="4" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none description"
                                                         readonly>' . $desc . '</textarea>
                                                 </div>
                                                 <div>
@@ -377,7 +374,7 @@ session_start();
                                     </div>
                                 </div>
                             </div>';
-                            
+
                             //echo delete modal
                             echo '<div id="delete-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1"
                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -429,13 +426,15 @@ session_start();
                         class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg" value="5">Previous</a>
                 </li> -->
                 <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg" value>1</a>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg"
+                        value>1</a>
                 </li>
                 <li>
                     <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white pg" value>2</a>
                 </li>
                 <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg" value>3</a>
+                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg"
+                        value>3</a>
                 </li>
                 <!-- <li>
                     <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg" value>Next</a>

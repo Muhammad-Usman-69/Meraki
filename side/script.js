@@ -61,7 +61,6 @@ let tableRows = document.querySelectorAll(".tr");
 function pagination(num) {
     //making rows visible
     let index = num.value;
-    console.log(index);
 
     //initializing increamenting value
     let i = 1;
@@ -74,6 +73,61 @@ function pagination(num) {
         }
         i++;
     })
+}
+
+let titles = document.querySelectorAll(".title");
+let descriptions = document.querySelectorAll(".description");
+
+function search(query) {
+    //initializing array to contain query letters
+    let arr = [];
+
+    //splitting words
+    let words = query.split(" ");
+
+    //pushing words into arr
+    words.forEach(word => {
+        word = word.toLowerCase();
+        arr.push(word);
+    })
+
+    //if hidding rows and check if it is clear
+    tableRows.forEach(rows => {
+        if (query == "") {
+            rows.classList.remove("hidden");
+        } else {
+            rows.classList.add("hidden");
+        }
+    });
+
+    //looping through arr containing query words
+    for (let i = 0 ; i <= arr.length ; i++) {
+
+        //initializing index for title and desc
+        let index = 0;
+
+        tableRows.forEach(rows => {
+            
+            //checking for title
+            let title = titles[index].value.toLowerCase();
+
+            //checking for description
+            let desc = descriptions[index].innerHTML.toLowerCase();
+            
+            //checking by id
+            let id = rows.id;
+
+            //checker
+            if (id == arr[i] || title.includes(arr[i]) || desc.includes(arr[i])) {
+                rows.classList.remove("hidden");
+            }
+
+            //increamenting it
+            index++;
+        });
+
+        index = 0;
+    }
 }
 
 //taking default value of 5
