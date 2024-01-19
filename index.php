@@ -419,27 +419,13 @@ session_start();
         </table>
 
         <!-- pagination -->
-        <nav class="bg-gray-800 py-5 px-4 text-gray-400">
-            <ul class="flex flex-row items-center justify-center space-x-[1px]">
-                <!-- <li>
-                    <a href=""
-                        class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg" value="5">Previous</a>
-                </li> -->
-                <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-l-md hover:bg-gray-600 hover:text-white pg"
-                        value>1</a>
-                </li>
-                <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white pg" value>2</a>
-                </li>
-                <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg"
-                        value>3</a>
-                </li>
-                <!-- <li>
-                    <a href="" class="bg-gray-700 px-4 py-3 rounded-r-md hover:bg-gray-600 hover:text-white pg" value>Next</a>
-                </li> -->
-            </ul>
+        <nav class="bg-gray-800 py-5 px-4 text-gray-400 page-container hidden">
+            <div
+                class="flex items-center justify-center space-x-[1px] pages">
+                    <!-- <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg" id="10">2</a>
+                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg" id="15">3</a> -->
+                </div>
+            </div>
         </nav>
     </div>
     <hr>

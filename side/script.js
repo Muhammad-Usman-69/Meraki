@@ -57,23 +57,69 @@ times.forEach(time => {
 })
 
 let tableRows = document.querySelectorAll(".tr");
+let pages = document.querySelector(".pages");
+let pageContainer = document.querySelector(".page-container");
 
 function pagination(num) {
-    //making rows visible
+
+    //taking value of num
     let index = num.value;
 
     //initializing increamenting value
     let i = 1;
 
+    //initializing value for number of hidden elements
+    let hiddenRows = 0;
+
+    //initializing value for total rows
+    let totalRows = 0;
+
     tableRows.forEach(rows => {
+
+        //making rows visible
         if (i <= index) {
             rows.classList.remove("hidden");
         } else {
             rows.classList.add("hidden");
         }
         i++;
+
+        //increment the value to number of hidden rows
+        if (rows.classList.contains("hidden")) {
+            hiddenRows++;
+        }
+
+        //increamenting rows value
+        totalRows++;
     })
+
+    //if rows are hidden show pages
+    if (hiddenRows > 0) {
+        
+        //reseting the pages 
+        pages.innerHTML = "";
+
+        //show pagination container
+        pageContainer.classList.remove("hidden");
+
+        //getting the number of pages
+        let numPages = Math.ceil(totalRows / index);
+
+        //looping to get pages
+        for (let i = 1; i <= numPages; i++) {
+            pages.innerHTML +=
+                `<button type="button" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg">` + i + `</button>`;
+        }
+    } else {
+
+        //hide container
+        pageContainer.classList.add("hidden");
+
+         //reseting the pages 
+         pages.innerHTML = "";
+    }
 }
+
 
 let titles = document.querySelectorAll(".title");
 let descriptions = document.querySelectorAll(".description");
@@ -101,19 +147,19 @@ function search(query) {
     });
 
     //looping through arr containing query words
-    for (let i = 0 ; i <= arr.length ; i++) {
+    for (let i = 0; i <= arr.length; i++) {
 
         //initializing index for title and desc
         let index = 0;
 
         tableRows.forEach(rows => {
-            
+
             //checking for title
             let title = titles[index].value.toLowerCase();
 
             //checking for description
             let desc = descriptions[index].innerHTML.toLowerCase();
-            
+
             //checking by id
             let id = rows.id;
 
@@ -135,6 +181,7 @@ let df = document.querySelector(".default");
 
 //initiating events to start function of pagination
 window.addEventListener("load", pagination(df));
+
 
 /* let pages = document.querySelectorAll(".pg");
 
