@@ -169,7 +169,7 @@ session_start();
             </select>
 
             <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
-                placeholder="Search" maxlength="50" oninput="search(this.value)">
+                placeholder="Search" maxlength="50" oninput="search(this.value);">
         </div>
 
         <!-- table -->
@@ -411,7 +411,11 @@ session_start();
                             </div>';
                             $i++;
                         }
+                    } else {
+                        include("partials/_dummy-input.php");
                     }
+                } else {
+                    include("partials/_dummy-login.php");
                 }
                 ?>
 
@@ -420,13 +424,10 @@ session_start();
 
         <!-- pagination -->
         <nav class="bg-gray-800 py-5 px-4 text-gray-400 page-container hidden">
-            <div
-                class="flex items-center justify-center space-x-[1px] pages">
-                    <!-- <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg" id="10">2</a>
-                    <a href="" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg" id="15">3</a> -->
-                </div>
+            <div class="flex items-center justify-center space-x-[1px] pages">
             </div>
-        </nav>
+    </div>
+    </nav>
     </div>
     <hr>
 
