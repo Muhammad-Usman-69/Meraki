@@ -162,14 +162,14 @@ session_start();
         <!-- search and select -->
         <div class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
             <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none"
-                oninput="pagination(this)">
+                oninput="pagination()">
                 <option value="5" class="default">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
 
             <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
-                placeholder="Search" maxlength="50" oninput="search(this.value);">
+                placeholder="Search" maxlength="50" oninput="pagination();">
         </div>
 
         <!-- table -->
@@ -179,7 +179,7 @@ session_start();
                     <th scope="col" class="px-4 py-3">Num</th>
                     <th scope="col" class="px-6 py-3">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
-                    <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
+                    <!-- <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -209,7 +209,7 @@ session_start();
                                     <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
                                     <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
                                 </td>
-                                <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                                <!--<td class="py-4 grid grid-cols-1 gap-1 sm:flex">
                                     <div class="w-fit">
                                         <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                             <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -226,7 +226,7 @@ session_start();
                                             <img class="invert w-6" src="../images/delete.png" alt="delete">
                                         </button>
                                     </div>
-                                </td>
+                                </td>-->
                             </tr>';
 
                             //echo detail modal
@@ -436,7 +436,7 @@ session_start();
     </footer>
 
     <script src="side/script.js"></script>
-    <script src="side/flowbite.js"></script>
+    <!-- <script src="side/flowbite.js"></script> -->
 </body>
 
 </html>

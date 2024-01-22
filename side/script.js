@@ -60,42 +60,104 @@ let tableRows = document.querySelectorAll(".tr");
 let pages = document.querySelector(".pages");
 let pageContainer = document.querySelector(".page-container");
 
-function pagination(num) {
+let titles = document.querySelectorAll(".title");
+let descriptions = document.querySelectorAll(".description");
 
-    //taking value of num
-    let index = num.value;
+function pagination() {
 
-    //initializing increamenting value
-    let i = 1;
+    //taking value of serach
+    let query = document.querySelector(".search").value;
+
+    //initializing array to contain query letters
+    let arr = [];
+    //splitting words
+
+    let words = query.split(" ");
+
+    //pushing words into arr
+    words.forEach(word => {
+        word = word.toLowerCase();
+        arr.push(word);
+    })
+
+    //taking value of index
+    let index = document.querySelector("#num").value;
+
+    //initializing increamenting value for number of elements
+    let numRows = 0;
 
     //initializing value for number of hidden elements
     let hiddenRows = 0;
 
     //initializing value for total rows
     let totalRows = 0;
+    
+    //looping through arr containing query words
+    for (let i = 0; i < arr.length; i++) {
+
+        //initializing element for title
+        let element = 0;
+
+        tableRows.forEach(rows => {
+
+            if (query != "") {
+                rows.classList.add("hidden");
+            }
+
+            //checking for title
+            let title = titles[element].value.toLowerCase();
+
+            //checking by id
+            let id = rows.id;
+
+            //checker
+            if (id == arr[i] || title.includes(arr[i])) {
+                if (numRows < index) {
+                    rows.classList.remove("hidden");
+                } else {
+                    rows.classList.add("hidden");
+                }
+            }
+            //increamenting element
+            element++;
+
+            //incrementing value of number of rows
+            numRows++;
+        });
+        element = 0;
+    }
+
+    //clearing value of number of rows
+    numRows = 0;
 
     tableRows.forEach(rows => {
 
-        //making rows visible
-        if (i <= index) {
-            rows.classList.remove("hidden");
-        } else {
-            rows.classList.add("hidden");
+        //check if query is clear
+        if (query == "") {
+
+            //making rows visible if number of rows is is less than index
+            if (numRows < index) {
+                rows.classList.remove("hidden");
+            } else {
+                rows.classList.add("hidden");
+            }
+
         }
-        i++;
+
+        numRows++;
 
         //increment the value to number of hidden rows
         if (rows.classList.contains("hidden")) {
             hiddenRows++;
         }
-
         //increamenting rows value
         totalRows++;
+
     })
 
     //if rows are hidden show pages
     if (hiddenRows > 0) {
-        
+
         //reseting the pages 
         pages.innerHTML = "";
 
@@ -115,64 +177,8 @@ function pagination(num) {
         //hide container
         pageContainer.classList.add("hidden");
 
-         //reseting the pages 
-         pages.innerHTML = "";
-    }
-}
-
-
-let titles = document.querySelectorAll(".title");
-let descriptions = document.querySelectorAll(".description");
-
-function search(query) {
-    //initializing array to contain query letters
-    let arr = [];
-
-    //splitting words
-    let words = query.split(" ");
-
-    //pushing words into arr
-    words.forEach(word => {
-        word = word.toLowerCase();
-        arr.push(word);
-    })
-
-    //if hidding rows and check if it is clear
-    tableRows.forEach(rows => {
-        if (query == "") {
-            rows.classList.remove("hidden");
-        } else {
-            rows.classList.add("hidden");
-        }
-    });
-
-    //looping through arr containing query words
-    for (let i = 0; i <= arr.length; i++) {
-
-        //initializing index for title and desc
-        let index = 0;
-
-        tableRows.forEach(rows => {
-
-            //checking for title
-            let title = titles[index].value.toLowerCase();
-
-            //checking for description
-            let desc = descriptions[index].innerHTML.toLowerCase();
-
-            //checking by id
-            let id = rows.id;
-
-            //checker
-            if (id == arr[i] || title.includes(arr[i]) || desc.includes(arr[i])) {
-                rows.classList.remove("hidden");
-            }
-
-            //increamenting it
-            index++;
-        });
-
-        index = 0;
+        //reseting the pages 
+        pages.innerHTML = "";
     }
 }
 
@@ -180,7 +186,7 @@ function search(query) {
 let df = document.querySelector(".default");
 
 //initiating events to start function of pagination
-window.addEventListener("load", pagination(df));
+window.addEventListener("load", pagination());
 
 
 /* let pages = document.querySelectorAll(".pg");
