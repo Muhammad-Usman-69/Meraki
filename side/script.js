@@ -83,15 +83,18 @@ function pagination() {
     //taking value of index
     let index = document.querySelector("#num").value;
 
-    //initializing increamenting value for number of elements
+    //initializing increamenting value for number of rows for showing first five
     let numRows = 0;
+
+    //initializing increamenting value for number of elements with results
+    let searchRows = 0;
 
     //initializing value for number of hidden elements
     let hiddenRows = 0;
 
     //initializing value for total rows
     let totalRows = 0;
-    
+
     //looping through arr containing query words
     for (let i = 0; i < arr.length; i++) {
 
@@ -111,18 +114,22 @@ function pagination() {
             let id = rows.id;
 
             //checker
-            if (id == arr[i] || title.includes(arr[i])) {
-                if (numRows < index) {
+            if ((id == arr[i] || title.includes(arr[i])) && query != "") {
+
+                if (searchRows < index) {
                     rows.classList.remove("hidden");
+
                 } else {
                     rows.classList.add("hidden");
                 }
+                
+                //incrementing value of number of search rows
+                searchRows++;
             }
             //increamenting element
             element++;
 
-            //incrementing value of number of rows
-            numRows++;
+
         });
         element = 0;
     }
@@ -156,7 +163,7 @@ function pagination() {
     })
 
     //if rows are hidden show pages
-    if (hiddenRows > 0) {
+    /* if (hiddenRows > 0) {
 
         //reseting the pages 
         pages.innerHTML = "";
@@ -179,14 +186,12 @@ function pagination() {
 
         //reseting the pages 
         pages.innerHTML = "";
-    }
+    } */
 }
 
-//taking default value of 5
-let df = document.querySelector(".default");
 
 //initiating events to start function of pagination
-window.addEventListener("load", pagination());
+window.addEventListener("load", pagination);
 
 
 /* let pages = document.querySelectorAll(".pg");
