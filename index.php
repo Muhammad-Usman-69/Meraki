@@ -124,7 +124,7 @@ session_start();
     ?>
 
     <!-- form section -->
-    <div class="bg-gray-800 sm:flex sm:justify-center">
+    <!-- <div class="bg-gray-800 sm:flex sm:justify-center">
         <div class="overflow-hidden w-full sm:w-2/3 md:w-3/5 lg:w-1/2 xl:w-2/5">
             <form action="partials/_add.php" class="p-6 space-y-3" method="post">
                 <div class="flex flex-col space-y-3">
@@ -152,7 +152,7 @@ session_start();
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <hr>
 
@@ -160,10 +160,11 @@ session_start();
     <div class="w-full overflow-hidden">
 
         <!-- search and select -->
-        <div class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4">
+        <div
+            class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4 md:grid-cols-[60px_200px] md:justify-between lg:grid-cols-[60px_300px] xl:grid-cols-[60px_500px]">
             <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none"
                 oninput="pagination()">
-                <option value="5" class="default">5</option>
+                <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
@@ -179,7 +180,7 @@ session_start();
                     <th scope="col" class="px-4 py-3">Num</th>
                     <th scope="col" class="px-6 py-3">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
-                    <!-- <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th> -->
+                    <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
                 </tr>
             </thead>
             <tbody>
@@ -209,7 +210,7 @@ session_start();
                                     <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
                                     <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
                                 </td>
-                                <!--<td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                                <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
                                     <div class="w-fit">
                                         <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                             <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -226,7 +227,7 @@ session_start();
                                             <img class="invert w-6" src="../images/delete.png" alt="delete">
                                         </button>
                                     </div>
-                                </td>-->
+                                </td>
                             </tr>';
 
                             //echo detail modal
@@ -423,9 +424,10 @@ session_start();
         </table>
 
         <!-- pagination -->
-        <nav class="bg-gray-800 py-5 px-4 text-gray-400 page-container hidden">
-            <div class="flex items-center justify-center space-x-[1px] pages">
+        <nav class="bg-gray-800 py-5 px-4 text-gray-400 page-nav-container hidden">
+            <div class="flex items-center justify-center space-x-[1px] pages-container">
             </div>
+        </nav>
     </div>
     </nav>
     </div>
@@ -436,7 +438,7 @@ session_start();
     </footer>
 
     <script src="side/script.js"></script>
-    <!-- <script src="side/flowbite.js"></script> -->
+    <script src="side/flowbite.js"></script>
 </body>
 
 </html>

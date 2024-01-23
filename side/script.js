@@ -57,13 +57,12 @@ times.forEach(time => {
 })
 
 let tableRows = document.querySelectorAll(".tr");
-let pages = document.querySelector(".pages");
-let pageContainer = document.querySelector(".page-container");
-
+let pagesContainer = document.querySelector(".pages-container");
+let pageNavContainer = document.querySelector(".page-nav-container");
 let titles = document.querySelectorAll(".title");
 let descriptions = document.querySelectorAll(".description");
 
-function pagination() {
+function pagination(page) {
 
     //taking value of serach
     let query = document.querySelector(".search").value;
@@ -129,7 +128,6 @@ function pagination() {
             //increamenting element
             element++;
 
-
         });
         element = 0;
     }
@@ -163,39 +161,61 @@ function pagination() {
     })
 
     //if rows are hidden show pages
-    /* if (hiddenRows > 0) {
+    if (hiddenRows > 0) {
 
         //reseting the pages 
-        pages.innerHTML = "";
+        pagesContainer.innerHTML = "";
 
         //show pagination container
-        pageContainer.classList.remove("hidden");
+        pageNavContainer.classList.remove("hidden");
 
         //getting the number of pages
         let numPages = Math.ceil(totalRows / index);
 
         //looping to get pages
         for (let i = 1; i <= numPages; i++) {
-            pages.innerHTML +=
-                `<button type="button" class="bg-gray-700 px-4 py-3 hover:bg-gray-600 hover:text-white first:rounded-l-md last:rounded-r-md pg">` + i + `</button>`;
+            pagesContainer.innerHTML +=
+                `<button type="button" onclick="changePage(this.innerHTML);" class="bg-gray-700 px-4 py-3 hover:text-white first:rounded-l-md last:rounded-r-md page">` + i + `</button>`;
         }
+
     } else {
 
         //hide container
-        pageContainer.classList.add("hidden");
+        pageNavContainer.classList.add("hidden");
 
         //reseting the pages 
-        pages.innerHTML = "";
-    } */
+        pagesContainer.innerHTML = "";
+    }
+
 }
 
+function changePage(index) {
+
+    //taking all pages
+    let pages = document.querySelectorAll(".page");
+
+    //initializing i for number of page button
+    i = 1;
+    
+    //giving color to active page
+    pages.forEach(page => {
+
+        //if clicking button number matches i
+        if (index == i) {
+            page.classList.remove("bg-gray-700");
+            page.classList.add("bg-gray-900");
+            page.classList.add("text-white");
+        } else {
+            page.classList.add("bg-gray-700");
+            page.classList.remove("bg-gray-900");
+            page.classList.remove("text-white");
+        }
+
+        //increamenting value for number of page button
+        i++;
+    })
+
+}
 
 //initiating events to start function of pagination
 window.addEventListener("load", pagination);
-
-
-/* let pages = document.querySelectorAll(".pg");
-
-pages.forEach(page => {
-    console.log(Number(page.innerHTML));
-}) */
