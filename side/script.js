@@ -61,8 +61,9 @@ let pagesContainer = document.querySelector(".pages-container");
 let pageNavContainer = document.querySelector(".page-nav-container");
 let titles = document.querySelectorAll(".title");
 let descriptions = document.querySelectorAll(".description");
+let noResult = document.querySelector(".no-result");
 
-function pagination(page) {
+function pagination() {
 
     //taking value of serach
     let query = document.querySelector(".search").value;
@@ -81,9 +82,6 @@ function pagination(page) {
 
     //taking value of index
     let index = document.querySelector("#num").value;
-
-    //initializing increamenting value for number of rows for showing first five
-    let numRows = 0;
 
     //initializing increamenting value for number of elements with results
     let searchRows = 0;
@@ -117,14 +115,14 @@ function pagination(page) {
 
                 if (searchRows < index) {
                     rows.classList.remove("hidden");
-
                 } else {
                     rows.classList.add("hidden");
                 }
-                
+
                 //incrementing value of number of search rows
                 searchRows++;
             }
+
             //increamenting element
             element++;
 
@@ -132,16 +130,13 @@ function pagination(page) {
         element = 0;
     }
 
-    //clearing value of number of rows
-    numRows = 0;
-
     tableRows.forEach(rows => {
 
         //check if query is clear
         if (query == "") {
 
             //making rows visible if number of rows is is less than index
-            if (numRows < index) {
+            if (totalRows < index) {
                 rows.classList.remove("hidden");
             } else {
                 rows.classList.add("hidden");
@@ -149,42 +144,50 @@ function pagination(page) {
 
         }
 
-        numRows++;
-
         //increment the value to number of hidden rows
         if (rows.classList.contains("hidden")) {
             hiddenRows++;
         }
+
         //increamenting rows value
         totalRows++;
 
     })
 
-    //if rows are hidden show pages
-    if (hiddenRows > 0) {
+    //showing message if there is no result
+    if (hiddenRows == totalRows) {
+        noResult.classList.remove("hidden");
+    } else {
+        noResult.classList.add("hidden");
+    }
 
-        //reseting the pages 
-        pagesContainer.innerHTML = "";
+    //declaring for the number of Pages
+    let numPages;
 
-        //show pagination container
-        pageNavContainer.classList.remove("hidden");
+    if (query != "") {
+        //getting the number of pages through search rows
+        numPages = Math.ceil(searchRows / index);
+    } else {
+        //getting the number of pages through total rows
+        numPages = Math.ceil(totalRows / index);
+    }
 
-        //getting the number of pages
-        let numPages = Math.ceil(totalRows / index);
+    //reseting the pages 
+    pagesContainer.innerHTML = "";
+
+    //show pagination container
+    pageNavContainer.classList.remove("hidden");
+
+    //hiding if there is only one page
+    if (numPages != 1) {
 
         //looping to get pages
         for (let i = 1; i <= numPages; i++) {
             pagesContainer.innerHTML +=
                 `<button type="button" onclick="changePage(this.innerHTML);" class="bg-gray-700 px-4 py-3 hover:text-white first:rounded-l-md last:rounded-r-md page">` + i + `</button>`;
         }
-
     } else {
-
-        //hide container
         pageNavContainer.classList.add("hidden");
-
-        //reseting the pages 
-        pagesContainer.innerHTML = "";
     }
 
 }
@@ -196,7 +199,7 @@ function changePage(index) {
 
     //initializing i for number of page button
     i = 1;
-    
+
     //giving color to active page
     pages.forEach(page => {
 

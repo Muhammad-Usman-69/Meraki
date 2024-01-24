@@ -177,13 +177,16 @@ session_start();
         <table class="w-full">
             <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
                 <tr>
-                    <th scope="col" class="px-4 py-3">Num</th>
+                    <th scope="col" class="px-4 py-3">Id</th>
                     <th scope="col" class="px-6 py-3">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
                     <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
                 </tr>
             </thead>
             <tbody>
+                <tr class="text-center bg-gray-800 text-gray-300 border-b border-gray-700 hidden no-result">
+                    <td class="py-4" colspan="4">No Results Found</td>
+                </tr>
                 <?php
                 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                     $id = $_SESSION["id"];
@@ -202,7 +205,7 @@ session_start();
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-6 py-4">' . $i . '</td>
+                                <td class="px-6 py-4">' . $work_id . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base">' . $title . '</td>
                                 <td class="px-3 py-4">
@@ -429,12 +432,10 @@ session_start();
             </div>
         </nav>
     </div>
-    </nav>
-    </div>
-    <hr>
 
-    <footer class="py-4 text-center bg-gray-800 text-white mt-auto">
-        <p>Copyright &copy; 2024 Meraki | All rights reserved </p>
+    <footer class="text-center bg-gray-800 text-white mt-auto">
+        <hr>
+        <p class="py-4">Copyright &copy; 2024 Meraki | All rights reserved </p>
     </footer>
 
     <script src="side/script.js"></script>
