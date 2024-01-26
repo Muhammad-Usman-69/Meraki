@@ -192,23 +192,27 @@ function pagination() {
 
 }
 
-function changePage(index) {
+function changePage(pgNum) {
 
     //taking all pages
     let pages = document.querySelectorAll(".page");
 
     //initializing i for number of page button
-    i = 1;
+    let i = 1;
 
-    //giving color to active page
     pages.forEach(page => {
 
         //if clicking button number matches i
-        if (index == i) {
+        if (pgNum == i) {
+
+            //giving color to active page
             page.classList.remove("bg-gray-700");
             page.classList.add("bg-gray-900");
             page.classList.add("text-white");
+
         } else {
+
+            //removing color from unactive page
             page.classList.add("bg-gray-700");
             page.classList.remove("bg-gray-900");
             page.classList.remove("text-white");
@@ -218,6 +222,79 @@ function changePage(index) {
         i++;
     })
 
+    //initializing increamenting value for number of elements with results
+    let hiddenRows = 0;
+
+    //initializing value for total rows
+    let totalRows = 0;
+
+    //initializing for number to show
+    let num = document.querySelector("#num").value;
+
+    //reseting i for condition to show
+    i = 0;
+
+    //initializing for condition to hide
+    let j = 0;
+
+    //initializing for rows to show (it is the number of current page multiply by number of rows to show by pagination)
+    let pageRowsShow = pgNum * num;
+
+    //initializing for rows to hide (it is the number of current page minus one and then multiplying by number of rows to show by pagination)
+    let pageRowsHide = (pgNum - 1) * num;
+
+    //pageRowsShow ha total rows or pageRowsHide ha (total rows - previous one)
+
+    tableRows.forEach(rows => {
+
+        if (rows.classList.contains("hidden")) {
+            //increamenting to the total number of hidden rows
+            hiddenRows++;
+        }
+
+        //increamenting to the total number of rows
+        totalRows++;
+    })
+
+
+    tableRows.forEach(rows => {
+
+        //page musn't be one
+        if (pgNum != 1) {
+
+            //if the the number of rows to hide is less than number of rows to show
+            if (pageRowsHide < pageRowsShow) {
+
+                rows.classList.add("hidden");
+
+                //increamenting value for number of rows to hide
+                pageRowsHide++;
+            } else {
+
+                if (i < num) {
+                    rows.classList.remove("hidden");
+                }
+
+                i++;
+            }
+        }
+
+
+
+    })
+
+    i = 0;
+
+    pageRowsHide = 0;
+
+    // j = 0;
+    /* else {
+        if (totalRows < index) {
+            rows.classList.remove("hidden");
+        } else {
+            rows.classList.add("hidden");
+        }
+    } */
 }
 
 //initiating events to start function of pagination

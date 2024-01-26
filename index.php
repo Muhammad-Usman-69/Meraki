@@ -180,7 +180,7 @@ session_start();
                     <th scope="col" class="px-4 py-3">Id</th>
                     <th scope="col" class="px-6 py-3">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
-                    <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
+                    <!-- <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -205,7 +205,7 @@ session_start();
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-6 py-4">' . $work_id . '</td>
+                                <td class="px-6 py-4">' . $i . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base">' . $title . '</td>
                                 <td class="px-3 py-4">
@@ -213,7 +213,7 @@ session_start();
                                     <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
                                     <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
                                 </td>
-                                <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                                <!--<td class="py-4 grid grid-cols-1 gap-1 sm:flex">
                                     <div class="w-fit">
                                         <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                             <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -230,7 +230,7 @@ session_start();
                                             <img class="invert w-6" src="../images/delete.png" alt="delete">
                                         </button>
                                     </div>
-                                </td>
+                                </td>-->
                             </tr>';
 
                             //echo detail modal
@@ -439,7 +439,7 @@ session_start();
     </footer>
 
     <script src="side/script.js"></script>
-    <script src="side/flowbite.js"></script>
+    <!-- <script src="side/flowbite.js"></script> -->
 </body>
 
 </html>
