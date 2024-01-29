@@ -105,24 +105,25 @@ function pagination() {
             }
 
             //checking for title
-            let title = titles[element].value.toLowerCase();
+            let title = titles[element].innerHTML.toLowerCase();
 
             //checking by id
             let id = rows.id;
 
+            
             //checker
             if ((id == arr[i] || title.includes(arr[i])) && query != "") {
-
+                
                 if (searchRows < index) {
                     rows.classList.remove("hidden");
                 } else {
                     rows.classList.add("hidden");
                 }
-
+                
                 //incrementing value of number of search rows
                 searchRows++;
             }
-
+            
             //increamenting element
             element++;
 

@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $num = mysqli_num_rows($result);
+
         //check if input is emplty
         if ($num != 0 && $_POST["title"] != "" && $_POST["desc"] != "" && $_POST["time"] != "") {
             echo "Please wait...";
@@ -19,6 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $desc = $_POST["desc"];
             $time = $_POST["time"];
             $status = "progress";
+
+            //checking if maximum lists are added
+            $sqlChecker = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ?";
+            $stmtChecker = mysqli_prepare($conn, $sqlChecker);
+            mysqli_stmt_bind_param($stmtChecker, "is", $id, $status);
+            mysqli_stmt_execute($stmtChecker);
+            $result = mysqli_stmt_get_result($stmtChecker);
+            $num = mysqli_num_rows($result);
+            if ($num >= 50) {
+                header("location: /?error=Maximum Lists Added (50)");
+                exit();
+            }
+
             $sql = "INSERT INTO `work` (`id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "issss", $id, $title, $desc, $time, $status);
@@ -30,6 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("location: /?error=Error occured. Please try again later.");
                 exit();
             }
+
+
+
         } else {
             header("location: /?error=Invalid cresidentials");
             exit();

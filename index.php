@@ -124,7 +124,7 @@ session_start();
     ?>
 
     <!-- form section -->
-    <!-- <div class="bg-gray-800 sm:flex sm:justify-center">
+    <div class="bg-gray-800 sm:flex sm:justify-center">
         <div class="overflow-hidden w-full sm:w-2/3 md:w-3/5 lg:w-1/2 xl:w-2/5">
             <form action="partials/_add.php" class="p-6 space-y-3" method="post">
                 <div class="flex flex-col space-y-3">
@@ -152,7 +152,7 @@ session_start();
                 </div>
             </form>
         </div>
-    </div> -->
+    </div>
 
     <hr>
 
@@ -177,8 +177,8 @@ session_start();
         <table class="w-full">
             <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
                 <tr>
-                    <th scope="col" class="px-4 py-3">Id</th>
-                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-4 py-3 sm:px-7">Id</th>
+                    <th scope="col" class="px-4 py-3 w-fit">Title</th>
                     <th scope="col" class="px-6 py-3">Time</th>
                     <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
                 </tr>
@@ -205,15 +205,15 @@ session_start();
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-6 py-4">' . $work_id . '</td>
+                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">#' . $work_id . '</td>
                                 <!--max 150-->
-                                <td class="py-4 text-sm sm:text-base">' . $title . '</td>
+                                <td class="py-4 text-sm sm:text-base title">' . $title . '</td>
                                 <td class="px-3 py-4">
                                     <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
-                                    <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
-                                    <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
+                                    <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date text-sm sm:text-base hide" readonly>
+                                    <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time text-sm sm:text-base" readonly>
                                 </td>
-                                <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                                <td class="py-4 grid grid-cols-1 gap-1 scale-90 sm:scale-100 sm:flex">
                                     <div class="w-fit">
                                         <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                             <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -265,7 +265,7 @@ session_start();
                                                     <label for="work-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work
                                                         Title</label>
                                                     <input type="text" id="work-title-' . $work_id . '" name="work-title-' . $work_id . '" value="' . $title . '"
-                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white title"
+                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                                                         readonly>
                                                 </div>
                                                 <div>
@@ -321,7 +321,7 @@ session_start();
                                                         Work Title</label>
                                                     <input type="text" id="work-edit-title-' . $work_id . '" name="work-edit-title-' . $work_id . '"
                                                         value="' . $title . '"
-                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+                                                        class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" maxlength="50">
                                                 </div>
                                                 <div>
                                                     <label for="work-edit-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
