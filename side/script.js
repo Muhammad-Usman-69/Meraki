@@ -155,6 +155,14 @@ function pagination() {
 
     })
 
+    //showing rows that are getting shown
+    document.querySelector(".show").innerHTML =
+    totalRows - hiddenRows;
+
+    //showing total rows
+    document.querySelector(".total").innerHTML =
+    totalRows;
+
     //showing message if there is no result
     if (hiddenRows == totalRows) {
         noResult.classList.remove("hidden");

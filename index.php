@@ -161,13 +161,15 @@ session_start();
 
         <!-- search and select -->
         <div
-            class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4 md:grid-cols-[60px_200px] md:justify-between lg:grid-cols-[60px_300px] xl:grid-cols-[60px_500px]">
+            class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4 grid-rows-[1fr_auto] md:grid-cols-[60px_1fr_200px] md:grid-rows-1 md:justify-between lg:grid-cols-[60px_1fr_300px] xl:grid-cols-[60px_1fr_500px]">
             <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none"
                 oninput="pagination()">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
             </select>
+
+            <p class="col-span-2 row-start-2 text-gray-300 text-center md:col-span-1 md:col-start-2 md:row-start-1 md:py-2">Showing <span class="show font-semibold"></span> out of <span class="total font-semibold"></span> entries</p>
 
             <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
                 placeholder="Search" maxlength="50" oninput="pagination();">
