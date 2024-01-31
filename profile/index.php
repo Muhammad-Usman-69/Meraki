@@ -30,6 +30,12 @@ $email = $row["email"];
 </head>
 
 <body class="flex flex-col min-h-screen hide-scrollbar bg-gray-800">
+
+    <!-- alert -->
+    <div class="alert transition-all duration-200 opacity-0">
+        
+    </div>
+
     <!--header-->
     <header class="h-20">
         <nav class="flex z-10 fixed shadow-sm shadow-black w-full justify-between items-center bg-gray-700">
@@ -97,6 +103,8 @@ $email = $row["email"];
         </ul>
     </div>
 
+
+
     <footer class="text-center bg-gray-800 text-white mt-auto">
         <hr>
         <p class="py-4">Copyright &copy; 2024 Meraki | All rights reserved </p>
@@ -104,15 +112,47 @@ $email = $row["email"];
     <script src="../side/script.js"></script>
     <script src="../side/flowbite.js"></script>
     <script>
+        
+        //taking alert container
+        let alert = document.querySelector(".alert");
 
-        //copying word
         function copy(word) {
+
+            //copying word
             let result = navigator.clipboard.writeText(word);
-            
-            //showing if copied
+
+
             if (result) {
-                console.log(4);
+                alert.classList.add("opacity-100");
+                
+                //showing if copied
+                alert.innerHTML +=
+                    `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded w-56 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200" role="alert">
+                        <strong class="font-bold text-sm">Copied Successfully!</strong>
+                        <span onclick="hideAlert(this);">
+                            <svg class="fill-current h-6 w-6 text-green-600 border-2 border-green-700 rounded-full" role="button" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path
+                                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                            </svg>
+                        </span>
+                    </div>`;
             }
+        }
+
+        function hideAlert(element) {
+
+            //hiding alert
+            element.parentNode.classList.add("opacity-0");
+
+            //hiding alert container
+            alert.classList.remove("opacity-100");
+
+            //removing alert
+            setTimeout(() => {
+                element.parentNode.remove();
+            }, 200);
         }
     </script>
 </body>
