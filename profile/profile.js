@@ -1,7 +1,80 @@
+//taking alert container
+let alert = document.querySelector(".alert");
+
+function copy(word) {
+
+    //copying word
+    let result = navigator.clipboard.writeText(word);
+
+
+    if (result) {
+        alert.classList.add("opacity-100");
+
+        //showing if copied
+        alert.innerHTML +=
+            `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded w-56 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200" role="alert">
+                <strong class="font-bold text-sm">Copied Successfully!</strong>
+                <span onclick="hideAlert(this);">
+                    <svg class="fill-current h-6 w-6 text-green-600 border-2 border-green-700 rounded-full" role="button" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <title>Close</title>
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                </span>
+            </div>`;
+    }
+}
+
+function hideAlert(element) {
+
+    //hiding alert
+    element.parentNode.classList.add("opacity-0");
+
+    //hiding alert container
+    alert.classList.remove("opacity-100");
+
+    //removing alert
+    setTimeout(() => {
+        element.parentNode.remove();
+    }, 200);
+}
+
+//dividing the datetimes from database
+let datetimes = document.querySelectorAll(".datetime");
+let dates = document.querySelectorAll(".date");
+let times = document.querySelectorAll(".time");
+let arr = [];
+
+//looping through input
+datetimes.forEach(datetime => {
+    let values = datetime.value;
+
+    //spliting the value and pushing them into array
+    arr.push(values.split("T"));
+})
+
+//declaring i as an index
+let i = 0;
+
+//putting value of date
+dates.forEach(date => {
+    date.value = arr[i][0];
+    i++;
+})
+
+//reseting value of index
+i = 0;
+
+//putting value of time
+times.forEach(time => {
+    time.value = arr[i][1];
+    i++;
+})
+
 let tableRows = document.querySelectorAll(".tr");
 let pagesContainer = document.querySelector(".pages-container");
 let pageNavContainer = document.querySelector(".page-nav-container");
-let titles = document.querySelectorAll(".title");
 let descriptions = document.querySelectorAll(".description");
 let noResult = document.querySelector(".no-result");
 
@@ -37,24 +110,18 @@ function pagination() {
     //looping through arr containing query words
     for (let i = 0; i < arr.length; i++) {
 
-        //initializing element for title
-        let element = 0;
-
         tableRows.forEach(rows => {
 
             if (query != "") {
                 rows.classList.add("hidden");
             }
 
-            //checking for title
-            let title = titles[element].innerHTML.toLowerCase();
-
             //checking by id
             let id = rows.id;
 
 
             //checker
-            if ((id == arr[i] || title.includes(arr[i])) && query != "") {
+            if (id == arr[i] && query != "") {
 
                 if (searchRows < index) {
                     rows.classList.remove("hidden");
@@ -66,11 +133,8 @@ function pagination() {
                 searchRows++;
             }
 
-            //increamenting element
-            element++;
-
         });
-        element = 0;
+
     }
 
     tableRows.forEach(rows => {

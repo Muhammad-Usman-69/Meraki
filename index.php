@@ -369,7 +369,7 @@ session_start();
                                             </svg>
                                             <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as finished?
                                             </h3>
-                                            <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=finish`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
+                                            <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=finished`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
                                                 class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                                                 Yes, I&#39;m sure
                                             </button>
@@ -404,7 +404,7 @@ session_start();
                                             </svg>
                                             <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as deleted?
                                             </h3>
-                                            <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=delete`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
+                                            <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=closed`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
                                                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                                                 Yes, I&#39;m sure
                                             </button>
