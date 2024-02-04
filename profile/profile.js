@@ -322,3 +322,53 @@ function queries() {
     document.querySelector(".total").innerHTML =
         totalRows;
 }
+
+// showing list accoring to status
+function showList(status, element) {
+
+    let id = element.id;
+
+    //taking all status pages
+    let statusPages = document.querySelectorAll(".status");
+
+    //initializing i for number of status button
+    let i = 0;
+
+    statusPages.forEach(statusPage => {
+
+        //if clicking button number matches i
+        if (id == i) {
+            
+            //giving color to active status
+            statusPage.classList.remove("bg-gray-700");
+            statusPage.classList.remove("hover:bg-gray-600");
+            statusPage.classList.add("bg-gray-100");
+
+            //inverting the image of status
+            let img = statusPage.querySelector("img");
+            img.classList.remove("invert");
+
+
+        } else {
+
+            //removing color from unactive status
+            statusPage.classList.remove("bg-gray-100");
+            statusPage.classList.add("bg-gray-700");
+            statusPage.classList.add("hover:bg-gray-600");
+
+            //inverting the image of other status
+            let img = statusPage.querySelector("img");
+            img.classList.add("invert");
+            
+        }
+
+        //increamenting value for number of page button
+        i++;
+
+    })
+
+    // console.log(status);
+    /* tableRows.forEach(rows => {
+
+    }) */
+}

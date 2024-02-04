@@ -68,7 +68,7 @@ $email = $row["email"];
     </header>
     <?php include("../partials/_lo-modal.php") ?>
 
-    <div class="profile py-14 grid">
+    <!--<div class="profile py-14 grid">
         <div class="profile-pic rounded-full flex justify-center">
             <img src="../images/user.png" alt="profile" class="w-64">
         </div>
@@ -110,17 +110,17 @@ $email = $row["email"];
                 </p>
             </li>
         </ul>
-    </div>
+    </div>-->
 
     <hr>
 
-    
+
     <!-- search and select -->
     <div
-    class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4 grid-rows-[1fr_auto] md:grid-cols-[60px_1fr_200px] md:grid-rows-1 md:justify-between lg:grid-cols-[60px_1fr_300px] xl:grid-cols-[60px_1fr_500px]">
-    <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none" oninput="pagination()">
-        <option value="5">5</option>
-        <option value="10">10</option>
+        class="bg-gray-800 py-4 px-4 grid grid-cols-2 gap-4 grid-rows-[1fr_auto] md:grid-cols-[60px_1fr_200px] md:grid-rows-1 md:justify-between lg:grid-cols-[60px_1fr_300px] xl:grid-cols-[60px_1fr_500px]">
+        <select name="num" id="num" class="text-white bg-gray-700 px-1.5 py-1.5 outline-none" oninput="pagination()">
+            <option value="5">5</option>
+            <option value="10">10</option>
             <option value="15">15</option>
         </select>
 
@@ -129,17 +129,27 @@ $email = $row["email"];
         </p>
 
         <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
-        placeholder="Search" maxlength="50" oninput="pagination();">
+            placeholder="Search" maxlength="50" oninput="pagination();">
     </div>
-    
+
     <!-- status of list -->
-    <div class="grid grid-cols-3 border-b border-gray-500">
-        <p class="py-2 px-6 text-white">Show List:</p>
-        <div class="flex text-gray-300 justify-center">
-            <button class="bg-gray-700 py-2 px-4 active:bg-blue-100 active:text-gray-800 rounded-tl-md status">All</button>
-            <button class="bg-gray-700 py-2 px-4 active:bg-gray-100 active:text-gray-800 status">Finished</button>
-            <button class="bg-gray-700 py-2 px-4 active:bg-gray-100 active:text-gray-800 rounded-tr-md status">Closed</button>
-        </div>
+    <div class="flex justify-center border-b border-gray-500">
+        <button class="bg-gray-700 p-2 rounded-tl-md status text-gray-300 hover:bg-gray-600" id="0"
+            onclick="showList('all', this)">
+            <img class="w-6 invert" src="../images/menu.png" alt="progres">
+        </button>
+        <button class="bg-gray-700 p-2 status border-x border-gray-500 hover:bg-gray-600" id="1"
+            onclick="showList('progress', this)">
+            <img class="w-6 invert" src="../images/hourglass.png" alt="progres">
+        </button>
+        <button class="bg-gray-700 p-2 status border-r border-gray-500 hover:bg-gray-600" id="2"
+            onclick="showList('finished', this)">
+            <img class="w-6 invert" src="../images/finish.png" alt="finish" id="2">
+        </button>
+        <button class="bg-gray-700 p-2 rounded-tr-md status hover:bg-gray-600" id="3"
+            onclick="showList('closed', this)">
+            <img class="w-6 invert" src="../images/delete.png" alt="finish" id="3">
+        </button>
     </div>
 
     <!-- table -->
@@ -453,14 +463,9 @@ $email = $row["email"];
             <p class="py-4">Copyright &copy; 2024 Meraki | All rights reserved </p>
         </footer>
     </div>
-    <!-- <script src="../side/script.js"></script> -->
+
     <script src="profile.js"></script>
     <script src="../side/flowbite.js"></script>
-    <!-- <script>
-
-        
-
-    </script> -->
 </body>
 
 </html>
