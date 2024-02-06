@@ -323,13 +323,16 @@ function queries() {
         totalRows;
 }
 
+//declaring variable for elements with status
+let statuses = document.querySelectorAll(".status");
+
 // showing list accoring to status
 function showList(status, element) {
 
     let id = element.id;
 
     //taking all status pages
-    let statusPages = document.querySelectorAll(".status");
+    let statusPages = document.querySelectorAll(".status-button");
 
     //initializing i for number of status button
     let i = 0;
@@ -367,8 +370,40 @@ function showList(status, element) {
 
     })
 
-    // console.log(status);
-    /* tableRows.forEach(rows => {
+    //initializing j for number of status rows
+    let j = 0;
 
-    }) */
+    //initializing k for number of rows to show
+    let k = 0;
+
+    tableRows.forEach(rows => {
+
+        //taking each element
+        let statusEle = statuses[j].innerHTML;
+
+        //taking value of num
+        let num = document.getElementById("num").value;
+
+
+        //checking if element contains required status
+        if (statusEle.includes(status)) {
+            
+            //checking if it is less than num
+            if (k < num) {
+                rows.classList.remove("hidden");
+            }
+            
+            //increamenting num of rows that has been shown
+            k++;
+
+        } else {
+
+            //hiding rows
+            rows.classList.add("hidden");
+        }
+
+        j++;
+    })
+
+    queries();
 }

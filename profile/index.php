@@ -134,19 +134,19 @@ $email = $row["email"];
 
     <!-- status of list -->
     <div class="flex justify-center border-b border-gray-500">
-        <button class="bg-gray-700 p-2 rounded-tl-md status text-gray-300 hover:bg-gray-600" id="0"
+        <button class="bg-gray-700 p-2 rounded-tl-md status-button text-gray-300 hover:bg-gray-600" id="0"
             onclick="showList('all', this)">
             <img class="w-6 invert" src="../images/menu.png" alt="progres">
         </button>
-        <button class="bg-gray-700 p-2 status border-x border-gray-500 hover:bg-gray-600" id="1"
+        <button class="bg-gray-700 p-2 status-button border-x border-gray-500 hover:bg-gray-600" id="1"
             onclick="showList('progress', this)">
             <img class="w-6 invert" src="../images/hourglass.png" alt="progres">
         </button>
-        <button class="bg-gray-700 p-2 status border-r border-gray-500 hover:bg-gray-600" id="2"
+        <button class="bg-gray-700 p-2 status-button border-r border-gray-500 hover:bg-gray-600" id="2"
             onclick="showList('finished', this)">
             <img class="w-6 invert" src="../images/finish.png" alt="finish" id="2">
         </button>
-        <button class="bg-gray-700 p-2 rounded-tr-md status hover:bg-gray-600" id="3"
+        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3"
             onclick="showList('closed', this)">
             <img class="w-6 invert" src="../images/delete.png" alt="finish" id="3">
         </button>
@@ -440,7 +440,7 @@ $email = $row["email"];
                         </div>
                     </div>';
 
-                    echo '<td class="px-3 py-4 capitalize">' . $status . '</td>
+                    echo '<td class="px-3 py-4 capitalize status">' . $status . '</td>
                     </tr>';
                     $i++;
                 }
