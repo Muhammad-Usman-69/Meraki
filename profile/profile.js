@@ -77,6 +77,7 @@ let pagesContainer = document.querySelector(".pages-container");
 let pageNavContainer = document.querySelector(".page-nav-container");
 let descriptions = document.querySelectorAll(".description");
 let noResult = document.querySelector(".no-result");
+let statuses = document.querySelectorAll(".status");
 
 function pagination() {
 
@@ -85,7 +86,7 @@ function pagination() {
 
     //initializing array to contain query letters
     let arr = [];
-    
+
     //splitting words
     let words = query.split(" ");
 
@@ -159,13 +160,13 @@ function pagination() {
         //check if status is all
         if (status != "all" && query == "") {
 
-            
+
             //taking each element
             let statusEle = statuses[j].innerHTML;
-            
+
             //checking if element contains required status
             if (statusEle.includes(status)) {
-                
+
                 //checking if it is less than num of rows of show
                 if (k < index) {
                     rows.classList.remove("hidden");
@@ -173,11 +174,11 @@ function pagination() {
 
                 //increamenting num of rows that has been shown
                 k++;
-                
+
                 statusShownRows++;
 
             } else {
-                
+
                 //hiding rows
                 rows.classList.add("hidden");
             }
@@ -287,6 +288,12 @@ function changePage(pgNum) {
     //reseting i for condition to show
     i = 0;
 
+    //taking active status
+    let active = document.querySelector(".active");
+
+    //taking status of active from img alt
+    let status = active.querySelector("img").alt;
+
     //initializing for rows to hide (it is the number of current page minus one and then multiplying by number of rows to show by pagination)
     let pageRowsHide = (pgNum - 1) * num;
 
@@ -295,47 +302,80 @@ function changePage(pgNum) {
     //initializing for number of rows
     let x = 0;
 
+    //initializing j for first page
+    let j = 0;
+
+
     tableRows.forEach(rows => {
 
-        //page musn't be one
-        if (pgNum == 1) {
+        let statusEle = statuses[i].innerHTML;
 
-            //taking table to normal
-            if (i < num) {
+        //hiding pages and checking if page number isn't 1
+        if (statusEle.includes(status) && pgNum != 1 && status != "all") {
+
+            //if number of rows is less than the pages to hide
+            //just hiding the before rows
+            if (x < pageRowsHide) {
+
+                //then hide them
+                rows.classList.add("hidden");
+            } else {
+
+                //showing others
                 rows.classList.remove("hidden");
+            }
+
+            //increamenting for number of rows
+            x++;
+
+        }
+
+        //if page is one but status isn't all
+        if (pgNum == 1 && status != "all") {
+
+            //if element includes status then j will be increamented
+            if (j < num && statusEle.includes(status)) {
+
+                rows.classList.remove("hidden");
+
+                j++;
             } else {
                 rows.classList.add("hidden");
             }
 
-            i++;
+        }
 
-            //stopping the script
+        i++;
+
+        //stopping the script is status isn't all
+        if (status != "all") {
             return;
         }
 
-        //if number of rows is less than the pages to hide
+        //if number of rows is then than the rows to hide
         if (x < pageRowsHide) {
 
             //then hide them
             rows.classList.add("hidden");
 
-        } else {
+            //increamenting number of rows
+            x++;
 
-            //if i is less than the number of paginated rows
-            if (i < num) {
-
-                rows.classList.remove("hidden");
-            } else {
-
-                rows.classList.add("hidden");
-            }
-
-            i++;
-
+            //stopping the script
+            return;
         }
 
-        //increamenting for number of rows
-        x++;
+        //if rows are less than the rows to show
+        if (j < num) {
+            //showing others
+            rows.classList.remove("hidden");
+        } else {
+            //hiding if condition is met
+            rows.classList.add("hidden")
+        }
+
+        j++;
+
 
     })
 
@@ -373,9 +413,6 @@ function queries() {
     document.querySelector(".total").innerHTML =
         totalRows;
 }
-
-//declaring variable for elements with status
-let statuses = document.querySelectorAll(".status");
 
 // showing list accoring to status
 function active(id) {
@@ -462,3 +499,5 @@ function active(id) {
 
     pagination();
 }
+
+window.addEventListener("load", active(0));
