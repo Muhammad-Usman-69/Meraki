@@ -134,21 +134,21 @@ $email = $row["email"];
 
     <!-- status of list -->
     <div class="flex justify-center border-b border-gray-500">
-        <button class="bg-gray-700 p-2 rounded-tl-md status-button text-gray-300 hover:bg-gray-600" id="0"
-            onclick="showList('all', this)">
-            <img class="w-6 invert" src="../images/menu.png" alt="progres">
+        <button class="bg-gray-700 p-2 rounded-tl-md status-button text-gray-300 hover:bg-gray-600 active" id="0"
+            onclick="active(this.id)">
+            <img class="w-6 invert" src="../images/menu.png" alt="all">
         </button>
         <button class="bg-gray-700 p-2 status-button border-x border-gray-500 hover:bg-gray-600" id="1"
-            onclick="showList('progress', this)">
-            <img class="w-6 invert" src="../images/hourglass.png" alt="progres">
+            onclick="active(this.id)">
+            <img class="w-6 invert" src="../images/hourglass.png" alt="progress">
         </button>
         <button class="bg-gray-700 p-2 status-button border-r border-gray-500 hover:bg-gray-600" id="2"
-            onclick="showList('finished', this)">
-            <img class="w-6 invert" src="../images/finish.png" alt="finish" id="2">
+            onclick="active(this.id)">
+            <img class="w-6 invert" src="../images/finish.png" alt="finished">
         </button>
         <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3"
-            onclick="showList('closed', this)">
-            <img class="w-6 invert" src="../images/delete.png" alt="finish" id="3">
+            onclick="active(this.id)">
+            <img class="w-6 invert" src="../images/delete.png" alt="closed">
         </button>
     </div>
 

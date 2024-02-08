@@ -85,8 +85,8 @@ function pagination() {
 
     //initializing array to contain query letters
     let arr = [];
+    
     //splitting words
-
     let words = query.split(" ");
 
     //pushing words into arr
@@ -137,10 +137,58 @@ function pagination() {
 
     }
 
+    //<!---.>
+
+    //taking active status
+    let active = document.querySelector(".active");
+
+    //taking status of active from img alt
+    let status = active.querySelector("img").alt;
+
+    //initializing j for number of status rows elements
+    let j = 0;
+
+    //initializing k for number of rows to show
+    let k = 0;
+
+    //initializing statusShownRows for number of rows to show
+    let statusShownRows = 0;
+
     tableRows.forEach(rows => {
 
+        //check if status is all
+        if (status != "all" && query == "") {
+
+            
+            //taking each element
+            let statusEle = statuses[j].innerHTML;
+            
+            //checking if element contains required status
+            if (statusEle.includes(status)) {
+                
+                //checking if it is less than num of rows of show
+                if (k < index) {
+                    rows.classList.remove("hidden");
+                }
+
+                //increamenting num of rows that has been shown
+                k++;
+                
+                statusShownRows++;
+
+            } else {
+                
+                //hiding rows
+                rows.classList.add("hidden");
+            }
+
+            //increamenting j for number of status rows elements
+            j++;
+
+        }
+
         //check if query is clear
-        if (query == "") {
+        if (status == "all" && query == "") {
 
             //making rows visible if number of rows is is less than index
             if (totalRows < index) {
@@ -174,6 +222,9 @@ function pagination() {
     if (query != "") {
         //getting the number of pages through search rows
         numPages = Math.ceil(searchRows / index);
+    } else if (status != "all") {
+        //getting the number of pages through status rows
+        numPages = Math.ceil(statusShownRows / index);
     } else {
         //getting the number of pages through total rows
         numPages = Math.ceil(totalRows / index);
@@ -327,9 +378,7 @@ function queries() {
 let statuses = document.querySelectorAll(".status");
 
 // showing list accoring to status
-function showList(status, element) {
-
-    let id = element.id;
+function active(id) {
 
     //taking all status pages
     let statusPages = document.querySelectorAll(".status-button");
@@ -341,11 +390,14 @@ function showList(status, element) {
 
         //if clicking button number matches i
         if (id == i) {
-            
+
             //giving color to active status
             statusPage.classList.remove("bg-gray-700");
             statusPage.classList.remove("hover:bg-gray-600");
             statusPage.classList.add("bg-gray-100");
+
+            //making it active
+            statusPage.classList.add("active");
 
             //inverting the image of status
             let img = statusPage.querySelector("img");
@@ -359,10 +411,13 @@ function showList(status, element) {
             statusPage.classList.add("bg-gray-700");
             statusPage.classList.add("hover:bg-gray-600");
 
+            //making it unactive
+            statusPage.classList.remove("active");
+
             //inverting the image of other status
             let img = statusPage.querySelector("img");
             img.classList.add("invert");
-            
+
         }
 
         //increamenting value for number of page button
@@ -370,40 +425,40 @@ function showList(status, element) {
 
     })
 
-    //initializing j for number of status rows
-    let j = 0;
+    /*  //initializing j for number of status rows
+     let j = 0;
+ 
+     //initializing k for number of rows to show
+     let k = 0;
+ 
+     tableRows.forEach(rows => {
+ 
+         //taking each element
+         let statusEle = statuses[j].innerHTML;
+ 
+         //taking value of num
+         let num = document.getElementById("num").value;
+ 
+ 
+         //checking if element contains required status
+         if (statusEle.includes(status)) {
+             
+             //checking if it is less than num
+             if (k < num) {
+                 rows.classList.remove("hidden");
+             }
+             
+             //increamenting num of rows that has been shown
+             k++;
+ 
+         } else {
+ 
+             //hiding rows
+             rows.classList.add("hidden");
+         }
+ 
+         j++;
+     }) */
 
-    //initializing k for number of rows to show
-    let k = 0;
-
-    tableRows.forEach(rows => {
-
-        //taking each element
-        let statusEle = statuses[j].innerHTML;
-
-        //taking value of num
-        let num = document.getElementById("num").value;
-
-
-        //checking if element contains required status
-        if (statusEle.includes(status)) {
-            
-            //checking if it is less than num
-            if (k < num) {
-                rows.classList.remove("hidden");
-            }
-            
-            //increamenting num of rows that has been shown
-            k++;
-
-        } else {
-
-            //hiding rows
-            rows.classList.add("hidden");
-        }
-
-        j++;
-    })
-
-    queries();
+    pagination();
 }
