@@ -68,12 +68,12 @@ $email = $row["email"];
     </header>
     <?php include("../partials/_lo-modal.php") ?>
 
-    <!--<div class="profile py-14 grid">
+    <div class="profile py-14 grid md:grid-cols-[1fr_2px_1fr] md:place-items-center">
         <div class="profile-pic rounded-full flex justify-center">
             <img src="../images/user.png" alt="profile" class="w-64">
         </div>
 
-        <hr class="my-12 mx-8">
+        <div class="my-12 w-[calc(100%-64px)] h-0.5 bg-white md:h-full md:w-0.5"></div>
 
         <ul class="info px-8 space-y-4">
             <li class="grid grid-cols-1">
@@ -110,7 +110,7 @@ $email = $row["email"];
                 </p>
             </li>
         </ul>
-    </div>-->
+    </div>
 
     <hr>
 
@@ -146,8 +146,7 @@ $email = $row["email"];
             onclick="active(this.id)">
             <img class="w-6 invert" src="../images/finish.png" alt="finished">
         </button>
-        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3"
-            onclick="active(this.id)">
+        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3" onclick="active(this.id)">
             <img class="w-6 invert" src="../images/delete.png" alt="closed">
         </button>
     </div>
@@ -198,7 +197,7 @@ $email = $row["email"];
                                     class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                     <img class="invert w-6" src="../images/detail.png" alt="detail">
                                 </button>
-                                <button data-modal-target="restore-modal-' . $i . '" data-modal-toggle="restore-modal-' . $i . '" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
+                                <button data-modal-target="restore-modal-' . $i . '" data-modal-toggle="restore-modal-' . $i . '" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
                                     <img class="w-6 invert" src="../images/restore.png" alt="edit">
                                 </button>
                             </div>

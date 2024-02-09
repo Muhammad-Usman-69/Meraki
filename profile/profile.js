@@ -122,7 +122,7 @@ function pagination() {
 
 
             //checker
-            if (id == arr[i] && query != "") {
+            if (id.includes(arr[i]) && query != "") {
 
                 if (searchRows < index) {
                     rows.classList.remove("hidden");
@@ -137,8 +137,6 @@ function pagination() {
         });
 
     }
-
-    //<!---.>
 
     //taking active status
     let active = document.querySelector(".active");
@@ -500,4 +498,5 @@ function active(id) {
     pagination();
 }
 
+//taking menu active always
 window.addEventListener("load", active(0));
