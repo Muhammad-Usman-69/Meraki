@@ -908,6 +908,10 @@ video {
   height: 1.5rem;
 }
 
+.h-64 {
+  height: 16rem;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -1588,6 +1592,11 @@ video {
   fill: currentColor;
 }
 
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -2075,11 +2084,6 @@ video {
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-gray-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
@@ -2146,10 +2150,6 @@ video {
 
 .hover\:no-underline:hover {
   text-decoration-line: none;
-}
-
-.hover\:opacity-100:hover {
-  opacity: 1;
 }
 
 .focus\:z-10:focus {
@@ -2304,10 +2304,6 @@ video {
 
   .md\:grid-rows-1 {
     grid-template-rows: repeat(1, minmax(0, 1fr));
-  }
-
-  .md\:place-items-center {
-    place-items: center;
   }
 
   .md\:justify-between {

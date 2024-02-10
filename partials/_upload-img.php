@@ -2,6 +2,14 @@
 //check if request is post
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    session_start();
+
+    //check if user is logged in
+    if ($_SESSION["log"] != true) {
+        header("location:/?error=Please log in");
+        exit();
+    }
+
     //taking file
     $file = $_FILES["p_img"];
 
@@ -14,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //take apart string when there is a punctation mark in filename
     //we get an array for file name and extension
-    $fileExt = explode(".", $fileName); 
-    
+    $fileExt = explode(".", $fileName);
+
     //making it lower case and taking (last element) extension like .jpg
     $fileActualExt = strtolower(end($fileExt));
 
@@ -24,19 +32,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //check if file has extension which is allowed
     if (!in_array($fileActualExt, $allowed)) {
-        echo "file not allowed";
+        header("location: /profile/?error=Unknown file type. Only allowed are jpg, jpeg and png");
         exit();
-    } 
+    }
 
     //check if there is any error in file uploaded
     if ($fileError !== 0) {
-        echo 'file has error';
+        header("location: /profile/?error=An error occured. Please upload again");
         exit();
     }
 
     //check file size
     if ($fileSize > 500000) {
-        echo 'file size is too large and > 500 kb';
+        header("location: /profile/?error=File too large. Maximum size is 500 KB");
         exit();
     }
 
@@ -49,11 +57,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //now moving the file
     $result = move_uploaded_file($fileTmpName, $fileDest);
 
-    if ($result == true) {
-        echo "paste successful";
+    //check if pasted
+    if ($result != true) {
+        header("location: /profile/?error=An error occured. Please upload again later");
+        exit();
     }
-    
+
+    //taking id of user
+    $id = $_SESSION["id"];
+
+    //moving to database
+    include("../partials/_dbconnect.php");
+
+    $sql = "UPDATE `users` SET `profile_img` = ? WHERE `id` = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "si", $fileNewName, $id);
+    $sql_result = mysqli_stmt_execute($stmt);
+
+    //check if data is moved to db successfully
+    if ($sql_result != true) {
+        header("location: /profile/?error=An error occured. Please try again");
+        exit();
+    }
+
+    header("location: /profile/?alert=Uploaded successfully");
+    exit();
+
 } else {
-    echo "not post";
+    header("location: /profile/?error=Access Denied");
     exit();
 }

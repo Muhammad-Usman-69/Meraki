@@ -3,6 +3,7 @@ include("../partials/_dbconnect.php");
 session_start();
 if ($_SESSION["log"] != true) {
     header("location:/?error=Please log in");
+    exit();
 }
 
 $id = $_SESSION["id"];
@@ -15,6 +16,7 @@ $row = mysqli_fetch_assoc($result);
 
 $name = $row["name"];
 $email = $row["email"];
+$profile_img = $row["profile_img"];
 
 ?>
 <!DOCTYPE html>
@@ -69,12 +71,24 @@ $email = $row["email"];
     <?php include("../partials/_lo-modal.php") ?>
 
     <div class="profile py-14 grid place-items-center md:grid-cols-[1fr_2px_1fr]">
-        <div class="profile-pic rounded-full flex justify-center relative group w-64">
-            <img src="../images/user.png" alt="profile" class="object-cover">
-            <img src="../images/upload-image.png" alt="profile" class="absolute opacity-0 h-full z-10 p-16 rounded-full transition-all duration-300 group-hover:bg-gray-100 group-hover:opacity-100">
-            <form action="../partials/_upload-img.php" method="POST" enctype="multipart/form-data" class="absolute z-20  opacity-0 h-full">
-                <input type="file" id="p_img" name="p_img" accept="image/jpg, image/jpeg, image/png" oninput="this.parentNode.submit();" class="h-full cursor-pointer" />
-            </form>    
+        <div class="profile-pic flex justify-center relative group w-64 h-64">
+
+            <?php
+            if ($profile_img != "none") {
+                echo '<img src="images/' . $profile_img . '" alt="profile" class="rounded-full object-contain bg-white">';
+            } else {
+                echo '<img src="../images/user.png" alt="profile" class="rounded-full object-contain bg-white">';
+            }
+            ?>
+
+            <img src="../images/upload-image.png" alt="profile"
+                class="absolute opacity-0 h-full z-10 p-16 rounded-full transition-all duration-300 group-hover:bg-gray-100 group-hover:opacity-100">
+            <form action="../partials/_upload-img.php" method="POST" enctype="multipart/form-data"
+                class="absolute z-20  opacity-0 h-full">
+                <input type="file" id="p_img" name="p_img" accept="image/jpg, image/jpeg, image/png"
+                    oninput="this.parentNode.submit();" class="h-full cursor-pointer" />
+            </form>
+
         </div>
 
         <div class="my-12 w-[calc(100%-64px)] h-0.5 bg-white md:h-full md:w-0.5"></div>
