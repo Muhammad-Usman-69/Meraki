@@ -68,9 +68,13 @@ $email = $row["email"];
     </header>
     <?php include("../partials/_lo-modal.php") ?>
 
-    <div class="profile py-14 grid md:grid-cols-[1fr_2px_1fr] md:place-items-center">
-        <div class="profile-pic rounded-full flex justify-center">
+    <div class="profile py-14 grid place-items-center md:grid-cols-[1fr_2px_1fr]">
+        <div class="profile-pic rounded-full flex justify-center relative group">
             <img src="../images/user.png" alt="profile" class="w-64">
+            <img src="../images/upload-image.png" alt="profile" class="absolute w-64 opacity-0 h-full z-10 p-16 rounded-full transition-all duration-300 group-hover:bg-gray-100 group-hover:opacity-100">
+            <form action="../partials/_upload-img.php" method="post" class="absolute z-20  opacity-0 w-64 h-full">
+                <input type="file" accept="image/*" oninput="this.parentNode.submit();" class="h-full w-64 cursor-pointer" />
+            </form>    
         </div>
 
         <div class="my-12 w-[calc(100%-64px)] h-0.5 bg-white md:h-full md:w-0.5"></div>
