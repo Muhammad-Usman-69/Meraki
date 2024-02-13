@@ -67,10 +67,11 @@ function formHide() {
     //taking form
     let container = document.querySelector(".form-container div");
 
+    //takign height
+    let height = container.scrollHeight;
+
     //hiding container
-    container.classList.toggle("h-[468px]");
-    //for higher screen too
-    container.classList.toggle("sm:h-[492px]");
+    container.classList.toggle("h-[" + height + "px]");
     container.classList.toggle("h-0");      
 
     //taking arrow image

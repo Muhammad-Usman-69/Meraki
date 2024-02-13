@@ -131,7 +131,7 @@ session_start();
 
         <hr class="sm:hidden">
 
-        <div class="sm:flex sm:justify-center overflow-hidden transition-all duration-300 h-[468px] sm:h-[492px]">
+        <div class="sm:flex sm:justify-center overflow-hidden transition-all duration-300 h-[492px]">
             <div class="overflow-hidden w-full sm:w-2/3 md:w-3/5 lg:w-1/2 xl:w-2/5">
                 <form action="partials/_add.php" class="p-6 space-y-3" method="post">
                     <div class="flex flex-col space-y-3">
