@@ -124,33 +124,41 @@ session_start();
     ?>
 
     <!-- form section -->
-    <div class="bg-gray-800 sm:flex sm:justify-center">
-        <div class="overflow-hidden w-full sm:w-2/3 md:w-3/5 lg:w-1/2 xl:w-2/5">
-            <form action="partials/_add.php" class="p-6 space-y-3" method="post">
-                <div class="flex flex-col space-y-3">
-                    <label for="title" class="text-gray-200">Title</label>
-                    <input type="text" maxlength="50" name="title" id="title" placeholder="Shadi krni ha"
-                        class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500"
-                        required>
-                </div>
-                <div class="flex flex-col space-y-3">
-                    <label for="desc" class="text-gray-200">Description</label>
-                    <textarea name="desc" id="desc" rows="6"
-                        placeholder="Sail ko aik adad shadi krni ha take apni zindagi sukhi guzare"
-                        class="border border-black outline-none px-3 py-2 rounded resize-none  text-white bg-gray-700 placeholder:text-gray-500 hide-scrollbar"
-                        required></textarea>
-                </div>
-                <div class="flex flex-col space-y-3">
-                    <label for="time" class="text-gray-200">Time</label>
-                    <input type="datetime-local" name="time" id="time" placeholder="10:10:2010"
-                        class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 w-full calender"
-                        required>
-                </div>
-                <div class="grid place-items-end pt-3">
-                    <button type="submit"
-                        class="bg-blue-600 select-none hover:bg-blue-700 px-4 py-2 text-white">Add</button>
-                </div>
-            </form>
+    <div class="form-container bg-gray-800 sm:relative sm:min-h-24">
+        <button type="button" class="p-2 m-6 ml-auto bg-white bg-opacity-20 rounded-full cursor-pointer grid place-content-center hover:bg-opacity-30 active:bg-opacity-25 sm:absolute sm:right-0" onclick="formHide()">
+            <img src="images/arrow-up.png" class="p-0.5 w-6 h-6 transition-all duration-100 rotate-180" alt="">
+        </button>
+
+        <hr class="sm:hidden">
+
+        <div class="sm:flex sm:justify-center overflow-hidden transition-all duration-300 h-[468px] sm:h-[492px]">
+            <div class="overflow-hidden w-full sm:w-2/3 md:w-3/5 lg:w-1/2 xl:w-2/5">
+                <form action="partials/_add.php" class="p-6 space-y-3" method="post">
+                    <div class="flex flex-col space-y-3">
+                        <label for="title" class="text-gray-200">Title</label>
+                        <input type="text" maxlength="50" name="title" id="title"
+                            placeholder="Enter a descriptive title (e.g., Task Title)"
+                            class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500"
+                            required>
+                    </div>
+                    <div class="flex flex-col space-y-3">
+                        <label for="desc" class="text-gray-200">Description</label>
+                        <textarea name="desc" id="desc" rows="6" placeholder="Enter a detailed description"
+                            class="border border-black outline-none px-3 py-2 rounded resize-none  text-white bg-gray-700 placeholder:text-gray-500 hide-scrollbar"
+                            required></textarea>
+                    </div>
+                    <div class="flex flex-col space-y-3">
+                        <label for="time" class="text-gray-200">Time</label>
+                        <input type="datetime-local" name="time" id="time" placeholder="10:10:2010"
+                            class="border border-black outline-none px-3 py-2 rounded text-gray-500 bg-gray-700 w-full calender"
+                            oninput="datetimeColor(this)" required>
+                    </div>
+                    <div class="grid place-items-end pt-3">
+                        <button type="submit"
+                            class="bg-blue-600 select-none hover:bg-blue-700 px-4 py-2 text-white">Add</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -169,7 +177,10 @@ session_start();
                 <option value="15">15</option>
             </select>
 
-            <p class="col-span-2 row-start-2 text-gray-300 text-center md:col-span-1 md:col-start-2 md:row-start-1 md:py-2">Showing <span class="show font-semibold"></span> out of <span class="total font-semibold"></span> entries</p>
+            <p
+                class="col-span-2 row-start-2 text-gray-300 text-center md:col-span-1 md:col-start-2 md:row-start-1 md:py-2">
+                Showing <span class="show font-semibold"></span> out of <span class="total font-semibold"></span>
+                entries</p>
 
             <input type="search" name="q" id="q" class="w-full text-white bg-gray-700 px-3 py-1.5 outline-none search"
                 placeholder="Search" maxlength="50" oninput="pagination();">

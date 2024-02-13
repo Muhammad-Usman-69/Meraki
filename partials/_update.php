@@ -1,4 +1,4 @@
-<?php 
+<?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
     include("_dbconnect.php");
@@ -17,6 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = $_POST["work-edit-title-$id"];
         $desc = $_POST["work-edit-desc-$id"];
         $time = $_POST["work-edit-time-$id"];
+
+        $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+        $desc = htmlspecialchars($desc, ENT_QUOTES, 'UTF-8');
+        $time = htmlspecialchars($time, ENT_QUOTES, 'UTF-8');
 
         if ($num != 0 && $title != "" && $desc != "" && $time != "") {
             echo "Please wait...";

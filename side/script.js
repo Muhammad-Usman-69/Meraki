@@ -55,3 +55,27 @@ times.forEach(time => {
     time.value = arr[i][1];
     i++;
 })
+
+//changing color of datetime input
+function datetimeColor(element) {
+    element.classList.add("text-white");
+}
+
+//hiding form
+function formHide() {
+
+    //taking form
+    let container = document.querySelector(".form-container div");
+
+    //hiding container
+    container.classList.toggle("h-[468px]");
+    //for higher screen too
+    container.classList.toggle("sm:h-[492px]");
+    container.classList.toggle("h-0");      
+
+    //taking arrow image
+    let arrow = document.querySelector(".form-container button img");
+
+    //moving arrow
+    arrow.classList.toggle("rotate-[270deg]");
+}

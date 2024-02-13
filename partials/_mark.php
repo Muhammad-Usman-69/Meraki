@@ -16,6 +16,8 @@ if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
     //check if input is emplty
     $status = $_GET["status"];
 
+    $status = htmlspecialchars($status, ENT_QUOTES, 'UTF-8');
+
     if ($num != 0 && $status != "") {
         echo "Please wait...";
         $sql = "UPDATE `work` SET `work_status` = ? WHERE `work_id` = ?";

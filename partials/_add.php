@@ -19,6 +19,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = $_POST["title"];
             $desc = $_POST["desc"];
             $time = $_POST["time"];
+
+            //security reasons
+            $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+            $desc = htmlspecialchars($desc, ENT_QUOTES, 'UTF-8');
+            $time = htmlspecialchars($time, ENT_QUOTES, 'UTF-8');
+
+
             $status = "progress";
 
             //checking if maximum lists are added
