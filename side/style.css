@@ -957,8 +957,8 @@ video {
   height: 2.25rem;
 }
 
-.h-\[468px\] {
-  height: 468px;
+.h-\[492px\] {
+  height: 492px;
 }
 
 .h-\[calc\(100\%-1rem\)\] {
@@ -967,10 +967,6 @@ video {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[492px\] {
-  height: 492px;
 }
 
 .max-h-full {
@@ -985,24 +981,24 @@ video {
   min-height: 3.5rem;
 }
 
-.min-h-8 {
-  min-height: 2rem;
-}
-
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.min-h-24 {
-  min-height: 6rem;
-}
-
 .min-h-2 {
   min-height: 0.5rem;
 }
 
 .min-h-20 {
   min-height: 5rem;
+}
+
+.min-h-24 {
+  min-height: 6rem;
+}
+
+.min-h-8 {
+  min-height: 2rem;
+}
+
+.min-h-screen {
+  min-height: 100vh;
 }
 
 .w-0 {
@@ -1383,6 +1379,12 @@ video {
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1551,6 +1553,11 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.border-red-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(185 28 28 / var(--tw-border-opacity));
 }
 
 .border-b-gray-100 {
@@ -2040,6 +2047,11 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -2281,8 +2293,22 @@ video {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-opacity-30:hover {
   --tw-bg-opacity: 0.3;
+}
+
+.hover\:bg-opacity-80:hover {
+  --tw-bg-opacity: 0.8;
 }
 
 .hover\:text-blue-600:hover {
@@ -2403,14 +2429,6 @@ video {
     display: none;
   }
 
-  .sm\:h-\[492px\] {
-    height: 492px;
-  }
-
-  .sm\:min-h-20 {
-    min-height: 5rem;
-  }
-
   .sm\:min-h-24 {
     min-height: 6rem;
   }
@@ -2441,14 +2459,6 @@ video {
   .sm\:px-7 {
     padding-left: 1.75rem;
     padding-right: 1.75rem;
-  }
-
-  .sm\:pt-6 {
-    padding-top: 1.5rem;
-  }
-
-  .sm\:pt-0 {
-    padding-top: 0px;
   }
 
   .sm\:text-base {

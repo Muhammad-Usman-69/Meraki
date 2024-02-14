@@ -1,3 +1,29 @@
+let menuSec = document.querySelector(".menu");
+let menuList = document.querySelectorAll(".menu li");
+let x = 180;
+function menu() {
+    // adding showing function for menu list and adding border
+    menuList.forEach((list, i) => {
+        list.classList.toggle("h-9");
+        list.classList.toggle("border-b");
+        list.style.transitionDelay = i * 0.1 + "s";
+    });
+
+    let menuImage = document.querySelector(".menu-img");
+    let closeImage = document.querySelector(".close-img");
+
+    //adding changing photo function for menu
+    menuImage.classList.toggle("opacity-0");
+    closeImage.classList.toggle("opacity-0");
+
+    //adding rotating function for menu
+    menuImage.style.transform = `rotate(${x}deg)`;
+    closeImage.style.transform = `rotate(${x}deg)`;
+
+    //increamenting value of x to rotate menu
+    x += 180;
+}
+
 //taking alert container
 let alert = document.querySelector(".alert");
 
@@ -8,21 +34,21 @@ function copy(word) {
 
 
     if (result) {
-        alert.classList.add("opacity-100");
 
         //showing if copied
         alert.innerHTML +=
-            `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded w-56 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200" role="alert">
-                <strong class="font-bold text-sm">Copied Successfully!</strong>
-                <span onclick="hideAlert(this);">
-                    <svg class="fill-current h-6 w-6 text-green-600 border-2 border-green-700 rounded-full" role="button" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20">
-                        <title>Close</title>
-                        <path
-                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                    </svg>
-                </span>
-            </div>`;
+            `<div class="bg-green-100 border border-green-400 hover:bg-green-50 text-green-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200"
+            role="alert">
+            <strong class="font-bold text-sm">Copied Successfully!</strong>
+            <span onclick="hideAlert(this);">
+                <svg class="fill-current h-6 w-6 text-green-600 border-2 border-green-700 rounded-full" role="button"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <title>Close</title>
+                    <path
+                        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                </svg>
+            </span>
+        </div>`;
     }
 }
 
@@ -30,9 +56,6 @@ function hideAlert(element) {
 
     //hiding alert
     element.parentNode.classList.add("opacity-0");
-
-    //hiding alert container
-    alert.classList.remove("opacity-100");
 
     //removing alert
     setTimeout(() => {

@@ -61,14 +61,14 @@ function datetimeColor(element) {
     element.classList.add("text-white");
 }
 
+//taking form
+let container = document.querySelector(".form-container div");
+
+//takign height
+let height = container.scrollHeight;
+
 //hiding form
 function formHide() {
-
-    //taking form
-    let container = document.querySelector(".form-container div");
-
-    //takign height
-    let height = container.scrollHeight;
 
     //hiding container
     container.classList.toggle("h-[" + height + "px]");
@@ -79,4 +79,16 @@ function formHide() {
 
     //moving arrow
     arrow.classList.toggle("rotate-[270deg]");
+}
+
+//alert
+function hideAlert(element) {
+
+    //hiding alert
+    element.parentNode.classList.add("opacity-0");
+
+    //removing alert
+    setTimeout(() => {
+        element.parentNode.remove();
+    }, 200);
 }

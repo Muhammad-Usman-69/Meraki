@@ -77,55 +77,43 @@ session_start();
     ?>
 
     <!--alert and error-->
-    <?php
-    if (isset($_GET["alert"]) && $_GET["alert"] != "") {
-        $alert = $_GET["alert"];
-        echo '<div id="alert-border-3"
-                    class="flex items-center p-4 text-green-800 border-y-4 border-green-300 bg-green-50"
-                    role="alert">
-                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                        viewBox="0 0 20 20">
+    <div class="alert transition-all duration-200">
+        <?php
+        if (isset($_GET["alert"])) {
+            echo '<div class="bg-green-100 border border-green-400 hover:bg-green-50 text-green-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200 z-20"
+        role="alert">
+                <strong class="font-bold text-sm">' . $_GET["alert"] . '.</strong>
+                <span onclick="hideAlert(this);">
+                    <svg class="fill-current h-6 w-6 text-green-600 border-2 border-green-700 rounded-full" role="button"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <title>Close</title>
                         <path
-                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
                     </svg>
-                    <div class="ms-3 text-sm font-medium">Success! ' . $alert . '.</div>
-                    <button type="button"
-                        class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8"
-                        data-dismiss-target="#alert-border-3" aria-label="Close">
-                        <span class="sr-only">Dismiss</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                    </button>
-                </div>';
-    } else if (isset($_GET["error"]) && $_GET["error"] != "") {
-        $error = $_GET["error"];
-        echo '<div id="alert-border-2"
-                class="flex items-center p-4 text-red-800 border-y-4 border-red-300 bg-red-50"
-                role="alert">
-                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                </svg>
-                <div class="ms-3 text-sm font-medium">Error! ' . $error . '. </div>
-                <button type="button"
-                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8"
-                    data-dismiss-target="#alert-border-2" aria-label="Close">
-                    <span class="sr-only">Dismiss</span>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                </button>
+                </span>
             </div>';
-    }
-    ?>
+        } else if (isset($_GET["error"])) {
+            echo '<div class="bg-red-100 border border-red-400 hover:bg-red-50 text-red-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200 z-20"
+        role="alert">
+                <strong class="font-bold text-sm">' . $_GET["error"] . '.</strong>
+                <span onclick="hideAlert(this);">
+                    <svg class="fill-current h-6 w-6 text-red-600 border-2 border-red-700 rounded-full" role="button"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <title>Close</title>
+                        <path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                </span>
+            </div>';
+        }
+        ?>
+    </div>
 
     <!-- form section -->
     <div class="form-container bg-gray-800 sm:relative sm:min-h-24">
-        <button type="button" class="p-2 m-6 ml-auto bg-white bg-opacity-20 rounded-full cursor-pointer grid place-content-center hover:bg-opacity-30 active:bg-opacity-25 sm:absolute sm:right-0" onclick="formHide()">
+        <button type="button"
+            class="p-2 m-6 ml-auto bg-white bg-opacity-20 rounded-full cursor-pointer grid place-content-center hover:bg-opacity-30 active:bg-opacity-25 sm:absolute sm:right-0"
+            onclick="formHide()">
             <img src="images/arrow-up.png" class="p-0.5 w-6 h-6 transition-all duration-100 rotate-180" alt="">
         </button>
 
@@ -457,6 +445,13 @@ session_start();
     <script src="side/script.js"></script>
     <script src="side/pagination.js"></script>
     <script src="side/flowbite.js"></script>
+    <?php
+        if (!isset($_SESSION["log"])) {
+            echo '<script> formHide(); </script>';
+        }
+    ?>
+    
+     
 </body>
 
 </html>
