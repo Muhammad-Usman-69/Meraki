@@ -16,7 +16,8 @@ $row = mysqli_fetch_assoc($result);
 
 $name = $row["name"];
 $email = $row["email"];
-$profile_img = $row["profile_img"];
+$profile_img = $row["img"];
+$status = $row["status"];
 
 ?>
 <!DOCTYPE html>
@@ -54,7 +55,7 @@ $profile_img = $row["profile_img"];
         } else if (isset($_GET["error"])) {
             echo '<div class="bg-red-100 border border-red-400 hover:bg-red-50 text-red-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200 z-20"
         role="alert">
-                <strong class="font-bold text-sm">' . $_GET["error"] .'.</strong>
+                <strong class="font-bold text-sm">' . $_GET["error"] . '.</strong>
                 <span onclick="hideAlert(this);">
                     <svg class="fill-current h-6 w-6 text-red-600 border-2 border-red-700 rounded-full" role="button"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -72,7 +73,7 @@ $profile_img = $row["profile_img"];
 
     <!--header-->
     <header class="h-20">
-        <nav class="flex z-10 fixed shadow-sm shadow-black w-full justify-between items-center bg-gray-700">
+        <nav class="flex z-20 fixed shadow-sm shadow-black w-full justify-between items-center bg-gray-700">
 
             <!--navigation bar logo-->
             <div class="logo flex items-center">
@@ -103,6 +104,35 @@ $profile_img = $row["profile_img"];
         </nav>
     </header>
     <?php include("../partials/_lo-modal.php") ?>
+
+    <?php
+    if ($status == 0) {
+        echo '<div class="m-3">
+        <div class="border-yellow-400 bg-yellow-100 flex items-center w-full border-l-[6px] py-3 px-4">
+            <div class="bg-yellow-400 flex items-center justify-center mr-5 h-8 w-10 rounded-md">
+                <svg width="20" height="20" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M17.0156 11.6156L10.9969 1.93125C10.5188 1.28437 9.78752 0.91875 9.00002 0.91875C8.18439 0.91875 7.45314 1.28437 7.00314 1.93125L0.984395 11.6156C0.421895 12.375 0.33752 13.3594 0.759395 14.2031C1.18127 15.0469 2.02502 15.5813 2.98127 15.5813H15.0188C15.975 15.5813 16.8188 15.0469 17.2406 14.2031C17.6625 13.3875 17.5781 12.375 17.0156 11.6156ZM16.1156 13.6406C15.8906 14.0625 15.4969 14.3156 15.0188 14.3156H2.98127C2.50315 14.3156 2.10939 14.0625 1.88439 13.6406C1.68752 13.2188 1.71564 12.7406 1.99689 12.375L8.01564 2.69062C8.24064 2.38125 8.60627 2.18437 9.00002 2.18437C9.39377 2.18437 9.75939 2.35312 9.9844 2.69062L16.0031 12.375C16.2844 12.7406 16.3125 13.2188 16.1156 13.6406Z"
+                        fill="white" />
+                    <path
+                        d="M8.9999 6.15002C8.6624 6.15002 8.35303 6.43127 8.35303 6.79689V9.86252C8.35303 10.2 8.63428 10.5094 8.9999 10.5094C9.36553 10.5094 9.64678 10.2281 9.64678 9.86252V6.76877C9.64678 6.43127 9.3374 6.15002 8.9999 6.15002Z"
+                        fill="white" />
+                    <path
+                        d="M8.9999 11.25C8.6624 11.25 8.35303 11.5313 8.35303 11.8969V12.0375C8.35303 12.375 8.63428 12.6844 8.9999 12.6844C9.36553 12.6844 9.64678 12.4031 9.64678 12.0375V11.8688C9.64678 11.5313 9.3374 11.25 8.9999 11.25Z"
+                        fill="white" />
+                </svg>
+            </div>
+            <div class="flex justify-between items-center w-full">
+                <h5 class="text-base font-semibold text-[#9D5425]">
+                    Account is Unverified!
+                </h5>
+                <button type="button" class="px-3 py-1 rounded-md text-[#9D5425] bg-yellow-400 hover:bg-opacity-80 active:bg-opacity-60">Verify</button>
+            </div>
+        </div>
+    </div>';
+    }
+    ?>
+    
 
     <div class="profile py-14 grid place-items-center md:grid-cols-[1fr_2px_1fr]">
         <div class="profile-pic flex justify-center relative group w-64 h-64">

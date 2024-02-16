@@ -5,6 +5,7 @@
         $pass = $_POST["s-pass"];
         $cpass = $_POST["s-cpass"];
         $p_img = "none";
+        $status = 0;
         if ($name != "" && $email != "" && $pass != "" && $cpass != "") {
             include("_dbconnect.php");
             $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
@@ -20,9 +21,9 @@
                         $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
                         $pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
                         $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
-                        $sql = "INSERT INTO `users` (`name`, `email`, `pass`, `profile_img`) VALUES (?, ?, ?, ?)";
+                        $sql = "INSERT INTO `users` (`name`, `email`, `pass`, `img`, `status`) VALUES (?, ?, ?, ?, ?)";
                         $stmt = mysqli_prepare($conn, $sql);
-                        mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $pass_hash, $p_img);
+                        mysqli_stmt_bind_param($stmt, "ssssi", $name, $email, $pass_hash, $p_img, $status);
                         $result = mysqli_stmt_execute($stmt);
                         if ($result) {
                             header("location: /?alert=You have been signed up");

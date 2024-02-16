@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //moving to database
     include("../partials/_dbconnect.php");
 
-    $sql = "UPDATE `users` SET `profile_img` = ? WHERE `id` = ?";
+    $sql = "UPDATE `users` SET `img` = ? WHERE `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "si", $fileNewName, $id);
     $sql_result = mysqli_stmt_execute($stmt);
