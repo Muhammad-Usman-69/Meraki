@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2024 at 06:14 AM
+-- Generation Time: Feb 17, 2024 at 07:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,9 +41,27 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`) VALUES
-(1, 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 0),
+(1, 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1),
 (2, 'admin2', 'mrfear4646@gmail.com', '$2y$10$JIhJyznERSR7gigHkBPDs.07FyKde6SU7C75p6eLwfCLsnNXL99tS', 'none', 0),
 (3, 'admin3', 'myxade@pelagius.net', '$2y$10$XutBiiFdeJuvk2Y/0KPM7.pL3H2Wh9lazRIxNdkx3GtXLHQfifO.6', 'none', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verify`
+--
+
+CREATE TABLE `verify` (
+  `id` int(11) NOT NULL,
+  `verification_code` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verify`
+--
+
+INSERT INTO `verify` (`id`, `verification_code`) VALUES
+(1, 'blah');
 
 -- --------------------------------------------------------
 
@@ -89,6 +107,15 @@ INSERT INTO `work` (`id`, `work_id`, `work_title`, `work_desc`, `work_time`, `wo
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `verify`
+--
+ALTER TABLE `verify`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD UNIQUE KEY `verification_id` (`verification_code`) USING HASH;
 
 --
 -- Indexes for table `work`
