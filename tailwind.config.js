@@ -8,7 +8,11 @@ module.exports = {
     "*/*"
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'animate-spin': 'spin 5s ease-in-out infinite'
+      }
+    },
   },
   plugins: [],
 }

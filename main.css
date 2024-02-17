@@ -40,3 +40,8 @@
     opacity: 0;
     pointer-events: none;
 }
+
+.spin-slow {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+}
