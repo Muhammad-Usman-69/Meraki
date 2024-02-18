@@ -67,7 +67,7 @@ if ($num == 0) {
 
             <!-- progress container -->
             <li class="progress grid grid-cols-[32px_1fr] space-x-3">
-                <div class="bg-orange-500 p-1 rounded-sm">
+                <div class="bg-green-500 p-1 rounded-sm">
                     <img src="../images/spinner.png" alt="" class="w-6 h-6 animate-spin invert">
                 </div>
                 <p class="text-gray-300 text-lg">Verification in Progress...</p>
@@ -75,13 +75,15 @@ if ($num == 0) {
 
             <!-- Verification Successful -->
             <li class="success transition-all duration-1000 grid grid-cols-[32px_1fr] space-x-3 opacity-0">
-                <div class="bg-green-500 p-1 rounded-sm">
-                    <img src="../images/finish.png" alt="" class="w-6 h-6 invert">
+                <div class="bg-red-500 p-1 rounded-sm">
+                    <img src="../images/close.png" alt="" class="w-6 h-6 invert">
                 </div>
-                <p class="text-gray-300 text-lg">Verification Successful</p>
+                <p class="text-gray-300 text-lg">Verification Unsuccessful</p>
             </li>
 
         </ul>
+        <p class="redirect text-white text-lg opacity-0 transition-all duration-1000">You may redirect to the main page
+        </p>
     </div>
     <?php
 
@@ -92,16 +94,23 @@ if ($num == 0) {
     mysqli_stmt_bind_param($stmt, "ii", $status, $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    if ($result) {
-        echo '';
+    if (!$result) {
+        echo '<script>
+        document.querySelector(".success").innerHTML = `<div class="bg-green-500 p-1 rounded-sm">
+                    <img src="../images/finish.png" alt="" class="w-6 h-6 invert">
+            </div>
+            <p class="text-gray-300 text-lg">Verification Successful</p>`;
+        </script>';
     }
-
     ?>
+
     <script>
         setTimeout(() => {
             document.querySelector(".success").classList.add("opacity-100");
+            document.querySelector(".redirect").classList.add("opacity-100");
         }, 500);
     </script>
+
 </body>
 
 </html>
