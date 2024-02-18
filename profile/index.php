@@ -126,7 +126,7 @@ $status = $row["status"];
                 <h5 class="text-base font-semibold text-[#9D5425]">
                     Account is Unverified!
                 </h5>
-                <button type="button" class="px-3 py-1 rounded-md text-[#9D5425] bg-yellow-400 hover:bg-opacity-80 active:bg-opacity-60">Verify</button>
+                <button type="button" onclick="window.open(`../partials/_email`, `_self`)" class="px-3 py-1 rounded-md text-[#9D5425] bg-yellow-400 hover:bg-opacity-80 active:bg-opacity-60">Verify</button>
             </div>
         </div>
     </div>';
