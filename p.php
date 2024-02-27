@@ -1,5 +1,5 @@
 <?php
-include("../partials/_dbconnect.php");
+include("partials/_dbconnect.php");
 session_start();
 if ($_SESSION["log"] != true) {
     header("location:/?error=Please log in");
@@ -9,7 +9,7 @@ if ($_SESSION["log"] != true) {
 $id = $_SESSION["id"];
 $sql = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_bind_param($stmt, "s", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $row = mysqli_fetch_assoc($result);
@@ -28,8 +28,8 @@ $status = $row["status"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Muhammad Usman">
     <title>Meraki - To Do List</title>
-    <link rel="stylesheet" href="../side/style.css">
-    <link rel="shortcut icon" href="../images/logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="side/style.css">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
 </head>
 
 <body class="flex flex-col min-h-screen hide-scrollbar bg-gray-800">
@@ -78,7 +78,7 @@ $status = $row["status"];
             <!--navigation bar logo-->
             <div class="logo flex items-center">
                 <a href="/" class="flex items-center space-x-2">
-                    <img class="w-20 rounded-full p-2" src="../images/logo.jpg">
+                    <img class="w-20 rounded-full p-2" src="images/logo.jpg">
                     <p class="text-lg font-semibold font-mono text-white">Meraki</p>
                 </a>
             </div>
@@ -88,9 +88,9 @@ $status = $row["status"];
             <div class="mx-6">
                 <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-9 h-9">
                     <img class="menu-img w-8 invert transition-all duration-300 absolute top-0 left-0"
-                        src="../images/menu.png">
+                        src="images/menu.png">
                     <img class="close-img w-8 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
-                        src="../images/close.png">
+                        src="images/close.png">
                 </button>
                 <ul
                     class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
@@ -103,7 +103,7 @@ $status = $row["status"];
             </div>
         </nav>
     </header>
-    <?php include("../partials/_lo-modal.php") ?>
+    <?php include("partials/_lo-modal.php") ?>
 
     <?php
     if ($status == 0) {
@@ -126,7 +126,7 @@ $status = $row["status"];
                 <h5 class="text-base font-semibold text-[#9D5425]">
                     Account is Unverified!
                 </h5>
-                <button type="button" onclick="window.open(`../partials/_email`, `_self`)" class="px-3 py-1 rounded-md text-[#9D5425] bg-yellow-400 hover:bg-opacity-80 active:bg-opacity-60">Verify</button>
+                <button type="button" onclick="window.open(`partials/_email`, `_self`)" class="px-3 py-1 rounded-md text-[#9D5425] bg-yellow-400 hover:bg-opacity-80 active:bg-opacity-60">Verify</button>
             </div>
         </div>
     </div>';
@@ -139,15 +139,15 @@ $status = $row["status"];
 
             <?php
             if ($profile_img != "none") {
-                echo '<img src="images/' . $profile_img . '" alt="profile" class="rounded-full object-contain bg-white">';
+                echo '<img src="profile/images/' . $profile_img . '" alt="profile" class="rounded-full object-contain bg-white">';
             } else {
-                echo '<img src="../images/user.png" alt="profile" class="rounded-full object-contain bg-white">';
+                echo '<img src="images/user.png" alt="profile" class="rounded-full object-contain bg-white">';
             }
             ?>
 
-            <img src="../images/upload-image.png" alt="profile"
+            <img src="images/upload-image.png" alt="profile"
                 class="absolute opacity-0 h-full z-10 p-16 rounded-full transition-all duration-300 group-hover:bg-gray-100 group-hover:opacity-100">
-            <form action="../partials/_upload-img.php" method="POST" enctype="multipart/form-data"
+            <form action="partials/_upload-img.php" method="POST" enctype="multipart/form-data"
                 class="absolute z-20  opacity-0 h-full">
                 <input type="file" id="p_img" name="p_img" accept="image/jpg, image/jpeg, image/png"
                     oninput="this.parentNode.submit();" class="h-full cursor-pointer" />
@@ -165,7 +165,7 @@ $status = $row["status"];
                         <?php echo $name; ?>
                     </span>
                     <button onclick="copy(document.querySelector('.name').innerHTML)">
-                        <img src="../images/copy-files.png" alt="" class="w-6 invert">
+                        <img src="images/copy-files.png" alt="" class="w-6 invert">
                     </button>
                 </p>
             </li>
@@ -176,7 +176,7 @@ $status = $row["status"];
                         <?php echo $email; ?>
                     </span>
                     <button onclick="copy(document.querySelector('.email').innerHTML)">
-                        <img src="../images/copy-files.png" alt="" class="w-6 invert">
+                        <img src="images/copy-files.png" alt="" class="w-6 invert">
                     </button>
                 </p>
             </li>
@@ -184,10 +184,10 @@ $status = $row["status"];
                 <h4 class="font-semibold text-sm text-gray-400">User ID:</h4>
                 <p class="text-lg text-white flex justify-between items-center space-x-4">
                     <span class="break-all id">
-                        <?php echo '#' . $id; ?>
+                        <?php echo $id; ?>
                     </span>
                     <button onclick="copy(document.querySelector('.id').innerHTML)">
-                        <img src="../images/copy-files.png" alt="" class="w-6 invert">
+                        <img src="images/copy-files.png" alt="" class="w-6 invert">
                     </button>
                 </p>
             </li>
@@ -218,18 +218,18 @@ $status = $row["status"];
     <div class="flex justify-center border-b border-gray-500">
         <button class="bg-gray-700 p-2 rounded-tl-md status-button text-gray-300 hover:bg-gray-600 active" id="0"
             onclick="active(this.id)">
-            <img class="w-6 invert" src="../images/menu.png" alt="all">
+            <img class="w-6 invert" src="images/menu.png" alt="all">
         </button>
         <button class="bg-gray-700 p-2 status-button border-x border-gray-500 hover:bg-gray-600" id="1"
             onclick="active(this.id)">
-            <img class="w-6 invert" src="../images/hourglass.png" alt="progress">
+            <img class="w-6 invert" src="images/hourglass.png" alt="progress">
         </button>
         <button class="bg-gray-700 p-2 status-button border-r border-gray-500 hover:bg-gray-600" id="2"
             onclick="active(this.id)">
-            <img class="w-6 invert" src="../images/finish.png" alt="finished">
+            <img class="w-6 invert" src="images/finish.png" alt="finished">
         </button>
         <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3" onclick="active(this.id)">
-            <img class="w-6 invert" src="../images/delete.png" alt="closed">
+            <img class="w-6 invert" src="images/delete.png" alt="closed">
         </button>
     </div>
 
@@ -251,7 +251,7 @@ $status = $row["status"];
             $id = $_SESSION["id"];
             $sql = "SELECT * FROM `work` WHERE `id` = ?";
             $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_bind_param($stmt, "s", $id);
             mysqli_stmt_execute($stmt);
             $result = mysqli_stmt_get_result($stmt);
             $num = mysqli_num_rows($result);
@@ -277,10 +277,10 @@ $status = $row["status"];
                             <div class="w-fit">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '"
                                     class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
-                                    <img class="invert w-6" src="../images/detail.png" alt="detail">
+                                    <img class="invert w-6" src="images/detail.png" alt="detail">
                                 </button>
                                 <button data-modal-target="restore-modal-' . $i . '" data-modal-toggle="restore-modal-' . $i . '" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
-                                    <img class="w-6 invert" src="../images/restore.png" alt="edit">
+                                    <img class="w-6 invert" src="images/restore.png" alt="edit">
                                 </button>
                             </div>
                         </td>
@@ -308,7 +308,7 @@ $status = $row["status"];
                                         </svg>
                                         <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to restore this?
                                         </h3>
-                                        <button onclick="window.open(`../partials/_mark.php?id=' . $work_id . '&status=progress`, `_self`)" data-modal-hide="restore-modal-' . $i . '" type="button"
+                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=progress`, `_self`)" data-modal-hide="restore-modal-' . $i . '" type="button"
                                             class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                                             Yes, I&#39;m sure
                                         </button>
@@ -323,18 +323,18 @@ $status = $row["status"];
                         echo '<td class="py-4 grid grid-cols-1 gap-1 sm:flex">
                             <div class="w-fit">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
-                                    <img class="invert w-6" src="../images/detail.png" alt="detail">
+                                    <img class="invert w-6" src="images/detail.png" alt="detail">
                                 </button>
                                 <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '"  href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
-                                    <img class="invert w-6" src="../images/edit.png" alt="edit">
+                                    <img class="invert w-6" src="images/edit.png" alt="edit">
                                 </button>
                             </div>
                             <div class="w-fit">
                                 <button data-modal-target="finish-modal-' . $i . '" data-modal-toggle="finish-modal-' . $i . '" href="" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
-                                    <img class="invert w-6" src="../images/finish.png" alt="finish">
+                                    <img class="invert w-6" src="images/finish.png" alt="finish">
                                 </button>
                                 <button data-modal-target="delete-modal-' . $i . '" data-modal-toggle="delete-modal-' . $i . '" href="" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                                    <img class="invert w-6" src="../images/delete.png" alt="delete">
+                                    <img class="invert w-6" src="images/delete.png" alt="delete">
                                 </button>
                             </div>
                         </td>';
@@ -359,7 +359,7 @@ $status = $row["status"];
                                             <span class="sr-only">Close modal</span>
                                         </button>
                                     </div>
-                                    <form action="../partials/_update.php?id=' . $work_id . '" method="post">
+                                    <form action="partials/_update.php?id=' . $work_id . '" method="post">
                                     <div class="p-4 md:p-5 space-y-4">
                                             <div>
                                                 <label for="work-edit-id-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
@@ -420,7 +420,7 @@ $status = $row["status"];
                                         </svg>
                                         <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as finished?
                                         </h3>
-                                        <button onclick="window.open(`../partials/_mark.php?id=' . $work_id . '&status=finished`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
+                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=finished`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
                                             class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                                             Yes, I&#39;m sure
                                         </button>
@@ -455,7 +455,7 @@ $status = $row["status"];
                                         </svg>
                                         <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as closed?
                                         </h3>
-                                        <button onclick="window.open(`../partials/_mark.php?id=' . $work_id . '&status=closed`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
+                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=closed`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
                                             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                                             Yes, I&#39;m sure
                                         </button>
@@ -545,8 +545,8 @@ $status = $row["status"];
         </footer>
     </div>
 
-    <script src="profile.js"></script>
-    <script src="../side/flowbite.js"></script>
+    <script src="profile/profile.js"></script>
+    <script src="side/flowbite.js"></script>
 </body>
 
 </html>

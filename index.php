@@ -41,7 +41,7 @@ session_start();
                     <?php
                     if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                         echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
-                        <a href="profile/"
+                        <a href="p"
                             class="block w-full py-1.5 px-3 bg-gray-900 border-gray-600  hover:bg-gray-800 text-gray-300 overflow-hidden whitespace-nowrap">Profile</a>
                         </li>
                         <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
@@ -194,7 +194,7 @@ session_start();
                     $status = "progress";
                     $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ?";
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "is", $id, $status);
+                    mysqli_stmt_bind_param($stmt, "ss", $id, $status);
                     mysqli_stmt_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
                     $num = mysqli_num_rows($result);

@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "UPDATE `users` SET `img` = ? WHERE `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "si", $fileNewName, $id);
+    mysqli_stmt_bind_param($stmt, "ss", $fileNewName, $id);
     $sql_result = mysqli_stmt_execute($stmt);
 
     //check if data is moved to db successfully

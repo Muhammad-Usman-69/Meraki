@@ -13,7 +13,7 @@ include("_dbconnect.php");
 //check if user exist
 $sql = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_bind_param($stmt, "s", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
@@ -27,7 +27,7 @@ if ($num == 0) {
 //verifying
 $sql = "SELECT * FROM `verify` WHERE `id` = ? AND `verification_code` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "is", $id, $code);
+mysqli_stmt_bind_param($stmt, "ss", $id, $code);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
@@ -86,12 +86,11 @@ if ($num == 0) {
         </p>
     </div>
     <?php
-
-
+    //updating status
     $status = 1;
     $sql = "UPDATE `users` SET `status` = ? WHERE `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ii", $status, $id);
+    mysqli_stmt_bind_param($stmt, "is", $status, $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     if (!$result) {
@@ -102,6 +101,11 @@ if ($num == 0) {
             <p class="text-gray-300 text-lg">Verification Successful</p>`;
         </script>';
     }
+    //deleting from verify
+    $sql = "DELETE FROM `verify` WHERE `id` = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "s", $id);
+    mysqli_stmt_execute($stmt);
     ?>
 
     <script>

@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_SESSION["id"];
         $sql = "SELECT * FROM `users` WHERE `id` = ?";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_bind_param($stmt, "s", $id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $num = mysqli_num_rows($result);
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //checking if maximum lists are added
             $sqlChecker = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ?";
             $stmtChecker = mysqli_prepare($conn, $sqlChecker);
-            mysqli_stmt_bind_param($stmtChecker, "is", $id, $status);
+            mysqli_stmt_bind_param($stmtChecker, "ss", $id, $status);
             mysqli_stmt_execute($stmtChecker);
             $result = mysqli_stmt_get_result($stmtChecker);
             $num = mysqli_num_rows($result);
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $sql = "INSERT INTO `work` (`id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "issss", $id, $title, $desc, $time, $status);
+            mysqli_stmt_bind_param($stmt, "sssss", $id, $title, $desc, $time, $status);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 header("location: /?alert=Added successfully");

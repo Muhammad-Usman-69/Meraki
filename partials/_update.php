@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_GET["id"];
         $sql = "SELECT * FROM `work` WHERE `work_id` = ?";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_bind_param($stmt, "s", $id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
         $num = mysqli_num_rows($result);
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Please wait...";
             $sql = "UPDATE `work` SET `work_title` = ?, `work_desc` = ?, `work_time` = ? WHERE `work_id` = ?";
             $stmt = mysqli_prepare($conn, $sql);
-            mysqli_stmt_bind_param($stmt, "sssi", $title, $desc, $time, $id);
+            mysqli_stmt_bind_param($stmt, "ssss", $title, $desc, $time, $id);
             $result = mysqli_stmt_execute($stmt);
             if ($result) {
                 header("location: /?alert=Updated successfully");
