@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2024 at 07:13 AM
+-- Generation Time: Feb 27, 2024 at 03:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` varchar(8) NOT NULL,
   `name` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
   `pass` text NOT NULL,
@@ -41,9 +41,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`) VALUES
-(1, 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1),
-(2, 'admin2', 'mrfear4646@gmail.com', '$2y$10$JIhJyznERSR7gigHkBPDs.07FyKde6SU7C75p6eLwfCLsnNXL99tS', 'none', 0),
-(3, 'admin3', 'myxade@pelagius.net', '$2y$10$XutBiiFdeJuvk2Y/0KPM7.pL3H2Wh9lazRIxNdkx3GtXLHQfifO.6', 'none', 0);
+('APOCGCPy', 'pelagius', 'jaxymejo@pelagius.net', '$2y$10$FnHzl2kM/XlBqx3jvxA0lORlahjLEyHffIL9SLuKyFeTcE7zF2Pwa', 'none', 0),
+('Xp8OwYlF', 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1),
+('zk8wRGlq', 'John Doe', 'symiti@imagepoet.net', '$2y$10$RaA9LXvOefF0OcaYrQAi6eoC4EPK0U/A/3lXCuDXs5FdrKW5oJCA.', 'none', 1);
 
 -- --------------------------------------------------------
 
@@ -52,8 +52,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`) VALUES
 --
 
 CREATE TABLE `verify` (
-  `id` int(11) NOT NULL,
-  `verification_code` text NOT NULL
+  `id` varchar(8) NOT NULL,
+  `verification_code` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `verify` (
 --
 
 INSERT INTO `verify` (`id`, `verification_code`) VALUES
-(1, 'blah');
+('APOCGCPy', 'Ll3cmhVPQkREvOEymoxrQWexbUp51jYiqVN2ugbZuZVdl7Sv91hRm2xXGtC0ntZg');
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ INSERT INTO `verify` (`id`, `verification_code`) VALUES
 --
 
 CREATE TABLE `work` (
-  `id` int(11) NOT NULL,
+  `id` varchar(8) NOT NULL,
   `work_id` int(11) NOT NULL,
   `work_title` varchar(50) NOT NULL,
   `work_desc` text NOT NULL,
@@ -83,20 +83,19 @@ CREATE TABLE `work` (
 --
 
 INSERT INTO `work` (`id`, `work_id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES
-(1, 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-20T00:00', 'progress'),
-(1, 6, 'Lorem ipsum dolor sit amet consecte lorem lorem', 'Lorem 1 ipsum dolor sit amet 1 consectetur adipisicing elit. Laudantium quam awdcorrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae nodoloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobiawds, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2025-01-21T03:06', 'finished'),
-(1, 7, 'Lorem ipsum 3 dolor sit amet consectetur adipisici', 'Lorem ipsum 3 dolor sit amet consectetur adipisicing elit. Laudantium quam corrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae non doloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobis, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2024-01-20T15:06', 'progress'),
-(1, 8, 'Add security options', 'add function so that update handler and mark handler verify user.', '2024-01-22T11:00', 'progress'),
-(1, 9, 'lorem', 'lorem', '2024-01-19T02:57', 'finished'),
-(1, 10, 'lopppe', 'as', '2024-02-03T09:57', 'progress'),
-(1, 11, 'adaw', 'dawdwa', '2024-01-04T09:57', 'progress'),
-(1, 12, 'awwdawda', 'dawdwadwa', '2024-01-19T09:58', 'finished'),
-(1, 13, 'faa', 'fafa', '2024-01-19T11:25', 'finished'),
-(1, 14, 'a', 'a', '2024-01-19T23:22', 'finished'),
-(1, 16, 'adawaa', 'awd', '2024-01-19T11:26', 'progress'),
-(2, 17, '123', '123', '2024-01-29T08:01', 'progress'),
-(1, 18, 'ak', 'm4', '2024-01-29T09:12', 'progress'),
-(1, 19, 'adwa', 'awd', '2024-01-29T09:29', 'finished');
+('Xp8OwYlF', 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-20T00:00', 'progress'),
+('Xp8OwYlF', 6, 'Lorem ipsum dolor sit amet consecte lorem lorem', 'Lorem 1 ipsum dolor sit amet 1 consectetur adipisicing elit. Laudantium quam awdcorrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae nodoloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobiawds, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2025-01-21T03:06', 'finished'),
+('Xp8OwYlF', 7, 'Lorem ipsum 3 dolor sit amet consectetur adipisici', 'Lorem ipsum 3 dolor sit amet consectetur adipisicing elit. Laudantium quam corrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae non doloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobis, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2024-01-20T15:06', 'progress'),
+('Xp8OwYlF', 8, 'Add security options', 'add function so that update handler and mark handler verify user.', '2024-01-22T11:00', 'progress'),
+('Xp8OwYlF', 9, 'lorem', 'lorem', '2024-01-19T02:57', 'finished'),
+('Xp8OwYlF', 10, 'lopppe', 'as', '2024-02-03T09:57', 'progress'),
+('Xp8OwYlF', 11, 'adaw', 'dawdwa', '2024-01-04T09:57', 'progress'),
+('Xp8OwYlF', 12, 'awwdawda', 'dawdwadwa', '2024-01-19T09:58', 'finished'),
+('Xp8OwYlF', 13, 'faa', 'fafa', '2024-01-19T11:25', 'finished'),
+('Xp8OwYlF', 14, 'a', 'a', '2024-01-19T23:22', 'finished'),
+('Xp8OwYlF', 16, 'adawaa', 'awd', '2024-01-19T11:26', 'progress'),
+('Xp8OwYlF', 18, 'ak', 'm4', '2024-01-29T09:12', 'progress'),
+('Xp8OwYlF', 19, 'adwa', 'awd', '2024-01-29T09:29', 'finished');
 
 --
 -- Indexes for dumped tables
@@ -127,12 +126,6 @@ ALTER TABLE `work`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `work`
