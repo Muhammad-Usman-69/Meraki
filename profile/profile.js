@@ -99,6 +99,7 @@ let tableRows = document.querySelectorAll(".tr");
 let pagesContainer = document.querySelector(".pages-container");
 let pageNavContainer = document.querySelector(".page-nav-container");
 let descriptions = document.querySelectorAll(".description");
+let titles = document.querySelectorAll(".title");
 let noResult = document.querySelector(".no-result");
 let statuses = document.querySelectorAll(".status");
 
@@ -106,18 +107,6 @@ function pagination() {
 
     //taking value of serach
     let query = document.querySelector(".search").value;
-
-    //initializing array to contain query letters
-    let arr = [];
-
-    //splitting words
-    let words = query.split(" ");
-
-    //pushing words into arr
-    words.forEach(word => {
-        word = word.toLowerCase();
-        arr.push(word);
-    })
 
     //taking value of index
     let index = document.querySelector("#num").value;
@@ -131,35 +120,44 @@ function pagination() {
     //initializing value for total rows
     let totalRows = 0;
 
-    //looping through arr containing query words
-    for (let i = 0; i < arr.length; i++) {
+    //initializing element for title
+    let element = 0;
 
-        tableRows.forEach(rows => {
+    tableRows.forEach(rows => {
 
-            if (query != "") {
+        if (query != "") {
+            rows.classList.add("hidden");
+        }
+
+        //checking by id
+        let id = rows.id;
+
+        //checking for title
+        let title = titles[element].innerHTML.toLowerCase();
+
+        //if titles are hidden
+        if (document.body.scrollWidth <= 1280) {
+            title = " ";
+        }
+
+        //checker
+        if ((id.includes(query) || title.includes(query) && query != "")) {
+
+            if (searchRows < index) {
+                rows.classList.remove("hidden");
+            } else {
                 rows.classList.add("hidden");
             }
 
-            //checking by id
-            let id = rows.id;
+            //incrementing value of number of search rows
+            searchRows++;
+        }
 
-
-            //checker
-            if (id.includes(arr[i]) && query != "") {
-
-                if (searchRows < index) {
-                    rows.classList.remove("hidden");
-                } else {
-                    rows.classList.add("hidden");
-                }
-
-                //incrementing value of number of search rows
-                searchRows++;
-            }
-
-        });
-
-    }
+        //increamenting element
+        element++;
+    });
+    
+    element = 0;
 
     //taking active status
     let active = document.querySelector(".active");

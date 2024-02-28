@@ -184,10 +184,10 @@ session_start();
                         <span>Time</span>
                         <div class="flex flex-col space-y-2">
                             <button type="button" onclick="window.location.assign('?o=asc')">
-                                <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if ($_GET['o'] == 'asc') { echo 'style="filter: invert(100%)"';} ?>  alt="">
+                                <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'asc') { echo 'style="filter: invert(100%)"';} ?>  alt="">
                             </button>
                             <button type="button" onclick="window.location.assign('?o=desc')">
-                                <img src="images/down-arrow.png" width="16" class="invert-[75%]" <?php if ($_GET['o'] == 'desc') { echo 'style="filter: invert(100%)"';} ?> alt="">
+                                <img src="images/down-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'desc') { echo 'style="filter: invert(100%)"';} ?> alt="">
                             </button>
                         </div>
                     </th>
@@ -220,8 +220,8 @@ session_start();
                             $desc = $row["work_desc"];
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
-                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="' . $work_id . '">
-                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">' . $work_id . '</td>
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
+                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">#' . $work_id . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base title">' . $title . '</td>
                                 <td class="px-3 py-4">
@@ -256,7 +256,7 @@ session_start();
                                     <div class="relative shadow bg-gray-700 border border-white rounded-md">
                                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                                             <h3 class="text-xl font-semibold text-white">
-                                                Review your work
+                                                Review Your Work
                                             </h3>
                                             <button type="button"
                                                 class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
@@ -309,7 +309,7 @@ session_start();
                                     <div class="relative shadow bg-gray-700 border border-white rounded-md">
                                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                                             <h3 class="text-xl font-semibold text-white">
-                                                Edit your work
+                                                Edit Your Work
                                             </h3>
                                             <button type="button"
                                                 class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"

@@ -10,18 +10,6 @@ function pagination() {
     //taking value of serach
     let query = document.querySelector(".search").value;
 
-    //initializing array to contain query letters
-    let arr = [];
-    //splitting words
-
-    let words = query.split(" ");
-
-    //pushing words into arr
-    words.forEach(word => {
-        word = word.toLowerCase();
-        arr.push(word);
-    })
-
     //taking value of index
     let index = document.querySelector("#num").value;
 
@@ -34,44 +22,41 @@ function pagination() {
     //initializing value for total rows
     let totalRows = 0;
 
-    //looping through arr containing query words
-    for (let i = 0; i < arr.length; i++) {
+    //initializing element for title
+    let element = 0;
 
-        //initializing element for title
-        let element = 0;
+    tableRows.forEach(rows => {
 
-        tableRows.forEach(rows => {
+        if (query != "") {
+            rows.classList.add("hidden");
+        }
 
-            if (query != "") {
+        //checking for title
+        let title = titles[element].innerHTML.toLowerCase();
+
+        //checking by id
+        let id = rows.id;
+
+
+        //checker
+        if (id.includes(query) || title.includes(query) && query != "") {
+
+            if (searchRows < index) {
+                rows.classList.remove("hidden");
+            } else {
                 rows.classList.add("hidden");
             }
 
-            //checking for title
-            let title = titles[element].innerHTML.toLowerCase();
+            //incrementing value of number of search rows
+            searchRows++;
+        }
 
-            //checking by id
-            let id = rows.id;
+        //increamenting element
+        element++;
 
-
-            //checker
-            if ((id == arr[i] || title.includes(arr[i])) && query != "") {
-
-                if (searchRows < index) {
-                    rows.classList.remove("hidden");
-                } else {
-                    rows.classList.add("hidden");
-                }
-
-                //incrementing value of number of search rows
-                searchRows++;
-            }
-
-            //increamenting element
-            element++;
-
-        });
-        element = 0;
-    }
+    });
+    
+    element = 0;
 
     tableRows.forEach(rows => {
 

@@ -32,7 +32,7 @@ $status = $row["status"];
     <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
 </head>
 
-<body class="flex flex-col min-h-screen hide-scrollbar bg-gray-800">
+<body class="flex flex-col min-h-screen hide-scrollbar bg-gray-800" onresize="showTitle()">
 
     <!-- alert -->
 
@@ -132,7 +132,7 @@ $status = $row["status"];
     </div>';
     }
     ?>
-    
+
 
     <div class="profile py-14 grid place-items-center md:grid-cols-[1fr_2px_1fr]">
         <div class="profile-pic flex justify-center relative group w-64 h-64">
@@ -238,7 +238,22 @@ $status = $row["status"];
         <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
             <tr>
                 <th scope="col" class="px-4 py-3 sm:px-7">Id</th>
-                <th scope="col" class="px-4 py-3">Time</th>
+                <th scope="col" class="px-4 py-3 title-head hidden">Title</th>
+                <th scope="col" class="px-4 py-3 sm:w-32 md:w-48 flex justify-between items-center">
+                    <span>Time</span>
+                    <div class="flex flex-col space-y-2">
+                        <button type="button" onclick="window.location.assign('?o=asc')">
+                            <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'asc') {
+                                echo 'style="filter: invert(100%)"';
+                            } ?> alt="">
+                        </button>
+                        <button type="button" onclick="window.location.assign('?o=desc')">
+                            <img src="images/down-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'desc') {
+                                echo 'style="filter: invert(100%)"';
+                            } ?> alt="">
+                        </button>
+                    </div>
+                </th>
                 <th scope="col" class="px-4 py-3">Function</th>
                 <th scope="col" class="px-4 py-3">Status</th>
             </tr>
@@ -250,6 +265,11 @@ $status = $row["status"];
             <?php
             $id = $_SESSION["id"];
             $sql = "SELECT * FROM `work` WHERE `id` = ?";
+            //if any specific order
+            if (isset($_GET["o"]) && ($_GET["o"] == "asc" || $_GET["o"] == "desc")) {
+                $order = $_GET["o"];
+                $sql = "SELECT * FROM `work` WHERE `id` = ? ORDER BY `work_time` $order";
+            }
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "s", $id);
             mysqli_stmt_execute($stmt);
@@ -265,6 +285,7 @@ $status = $row["status"];
                     $time = $row["work_time"];
                     echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
                     <td class="px-4 py-4 sm:px-6">#' . $work_id . '</td>
+                    <td class="py-4 hidden title xl:block">' . $title . '</td>
                     <td class="px-4 py-4">
                         <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
                         <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date hide" readonly>
@@ -346,7 +367,7 @@ $status = $row["status"];
                                 <div class="relative shadow bg-gray-700 border border-white rounded-md">
                                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                                         <h3 class="text-xl font-semibold text-white">
-                                            Edit your work
+                                            Edit Your Work
                                         </h3>
                                         <button type="button"
                                             class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
@@ -475,7 +496,7 @@ $status = $row["status"];
                             <div class="relative shadow bg-gray-700 border border-white rounded-md">
                                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                                     <h3 class="text-xl font-semibold text-white">
-                                        Review your work
+                                        Review Your Work
                                     </h3>
                                     <button type="button"
                                         class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
@@ -545,6 +566,21 @@ $status = $row["status"];
         </footer>
     </div>
 
+    <script>
+        //taking title head
+        let titleHead = document.querySelector(".title-head");
+        //showing title
+        function showTitle() {
+            let screenWidth = document.body.scrollWidth;
+            if (screenWidth >= 1280) {
+                titleHead.classList.remove("hidden");
+            } else {
+                titleHead.classList.add("hidden");
+            }
+        }
+        //onload
+        showTitle();
+    </script>
     <script src="profile/profile.js"></script>
     <script src="side/flowbite.js"></script>
 </body>
