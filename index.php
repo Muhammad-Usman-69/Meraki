@@ -196,7 +196,7 @@ session_start();
             </thead>
             <tbody>
                 <tr class="text-center bg-gray-800 text-gray-300 border-b border-gray-700 hidden no-result">
-                    <td class="py-4" colspan="4">No Results Found</td>
+                    <td class="py-6" colspan="4">No Results Found</td>
                 </tr>
                 <?php
                 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
@@ -461,9 +461,9 @@ session_start();
     <script src="side/pagination.js"></script>
     <script src="side/flowbite.js"></script>
     <?php
-    if (!isset($_SESSION["log"])) {
+    /* if (!isset($_SESSION["log"])) {
         echo '<script> formHide(); </script>';
-    }
+    } */
     ?>
 
 

@@ -260,7 +260,7 @@ $status = $row["status"];
         </thead>
         <tbody>
             <tr class="text-center bg-gray-800 text-gray-300 border-b border-gray-700 hidden no-result">
-                <td class="py-4" colspan="4">No Results Found</td>
+                <td class="py-6" colspan="5">No Results Found</td>
             </tr>
             <?php
             $id = $_SESSION["id"];

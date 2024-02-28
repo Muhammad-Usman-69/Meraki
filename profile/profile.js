@@ -252,13 +252,13 @@ function pagination() {
 
     //reseting the pages 
     pagesContainer.innerHTML = "";
-
-    //show pagination container
-    pageNavContainer.classList.remove("hidden");
-
+    
     //hiding if there is only one page
-    if (numPages != 1) {
+    if (numPages > 1) {
 
+        //show pagination container
+        pageNavContainer.classList.remove("hidden");
+        
         //looping to get pages
         for (let i = 1; i <= numPages; i++) {
             pagesContainer.innerHTML +=
