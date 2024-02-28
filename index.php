@@ -114,7 +114,7 @@ session_start();
         <button type="button"
             class="p-2 m-6 ml-auto bg-white bg-opacity-20 rounded-full cursor-pointer grid place-content-center hover:bg-opacity-30 active:bg-opacity-25 sm:absolute sm:right-0"
             onclick="formHide()">
-            <img src="images/arrow-up.png" class="p-0.5 w-6 h-6 transition-all duration-100 rotate-180" alt="">
+            <img src="images/pointer-up.png" class="p-0.5 w-6 h-6 transition-all duration-100 rotate-180" alt="">
         </button>
 
         <hr class="sm:hidden">
@@ -137,7 +137,7 @@ session_start();
                     </div>
                     <div class="flex flex-col space-y-3">
                         <label for="time" class="text-gray-200">Time</label>
-                        <input type="datetime-local" name="time" id="time" placeholder="10:10:2010"
+                        <input type="datetime-local" name="time" id="time" value="2025-03-03 05:30:00"
                             class="border border-black outline-none px-3 py-2 rounded text-gray-500 bg-gray-700 w-full calender"
                             oninput="datetimeColor(this)" required>
                     </div>
@@ -180,7 +180,17 @@ session_start();
                 <tr>
                     <th scope="col" class="px-4 py-3 sm:px-7">Id</th>
                     <th scope="col" class="px-4 py-3 w-fit">Title</th>
-                    <th scope="col" class="px-6 py-3">Time</th>
+                    <th scope="col" class="px-6 py-3 sm:w-32 md:w-48 flex justify-between items-center">
+                        <span>Time</span>
+                        <div class="flex flex-col space-y-2">
+                            <button type="button" onclick="window.location.assign('?o=asc')">
+                                <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if ($_GET['o'] == 'asc') { echo 'style="filter: invert(100%)"';} ?>  alt="">
+                            </button>
+                            <button type="button" onclick="window.location.assign('?o=desc')">
+                                <img src="images/down-arrow.png" width="16" class="invert-[75%]" <?php if ($_GET['o'] == 'desc') { echo 'style="filter: invert(100%)"';} ?> alt="">
+                            </button>
+                        </div>
+                    </th>
                     <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
                 </tr>
             </thead>
@@ -192,7 +202,12 @@ session_start();
                 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                     $id = $_SESSION["id"];
                     $status = "progress";
-                    $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ?";
+                    $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ? ORDER BY `work_time` ASC";
+                    //if any specific order
+                    if (isset($_GET["o"]) && ($_GET["o"] == "asc" || $_GET["o"] == "desc")) {
+                        $order = $_GET["o"];
+                        $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ? ORDER BY `work_time` $order";
+                    }
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "ss", $id, $status);
                     mysqli_stmt_execute($stmt);
@@ -205,8 +220,8 @@ session_start();
                             $desc = $row["work_desc"];
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
-                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">#' . $work_id . '</td>
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="' . $work_id . '">
+                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">' . $work_id . '</td>
                                 <!--max 150-->
                                 <td class="py-4 text-sm sm:text-base title">' . $title . '</td>
                                 <td class="px-3 py-4">
@@ -446,12 +461,12 @@ session_start();
     <script src="side/pagination.js"></script>
     <script src="side/flowbite.js"></script>
     <?php
-        if (!isset($_SESSION["log"])) {
-            echo '<script> formHide(); </script>';
-        }
+    if (!isset($_SESSION["log"])) {
+        echo '<script> formHide(); </script>';
+    }
     ?>
-    
-     
+
+
 </body>
 
 </html>
