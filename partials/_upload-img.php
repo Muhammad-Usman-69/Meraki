@@ -32,19 +32,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //check if file has extension which is allowed
     if (!in_array($fileActualExt, $allowed)) {
-        header("location: /profile/?error=Unknown file type. Only allowed are jpg, jpeg and png");
+        header("location: /p?error=Unknown file type. Only allowed are jpg, jpeg and png");
         exit();
     }
 
     //check if there is any error in file uploaded
     if ($fileError !== 0) {
-        header("location: /profile/?error=An error occured. Please upload again");
+        header("location: /p?error=An error occured. Please upload again");
         exit();
     }
 
     //check file size
     if ($fileSize > 500000) {
-        header("location: /profile/?error=File too large. Maximum size is 500 KB");
+        header("location: /p?error=File too large. Maximum size is 500 KB");
         exit();
     }
 
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //check if pasted
     if ($result != true) {
-        header("location: /profile/?error=An error occured. Please upload again later");
+        header("location: /p?error=An error occured. Please upload again later");
         exit();
     }
 
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_SESSION["id"];
 
     //moving to database
-    include("../partials/_dbconnect.php");
+    include("_dbconnect.php");
 
     $sql = "UPDATE `users` SET `img` = ? WHERE `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
@@ -76,14 +76,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //check if data is moved to db successfully
     if ($sql_result != true) {
-        header("location: /profile/?error=An error occured. Please try again");
+        header("location: /p?error=An error occured. Please try again");
         exit();
     }
 
-    header("location: /profile/?alert=Uploaded successfully");
+    header("location: /p?alert=Uploaded successfully");
     exit();
 
 } else {
-    header("location: /profile/?error=Access Denied");
+    header("location: /p?error=Access Denied");
     exit();
 }
