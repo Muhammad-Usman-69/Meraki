@@ -2,8 +2,8 @@
 module.exports = {
   content: [
     "index.php",
+    "test.html",
     "p.php",
-    // "partials/*.php",
     "side/*.js"
   ],
   theme: {

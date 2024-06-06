@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 03:09 PM
+-- Generation Time: Jun 06, 2024 at 03:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `meraki`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE `comments` (
+  `comment_id` varchar(5) NOT NULL,
+  `work_id` int(11) NOT NULL,
+  `user_id` varchar(8) NOT NULL,
+  `user_name` text NOT NULL,
+  `time` text NOT NULL,
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`comment_id`, `work_id`, `user_id`, `user_name`, `time`, `comment`) VALUES
+('xr2DX', 11, 'Xp8OwYlF', 'admin', '2024-06-06T06:00', 'All Hail Lelouch');
 
 -- --------------------------------------------------------
 
@@ -84,9 +106,9 @@ CREATE TABLE `work` (
 
 INSERT INTO `work` (`id`, `work_id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES
 ('Xp8OwYlF', 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-20T00:00', 'progress'),
-('Xp8OwYlF', 6, 'Lorem ipsum dolor sit amet consecte lorem lorem', 'Lorem 1 ipsum dolor sit amet 1 consectetur adipisicing elit. Laudantium quam awdcorrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae nodoloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobiawds, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2025-01-21T03:06', 'finished'),
+('Xp8OwYlF', 6, 'Lorem ipsum dolor', 'Lorem 1 ipsum dolor sit amet 1 consectetur adipisicing elit. Laudantium quam awdcorrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae nodoloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobiawds, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2025-01-21T03:06', 'progress'),
 ('Xp8OwYlF', 7, 'Lorem ipsum 3 dolor sit amet consectetur adipisici', 'Lorem ipsum 3 dolor sit amet consectetur adipisicing elit. Laudantium quam corrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae non doloremque, earum fugiat dolores nesciunt a ullam eius tempore fugit vitae quaerat. Eum sint veniam, laboriosam voluptas perferendis, asperiores praesentium aliquam placeat ducimus porro delectus possimus! Culpa iste nobis, id consectetur magni facilis soluta est, rerum laboriosam aliquid illum modi cumque deleniti impedit. Cumque explicabo, distinctio veniam temporibus unde esse rem ad provident eaque vitae, doloremque corrupti quasi. Nisi, maxime vero! Dolor modi dignissimos recusandae unde amet officiis fuga est nam beatae repellendus atque reiciendis, temporibus quo voluptates qui cum natus! Nihil unde quisquam adipisci maiores deserunt blanditiis perferendis ipsum cupiditate odio, similique, quod eaque hic incidunt, animi nesciunt commodi dolorum qui? Itaque quasi soluta in dolorem placeat obcaecati quis nam quae, exercitationem eveniet, nesciunt dicta, corrupti voluptas nostrum architecto maxime magnam ex provident harum facilis reiciendis blanditiis ducimus doloremque. Possimus natus et rem iure explicabo adipisci vel deleniti libero non doloremque fugiat, mollitia minima quo sunt qui voluptate quia eius eos enim aperiam facere ipsum! At libero similique, placeat ex vitae fuga facilis, dolores totam a quaerat sit soluta repudiandae minima eius molestias? Vel, inventore? Enim nulla fuga dolor!\r\n\r\n', '2024-01-20T15:06', 'progress'),
-('Xp8OwYlF', 8, 'Add security options', 'add function so that update handler and mark handler verify user.', '2024-01-22T11:00', 'progress'),
+('Xp8OwYlF', 8, 'Add security options', 'add function so that update handler and mark handler verify user.', '2024-01-22T11:00', 'closed'),
 ('Xp8OwYlF', 9, 'lorem', 'lorem', '2024-01-19T02:57', 'finished'),
 ('Xp8OwYlF', 10, 'lopppe', 'as', '2024-02-03T09:57', 'progress'),
 ('Xp8OwYlF', 11, 'adaw', 'dawdwa', '2024-01-04T09:57', 'progress'),
@@ -100,6 +122,12 @@ INSERT INTO `work` (`id`, `work_id`, `work_title`, `work_desc`, `work_time`, `wo
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
 
 --
 -- Indexes for table `users`
