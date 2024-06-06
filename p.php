@@ -1,5 +1,5 @@
 <?php
-include("partials/_dbconnect.php");
+include ("partials/_dbconnect.php");
 session_start();
 if ($_SESSION["log"] != true) {
     header("location:/?error=Please log in");
@@ -103,7 +103,7 @@ $status = $row["status"];
             </div>
         </nav>
     </header>
-    <?php include("partials/_lo-modal.php") ?>
+    <?php include ("partials/_lo-modal.php") ?>
 
     <?php
     if ($status == 0) {
@@ -237,8 +237,8 @@ $status = $row["status"];
     <table class="w-full">
         <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
             <tr>
-                <th scope="col" class="px-4 py-3 sm:px-7">Id</th>
-                <th scope="col" class="px-4 py-3 title-head hidden">Title</th>
+                <th scope="col" class="px-4 py-3 sm:px-8 text-center">Id</th>
+                <th scope="col" class="px-4 py-3 title-header w-full hidden">Title</th>
                 <th scope="col" class="px-4 py-3 sm:w-32 md:w-48 flex justify-between items-center">
                     <span>Time</span>
                     <div class="flex flex-col space-y-2">
@@ -254,8 +254,8 @@ $status = $row["status"];
                         </button>
                     </div>
                 </th>
-                <th scope="col" class="px-4 py-3">Function</th>
-                <th scope="col" class="px-4 py-3">Status</th>
+                <th scope="col" class="px-4 py-3 xl:min-w-56">Function</th>
+                <th scope="col" class="px-4 py-3 sm:px-8 text-center">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -284,7 +284,7 @@ $status = $row["status"];
                     $work_id = $row["work_id"];
                     $time = $row["work_time"];
                     echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                    <td class="px-4 py-4 sm:px-6">#' . $work_id . '</td>
+                    <td class="px-4 py-4 sm:px-8">#' . $work_id . '</td>
                     <td class="py-4 hidden title xl:block">' . $title . '</td>
                     <td class="px-4 py-4">
                         <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
@@ -294,7 +294,7 @@ $status = $row["status"];
 
                     //checking status
                     if ($status != "progress") {
-                        echo '<td class="py-4 grid sm:flex">
+                        echo '<td class="py-4 grid sm:flex xl:min-w-56">
                             <div class="w-fit">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '"
                                     class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
@@ -341,7 +341,7 @@ $status = $row["status"];
                             </div>
                         </div>';
                     } else {
-                        echo '<td class="py-4 grid grid-cols-1 gap-1 sm:flex">
+                        echo '<td class="py-4 grid grid-cols-1 gap-1 sm:flex xl:min-w-56">
                             <div class="w-fit">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                     <img class="invert w-6" src="images/detail.png" alt="detail">
@@ -542,7 +542,7 @@ $status = $row["status"];
                         </div>
                     </div>';
 
-                    echo '<td class="px-3 py-4 capitalize status">' . $status . '</td>
+                    echo '<td class="px-3 py-4 capitalize status sm:px-8 text-center">' . $status . '</td>
                     </tr>';
                     $i++;
                 }
@@ -553,7 +553,7 @@ $status = $row["status"];
     </table>
 
 
-    <div class="mt-auto">
+    <div class="mt-auto" id="scroll">
         <!-- pagination -->
         <nav class="bg-gray-800 py-5 px-4 text-gray-400 page-nav-container hidden">
             <div class="flex items-center justify-center space-x-[1px] pages-container">
@@ -567,19 +567,20 @@ $status = $row["status"];
     </div>
 
     <script>
-        //taking title head
-        let titleHead = document.querySelector(".title-head");
         //showing title
         function showTitle() {
-            let screenWidth = document.body.scrollWidth;
+            //taking title head
+            let titleHead = document.querySelector(".title-header");
+            //taking screen width 
+            let screenWidth = document.body.scrollWidth + 4;
             if (screenWidth >= 1280) {
                 titleHead.classList.remove("hidden");
             } else {
                 titleHead.classList.add("hidden");
             }
         }
-        //onload
         showTitle();
+        window.addEventListener("resize", () => showTitle());
     </script>
     <script src="profile/profile.js"></script>
     <script src="side/flowbite.js"></script>

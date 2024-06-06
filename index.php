@@ -1,5 +1,5 @@
 <?php
-include("partials/_dbconnect.php");
+include ("partials/_dbconnect.php");
 session_start();
 ?>
 <!DOCTYPE html>
@@ -69,10 +69,10 @@ session_start();
     <!--modal-->
     <?php
     if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
-        include("partials/_lo-modal.php");
+        include ("partials/_lo-modal.php");
     } else {
-        include("partials/_s-modal.php");
-        include("partials/_l-modal.php");
+        include ("partials/_s-modal.php");
+        include ("partials/_l-modal.php");
     }
     ?>
 
@@ -175,19 +175,29 @@ session_start();
         </div>
 
         <!-- table -->
-        <table class="w-full">
+        <table class="min-w-full">
             <thead class="uppercase text-xs bg-gray-700 text-gray-400 text-left">
                 <tr>
-                    <th scope="col" class="px-4 py-3 sm:px-7">Id</th>
-                    <th scope="col" class="px-4 py-3 w-fit">Title</th>
+                    <th scope="col" class="px-4 py-3 sm:px-8 text-center">Id</th>
+                    <th scope="col" class="px-4 py-3 w-full">Title</th>
                     <th scope="col" class="px-6 py-3 sm:w-32 md:w-48 flex justify-between items-center">
                         <span>Time</span>
                         <div class="flex flex-col space-y-2">
                             <button type="button" onclick="window.location.assign('?o=asc')">
-                                <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'asc') { echo 'style="filter: invert(100%)"';} ?>  alt="">
+                                <img src="images/up-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'asc') {
+                                    echo 'style="filter: invert(100%)"';
+                                } ?>
+                                    alt="">
                             </button>
                             <button type="button" onclick="window.location.assign('?o=desc')">
-                                <img src="images/down-arrow.png" width="16" class="invert-[75%]" <?php if (isset($_GET['o']) && $_GET['o'] == 'desc') { echo 'style="filter: invert(100%)"';} ?> alt="">
+                                <?php
+                                if (isset($_GET['o']) && $_GET['o'] == 'desc') {
+                                    echo '<img src="images/down-arrow.png" width="16" class="invert-[75%]" alt="" style="filter: invert(100%)">';
+                                } else {
+                                    echo '<img src="images/down-arrow.png" width="16" class="invert-[75%]" alt="">';
+                                }
+                                ?>
+
                             </button>
                         </div>
                     </th>
@@ -221,9 +231,11 @@ session_start();
                             $time = $row["work_time"];
                             $work_id = $row["work_id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-3 py-4 text-sm sm:text-base sm:px-6">#' . $work_id . '</td>
+                                <td class="px-3 py-4 text-sm sm:text-base text-center sm:px-8">#' . $work_id . '</td>
                                 <!--max 150-->
-                                <td class="py-4 text-sm sm:text-base title">' . $title . '</td>
+                                <div>
+                                    <td class="py-4 text-sm sm:text-base title w-full">' . $title . '</td>
+                                </div>
                                 <td class="px-3 py-4">
                                     <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
                                     <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date text-sm sm:text-base hide" readonly>
@@ -432,10 +444,10 @@ session_start();
                             $i++;
                         }
                     } else {
-                        include("partials/_dummy-input.php");
+                        include ("partials/_dummy-input.php");
                     }
                 } else {
-                    include("partials/_dummy-login.php");
+                    include ("partials/_dummy-login.php");
                 }
                 ?>
 
@@ -461,9 +473,9 @@ session_start();
     <script src="side/pagination.js"></script>
     <script src="side/flowbite.js"></script>
     <?php
-    /* if (!isset($_SESSION["log"])) {
+    if (!isset($_SESSION["log"])) {
         echo '<script> formHide(); </script>';
-    } */
+    }
     ?>
 
 

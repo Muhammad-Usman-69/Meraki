@@ -1,11 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "*.php",
-    "partials/*",
-    "side/*",
-    "*",
-    "test/*"
+    "index.php",
+    "p.php",
+    // "partials/*.php",
+    "side/*.js"
   ],
   theme: {
     extend: {

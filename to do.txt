@@ -1,0 +1,5 @@
+add admin panel
+admin can see all task
+admin can assign task to people
+admin can assign task to two people
+user can put comments
