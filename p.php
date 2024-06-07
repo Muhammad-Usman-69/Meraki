@@ -7,12 +7,6 @@ if ($_SESSION["log"] != true) {
     exit();
 }
 
-//check if admin
-/* if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-    header("location:dashboard");
-    exit();
-} */
-
 $id = $_SESSION["id"];
 $sql = "SELECT * FROM `users` WHERE `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
@@ -102,6 +96,15 @@ $status = $row["status"];
                             class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
                             out</button>
                     </li>
+                    <?php
+                    if ($_SESSION["admin"] == true) {
+                        echo '<li
+                        class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                        <a href="dashboard.php"
+                            class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Dashboard</a>
+                    </li>';
+                    }
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -227,8 +230,7 @@ $status = $row["status"];
             onclick="active(this.id)">
             <img class="w-6 invert" src="images/hourglass.png" alt="progress">
         </button>
-        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="2"
-            onclick="active(this.id)">
+        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="2" onclick="active(this.id)">
             <img class="w-6 invert" src="images/finish.png" alt="finished">
         </button>
     </div>
@@ -373,7 +375,7 @@ $status = $row["status"];
             if (screenWidth >= 1280) {
                 titleHead.classList.remove("hidden");
                 titles.forEach(title => title.classList.remove("hidden"));
-                } else {
+            } else {
                 titleHead.classList.add("hidden");
                 titles.forEach(title => title.classList.add("hidden"));
             }

@@ -1,12 +1,6 @@
 <?php
 include ("partials/_dbconnect.php");
 session_start();
-
-//check if admin
-if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-    header("location: dashboard.php");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -66,8 +60,14 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                                 up</button>
                         </li>';
                     }
+                    if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                            <a href="dashboard.php" class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Dashboard</a>
+                            </li>';
+                    }
                     ?>
                 </ul>
+                </li>
             </div>
         </nav>
     </header>

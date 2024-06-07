@@ -14,19 +14,18 @@ if (!isset($_SESSION["log"]) || $_SESSION["log"] != true) {
 }
 
 //check if task id is even avaiable
-$taskid = $_POST["id"];
-$id = $_SESSION["id"];
-$sql = "SELECT * FROM `tasks` WHERE `task_id` = ? AND `id` = ?";
+$id = $_POST["id"];
+$sql = "SELECT * FROM `tasks` WHERE `task_id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "s", $taskid, $id);
+mysqli_stmt_bind_param($stmt, "s", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
 
 //check if input is emplty
-$title = $_POST["task-edit-title-$taskid"];
-$desc = $_POST["task-edit-desc-$taskid"];
-$time = $_POST["task-edit-time-$taskid"];
+$title = $_POST["task-edit-title-$id"];
+$desc = $_POST["task-edit-desc-$id"];
+$time = $_POST["task-edit-time-$id"];
 
 $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 $desc = htmlspecialchars($desc, ENT_QUOTES, 'UTF-8');
@@ -40,7 +39,7 @@ if ($num == 0 || $title != "" || $desc != "" || $time != "") {
 echo "Please wait...";
 $sql = "UPDATE `tasks` SET `task_title` = ?, `task_desc` = ?, `task_time` = ? WHERE `task_id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ssss", $title, $desc, $time, $taskid);
+mysqli_stmt_bind_param($stmt, "ssss", $title, $desc, $time, $id);
 $result = mysqli_stmt_execute($stmt);
 if ($result) {
     header("location: /?alert=Updated successfully");

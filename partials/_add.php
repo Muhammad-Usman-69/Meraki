@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $status = "progress";
 
             //checking if maximum lists are added
-            $sqlChecker = "SELECT * FROM `work` WHERE `id` = ? AND `task_status` = ?";
+            $sqlChecker = "SELECT * FROM `tasks` WHERE `id` = ? AND `task_status` = ?";
             $stmtChecker = mysqli_prepare($conn, $sqlChecker);
             mysqli_stmt_bind_param($stmtChecker, "ss", $id, $status);
             mysqli_stmt_execute($stmtChecker);
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
 
-            $sql = "INSERT INTO `work` (`id`, `task_title`, `task_desc`, `task_time`, `task_status`) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `tasks` (`id`, `task_title`, `task_desc`, `task_time`, `task_status`) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "sssss", $id, $title, $desc, $time, $status);
             $result = mysqli_stmt_execute($stmt);

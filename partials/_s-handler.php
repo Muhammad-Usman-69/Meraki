@@ -40,7 +40,7 @@ if ($num != 0) {
     $id = $id . random_str(3);
 }
 
-if ($name == "" && $email == "" && $pass == "" && $cpass == "") {
+if ($name == "" || $email == "" || $pass == "") {
     header("location: /?error=Invalid cresidentials.");
     exit();
 } else {

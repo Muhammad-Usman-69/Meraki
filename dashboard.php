@@ -25,7 +25,7 @@ include ("partials/_dbconnect.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="side/style.css" rel="stylesheet">
-    <link rel="shortcut icon" href="images/logo.jfif" type="image/x-icon">
+    <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
     <title>Dashboard Meraki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,30 +75,13 @@ include ("partials/_dbconnect.php");
         </button>
     </div>
     <div class="flex z-20 overflow-y-hidden max-h-screen">
-        <!-- side menu -->
-        <div class="flex flex-col no-scrollbar z-20">
-            <div
-                class="menu w-0 overflow-hidden min-h-screen overflow-y-scroll no-scrollbar transition-all ease-linear duration-200 bg-gray-50 border-r border-gray-700">
-                <div class="flex items-center">
-                    <a href=""
-                        class="whitespace-nowrap block text-gray-700 p-2 m-3 rounded-md text-sm text-center hover:text-black ml-14"><i
-                            class="fa fa-house text-gray-700"></i> Dashboard</a>
-                </div>
-                <hr class="mx-3 border-t border-gray-700">
-                <div class="space-y-4 my-6 flex flex-col">
-                    <a href="#user"
-                        class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
-                            class="fa fa-user text-gray-700"></i> Accounts</a>
-                    <a href="tasks"
-                        class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
-                            class="fa fa-clipboard text-gray-700"></i> Tasks</a>
-                </div>
-            </div>
-        </div>
+        <?php
+        include("dashboard/_sidemenu.php");
+        ?>
         <!-- current container -->
         <div class="overflow-y-scroll hide-scrollbar w-full">
             <header class="flex justify-between items-center mx-3">
-                <a href="dashboard.php" class="dashboard-link flex items-center space-x-3 p-3 ml-10">
+                <a href="/" class="dashboard-link flex items-center space-x-3 p-3">
                     <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
                     <p class="text-gray-700 text-sm">Meraki</p>
                 </a>
@@ -171,9 +154,11 @@ include ("partials/_dbconnect.php");
                             } else {
                                 $verify = "Unverified";
                             }
+
                             $totalTasks = 0;
                             $progress = 0;
                             $finished = 0;
+
                             //for tasks num
                             $sql = "SELECT * FROM `tasks` WHERE `id` = ?";
                             $stmt = mysqli_prepare($conn, $sql);
