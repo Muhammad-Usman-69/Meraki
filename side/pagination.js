@@ -123,6 +123,8 @@ function pagination() {
 }
 
 function changePage(pgNum) {
+    //scrolling to the bottom
+    window.scrollTo(0, document.body.scrollHeight);
 
     //taking all pages
     let pages = document.querySelectorAll(".page");

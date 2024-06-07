@@ -1,8 +1,15 @@
 <?php
 include ("partials/_dbconnect.php");
 session_start();
+
 if ($_SESSION["log"] != true) {
     header("location:/?error=Please log in");
+    exit();
+}
+
+//check if admin
+if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+    header("location:dashboard");
     exit();
 }
 
@@ -307,39 +314,11 @@ $status = $row["status"];
                         </td>
                         ';
 
-                        echo '<div id="restore-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <div class="relative rounded-lg shadow bg-gray-700 border border-white">
-                                    <button type="button"
-                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                                        data-modal-hide="restore-modal-' . $i . '">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                    <div class="p-4 md:p-5 text-center">
-                                        <svg class="mx-auto mb-4 w-12 h-12 text-gray-200" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                        </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to restore this?
-                                        </h3>
-                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=progress`, `_self`)" data-modal-hide="restore-modal-' . $i . '" type="button"
-                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
-                                            Yes, I&#39;m sure
-                                        </button>
-                                        <button data-modal-hide="restore-modal-' . $i . '" type="button"
-                                            class="focus:ring-4 focus:outline-none rounded-lg border text-sm font-medium px-5 py-2.5 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600">No,
-                                            cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
+                        //restore modal
+                        include("partials/_restoremodal.php");
+                        
+                        //detail modal
+                        include("partials/_detailmodal.php");
                     } else {
                         echo '<td class="py-4 grid grid-cols-1 gap-1 sm:flex xl:min-w-56">
                             <div class="w-fit">
@@ -360,187 +339,18 @@ $status = $row["status"];
                             </div>
                         </td>';
 
+                        //echo detail modal
+                        include ("partials/_detailmodal.php");
+
                         //echo edit modal
-                        echo '<div id="edit-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-                        class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <div class="relative shadow bg-gray-700 border border-white rounded-md">
-                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                                        <h3 class="text-xl font-semibold text-white">
-                                            Edit Your Work
-                                        </h3>
-                                        <button type="button"
-                                            class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                                            data-modal-hide="edit-modal-' . $i . '">
-                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 14 14">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                            </svg>
-                                            <span class="sr-only">Close modal</span>
-                                        </button>
-                                    </div>
-                                    <form action="partials/_update.php?id=' . $work_id . '" method="post">
-                                    <div class="p-4 md:p-5 space-y-4">
-                                            <div>
-                                                <label for="work-edit-id-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                                                    Work Id</label>
-                                                <input type="text" id="work-edit-id-' . $work_id . '" name="work-edit-id-' . $work_id . '"
-                                                    value="#' . $work_id . '"
-                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-                                                    readonly>
-                                            </div>
-                                            <div>
-                                                <label for="work-edit-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                                                    Work Title</label>
-                                                <input type="text" id="work-edit-title-' . $work_id . '" name="work-edit-title-' . $work_id . '"
-                                                    value="' . $title . '"
-                                                    class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" maxlength="50">
-                                            </div>
-                                            <div>
-                                                <label for="work-edit-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                                                    Work Description</label>
-                                                <textarea id="work-edit-desc-' . $work_id . '" name="work-edit-desc-' . $work_id . '" rows="4"
-                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none">' . $desc . '</textarea>
-                                            </div>
-                                            <div>
-                                                <label for="work-edit-time-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                                                    Work Time</label>
-                                                <input type="datetime-local" value="' . $time . '" id="work-edit-time-' . $work_id . '"
-                                                    name="work-edit-time-' . $work_id . '"
-                                                    class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white calender">
-                                            </div>
-                                            <button type="submit"
-                                                class="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">Update</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>';
+                        include ("partials/_editmodal.php");
 
                         //echo finish mark modal
-                        echo '<div id="finish-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <div class="relative rounded-lg shadow bg-gray-700 border border-white">
-                                    <button type="button"
-                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                                        data-modal-hide="finish-modal-' . $i . '">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                    <div class="p-4 md:p-5 text-center">
-                                        <svg class="mx-auto mb-4 w-12 h-12 text-gray-200" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                        </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as finished?
-                                        </h3>
-                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=finished`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
-                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
-                                            Yes, I&#39;m sure
-                                        </button>
-                                        <button data-modal-hide="finish-modal-' . $i . '" type="button"
-                                            class="focus:ring-4 focus:outline-none rounded-lg border text-sm font-medium px-5 py-2.5 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600">No,
-                                            cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
+                        include ("partials/_finishmodal.php");
 
                         //echo delete modal
-                        echo '<div id="delete-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <div class="relative rounded-lg shadow bg-gray-700 border border-white">
-                                    <button type="button"
-                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                                        data-modal-hide="delete-modal-' . $i . '">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                    <div class="p-4 md:p-5 text-center">
-                                        <svg class="mx-auto mb-4 w-12 h-12 text-gray-200" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                        </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as closed?
-                                        </h3>
-                                        <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=closed`, `_self`)" data-modal-hide="finish-modal-' . $i . '" type="button"
-                                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
-                                            Yes, I&#39;m sure
-                                        </button>
-                                        <button data-modal-hide="delete-modal-' . $i . '" type="button"
-                                            class="focus:ring-4 focus:outline-none rounded-lg border text-sm font-medium px-5 py-2.5 focus:z-10 bg-gray-700 text-gray-300 border-gray-500 hover:text-white hover:bg-gray-600 focus:ring-gray-600">No,
-                                            cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>';
+                        include ("partials/_deletemodal.php");
                     }
-
-                    //echo detail modal
-                    echo '<div id="detail-modal-' . $i . '" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-                    class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <div class="relative shadow bg-gray-700 border border-white rounded-md">
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                                    <h3 class="text-xl font-semibold text-white">
-                                        Review Your Work
-                                    </h3>
-                                    <button type="button"
-                                        class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
-                                        data-modal-hide="detail-modal-' . $i . '">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <div class="p-4 md:p-5">
-                                    <div class="space-y-4">
-                                        <div>
-                                            <label for="work-id-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work Id</label>
-                                            <input type="text" id="work-id-' . $work_id . '" name="work-id-' . $work_id . '" value="#' . $work_id . '"
-                                                class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-                                                readonly>
-                                        </div>
-                                        <div>
-                                            <label for="work-title-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work
-                                                Title</label>
-                                            <input type="text" id="work-title-' . $work_id . '" name="work-title-' . $work_id . '" value="' . $title . '"
-                                                class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-                                                readonly>
-                                        </div>
-                                        <div>
-                                            <label for="work-desc-' . $work_id . '" class="block mb-2 text-sm font-medium text-white">Your Work Description</label>
-                                            <textarea id="work-desc-' . $work_id . '" name="work-desc-' . $work_id . '"
-                                                rows="4" class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none description"
-                                                readonly>' . $desc . '</textarea>
-                                        </div>
-                                        <div>
-                                            <label for="work-time-' . $work_id . '"
-                                                class="block mb-2 text-sm font-medium text-white">Your Work Time</label>
-                                            <input type="datetime-local" value="' . $time . '" minlength="8" id="work-time-' . $work_id . '" name="work-time-' . $work_id . '"
-                                                class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-cal" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>';
 
                     echo '<td class="px-3 py-4 capitalize status sm:px-8 text-center">' . $status . '</td>
                     </tr>';

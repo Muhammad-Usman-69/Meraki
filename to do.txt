@@ -3,3 +3,5 @@ admin can see all task
 admin can assign task to people
 admin can assign task to two people
 user can put comments {done}
+admin can active/inactive user
+admin can add new accounts
