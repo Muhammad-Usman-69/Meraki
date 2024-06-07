@@ -21,7 +21,7 @@ echo '<div id="finish-modal-' . $i . '" data-modal-backdrop="static" tabindex="-
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as finished?
                 </h3>
-                <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=finished`, `_self`)"
+                <button onclick="window.open(`partials/_mark.php?id=' . $task_id . '&status=finished`, `_self`)"
                     data-modal-hide="finish-modal-' . $i . '" type="button"
                     class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                     Yes, I&#39;m sure

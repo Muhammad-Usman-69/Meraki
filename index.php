@@ -218,11 +218,11 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                     $id = $_SESSION["id"];
                     $status = "progress";
-                    $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ? ORDER BY `work_time` ASC";
+                    $sql = "SELECT * FROM `tasks` WHERE `id` = ? AND `task_status` = ? ORDER BY `task_time` ASC";
                     //if any specific order
                     if (isset($_GET["o"]) && ($_GET["o"] == "asc" || $_GET["o"] == "desc")) {
                         $order = $_GET["o"];
-                        $sql = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ? ORDER BY `work_time` $order";
+                        $sql = "SELECT * FROM `tasks` WHERE `id` = ? AND `task_status` = ? ORDER BY `task_time` $order";
                     }
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "ss", $id, $status);
@@ -232,12 +232,12 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                     if ($num != 0) {
                         $i = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $title = $row["work_title"];
-                            $desc = $row["work_desc"];
-                            $time = $row["work_time"];
-                            $work_id = $row["work_id"];
-                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                                <td class="px-3 py-4 text-sm sm:text-base text-center sm:px-8">#' . $work_id . '</td>
+                            $title = $row["task_title"];
+                            $desc = $row["task_desc"];
+                            $time = $row["task_time"];
+                            $task_id = $row["task_id"];
+                            echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $task_id . '">
+                                <td class="px-3 py-4 text-sm sm:text-base text-center sm:px-8">#' . $task_id . '</td>
                                 <!--max 150-->
                                 <div>
                                     <td class="py-4 text-sm sm:text-base title w-full">' . $title . '</td>
@@ -247,8 +247,8 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                                     <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date text-sm sm:text-base hide" readonly>
                                     <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time text-sm sm:text-base" readonly>
                                 </td>
-                                <td class="py-4 grid grid-cols-1 gap-1 scale-90 sm:scale-100 sm:flex">
-                                    <div class="w-fit">
+                                <td class="text-center py-3 space-y-1 grid place-items-center">
+                                    <div class="flex space-x-1">
                                         <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                             <img class="invert w-6" src="../images/detail.png" alt="detail">
                                         </button>
@@ -256,29 +256,21 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                                             <img class="invert w-6" src="../images/edit.png" alt="edit">
                                         </button>
                                     </div>
-                                    <div class="w-fit">
                                         <button data-modal-target="finish-modal-' . $i . '" data-modal-toggle="finish-modal-' . $i . '" href="" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
                                             <img class="invert w-6" src="../images/finish.png" alt="finish">
                                         </button>
-                                        <button data-modal-target="delete-modal-' . $i . '" data-modal-toggle="delete-modal-' . $i . '" href="" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                                            <img class="invert w-6" src="../images/delete.png" alt="delete">
-                                        </button>
-                                    </div>
                                 </td>
                             </tr>';
 
                             //echo detail modal
-                            include("partials/_detailmodal.php");
-                            
+                            include ("partials/_detailmodal.php");
+
                             //echo edit modal
-                            include("partials/_editmodal.php");
-                            
+                            include ("partials/_editmodal.php");
+
                             //echo finish mark modal
-                            include("partials/_finishmodal.php");
-                            
-                            //echo delete modal
-                            include("partials/_deletemodal.php");
-                            
+                            include ("partials/_finishmodal.php");
+
                             $i++;
                         }
                     } else {

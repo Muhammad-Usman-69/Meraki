@@ -3,11 +3,11 @@ session_start();
 
 //check if user is logged in
 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
-    include("_dbconnect.php");
+    include ("_dbconnect.php");
     //check if word id is even avaiable
     $id = $_GET["id"];
     $user_id = $_SESSION["id"];
-    $sql = "SELECT * FROM `work` WHERE `work_id` = ? AND `id` = ?";
+    $sql = "SELECT * FROM `tasks` WHERE `task_id` = ? AND `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "is", $id, $user_id);
     mysqli_stmt_execute($stmt);
@@ -21,7 +21,7 @@ if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
 
     if ($num != 0 && $status != "") {
         echo "Please wait...";
-        $sql = "UPDATE `work` SET `work_status` = ? WHERE `work_id` = ?";
+        $sql = "UPDATE `tasks` SET `task_status` = ? WHERE `task_id` = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "si", $status, $id);
         $result = mysqli_stmt_execute($stmt);

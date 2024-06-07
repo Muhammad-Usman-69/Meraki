@@ -21,7 +21,7 @@ echo '<div id="delete-modal-' . $i . '" data-modal-backdrop="static" tabindex="-
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-400">Are you sure you want to mark this as deleted?
                 </h3>
-                <button onclick="window.open(`partials/_mark.php?id=' . $work_id . '&status=closed`, `_self`)"
+                <button onclick="window.open(`partials/_mark.php?id=' . $task_id . '&status=closed`, `_self`)"
                     data-modal-hide="finish-modal-' . $i . '" type="button"
                     class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 me-2">
                     Yes, I&#39;m sure

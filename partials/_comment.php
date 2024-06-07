@@ -39,15 +39,15 @@ date_default_timezone_set("Asia/Karachi");
 $time = date("Y-m-d") . "T" . date("h:i");
 $user_id = $_SESSION["id"];
 $user_name = $_SESSION["name"];
-$work_id = $_POST["id"];
+$task_id = $_POST["id"];
 $comment = $_POST["comment"];
 
 include ("_dbconnect.php");
 
 //check if work exist
-$sql = "SELECT * FROM `work` WHERE `work_id` = ? AND `id` = ?";
+$sql = "SELECT * FROM `tasks` WHERE `task_id` = ? AND `id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ss", $work_id, $user_id);
+mysqli_stmt_bind_param($stmt, "ss", $task_id, $user_id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
@@ -60,9 +60,9 @@ if ($num == 0) {
     exit();
 }
 
-$sql = "INSERT INTO `comments` (`comment_id`, `work_id`, `user_id`, `user_name`, `time`, `comment`) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO `comments` (`comment_id`, `task_id`, `user_id`, `user_name`, `time`, `comment`) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "sissss", $comment_id, $work_id, $user_id, $user_name, $time, $comment);
+mysqli_stmt_bind_param($stmt, "sissss", $comment_id, $task_id, $user_id, $user_name, $time, $comment);
 mysqli_stmt_execute($stmt);
 header("location:/?alert=Commented Successfully");
 exit();

@@ -227,12 +227,9 @@ $status = $row["status"];
             onclick="active(this.id)">
             <img class="w-6 invert" src="images/hourglass.png" alt="progress">
         </button>
-        <button class="bg-gray-700 p-2 status-button border-r border-gray-500 hover:bg-gray-600" id="2"
+        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="2"
             onclick="active(this.id)">
             <img class="w-6 invert" src="images/finish.png" alt="finished">
-        </button>
-        <button class="bg-gray-700 p-2 rounded-tr-md status-button hover:bg-gray-600" id="3" onclick="active(this.id)">
-            <img class="w-6 invert" src="images/delete.png" alt="closed">
         </button>
     </div>
 
@@ -257,7 +254,7 @@ $status = $row["status"];
                         </button>
                     </div>
                 </th>
-                <th scope="col" class="px-4 py-3 xl:min-w-56">Function</th>
+                <th scope="col" class="px-4 py-3 xl:min-w-56 text-center">Function</th>
                 <th scope="col" class="px-4 py-3 sm:px-8 text-center">Status</th>
             </tr>
         </thead>
@@ -267,11 +264,11 @@ $status = $row["status"];
             </tr>
             <?php
             $id = $_SESSION["id"];
-            $sql = "SELECT * FROM `work` WHERE `id` = ?";
+            $sql = "SELECT * FROM `tasks` WHERE `id` = ?";
             //if any specific order
             if (isset($_GET["o"]) && ($_GET["o"] == "asc" || $_GET["o"] == "desc")) {
                 $order = $_GET["o"];
-                $sql = "SELECT * FROM `work` WHERE `id` = ? ORDER BY `work_time` $order";
+                $sql = "SELECT * FROM `tasks` WHERE `id` = ? ORDER BY `task_time` $order";
             }
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "s", $id);
@@ -281,14 +278,14 @@ $status = $row["status"];
             if ($num != 0) {
                 $i = 1;
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $title = $row["work_title"];
-                    $desc = $row["work_desc"];
-                    $status = $row["work_status"];
-                    $work_id = $row["work_id"];
-                    $time = $row["work_time"];
-                    echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $work_id . '">
-                    <td class="px-4 py-4 sm:px-8">#' . $work_id . '</td>
-                    <td class="py-4 hidden title xl:block">' . $title . '</td>
+                    $title = $row["task_title"];
+                    $desc = $row["task_desc"];
+                    $status = $row["task_status"];
+                    $task_id = $row["task_id"];
+                    $time = $row["task_time"];
+                    echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $task_id . '">
+                    <td class="px-4 py-4 sm:px-8 text-center">#' . $task_id . '</td>
+                    <td class="py-4 title">' . $title . '</td>
                     <td class="px-4 py-4">
                         <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="' . $time . '">
                         <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date hide" readonly>
@@ -297,8 +294,7 @@ $status = $row["status"];
 
                     //checking status
                     if ($status != "progress") {
-                        echo '<td class="py-4 grid sm:flex xl:min-w-56">
-                            <div class="w-fit">
+                        echo '<td class="text-center py-3 grid place-items-center space-y-1">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '"
                                     class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                                     <img class="invert w-6" src="images/detail.png" alt="detail">
@@ -306,34 +302,28 @@ $status = $row["status"];
                                 <button data-modal-target="restore-modal-' . $i . '" data-modal-toggle="restore-modal-' . $i . '" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
                                     <img class="w-6 invert" src="images/restore.png" alt="edit">
                                 </button>
-                            </div>
                         </td>
                         ';
 
                         //restore modal
-                        include("partials/_restoremodal.php");
-                        
+                        include ("partials/_restoremodal.php");
+
                         //detail modal
-                        include("partials/_detailmodal.php");
+                        include ("partials/_detailmodal.php");
                     } else {
-                        echo '<td class="py-4 grid grid-cols-1 gap-1 sm:flex xl:min-w-56">
-                            <div class="w-fit">
-                                <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
-                                    <img class="invert w-6" src="images/detail.png" alt="detail">
-                                </button>
-                                <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '"  href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
-                                    <img class="invert w-6" src="images/edit.png" alt="edit">
-                                </button>
-                            </div>
-                            <div class="w-fit">
-                                <button data-modal-target="finish-modal-' . $i . '" data-modal-toggle="finish-modal-' . $i . '" href="" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
-                                    <img class="invert w-6" src="images/finish.png" alt="finish">
-                                </button>
-                                <button data-modal-target="delete-modal-' . $i . '" data-modal-toggle="delete-modal-' . $i . '" href="" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                                    <img class="invert w-6" src="images/delete.png" alt="delete">
-                                </button>
-                            </div>
-                        </td>';
+                        echo '<td class="text-center py-3 space-y-1 grid place-items-center">
+                                    <div class="flex space-x-1">
+                                        <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '" class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
+                                            <img class="invert w-6" src="../images/detail.png" alt="detail">
+                                        </button>
+                                        <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '"  href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
+                                            <img class="invert w-6" src="../images/edit.png" alt="edit">
+                                        </button>
+                                    </div>
+                                        <button data-modal-target="finish-modal-' . $i . '" data-modal-toggle="finish-modal-' . $i . '" href="" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
+                                            <img class="invert w-6" src="../images/finish.png" alt="finish">
+                                        </button>
+                                </td>';
 
                         //echo detail modal
                         include ("partials/_detailmodal.php");
@@ -377,12 +367,15 @@ $status = $row["status"];
         function showTitle() {
             //taking title head
             let titleHead = document.querySelector(".title-header");
+            let titles = document.querySelectorAll(".title");
             //taking screen width 
             let screenWidth = document.body.scrollWidth + 4;
             if (screenWidth >= 1280) {
                 titleHead.classList.remove("hidden");
-            } else {
+                titles.forEach(title => title.classList.remove("hidden"));
+                } else {
                 titleHead.classList.add("hidden");
+                titles.forEach(title => title.classList.add("hidden"));
             }
         }
         showTitle();

@@ -1,12 +1,12 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
-    include("_dbconnect.php");
+    include ("_dbconnect.php");
     //check if user is logged in
     if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
         //check if word id is even avaiable
         $id = $_GET["id"];
-        $sql = "SELECT * FROM `work` WHERE `work_id` = ?";
+        $sql = "SELECT * FROM `tasks` WHERE `task_id` = ?";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "s", $id);
         mysqli_stmt_execute($stmt);
@@ -14,9 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $num = mysqli_num_rows($result);
 
         //check if input is emplty
-        $title = $_POST["work-edit-title-$id"];
-        $desc = $_POST["work-edit-desc-$id"];
-        $time = $_POST["work-edit-time-$id"];
+        $title = $_POST["task-edit-title-$id"];
+        $desc = $_POST["task-edit-desc-$id"];
+        $time = $_POST["task-edit-time-$id"];
 
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $desc = htmlspecialchars($desc, ENT_QUOTES, 'UTF-8');
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($num != 0 && $title != "" && $desc != "" && $time != "") {
             echo "Please wait...";
-            $sql = "UPDATE `work` SET `work_title` = ?, `work_desc` = ?, `work_time` = ? WHERE `work_id` = ?";
+            $sql = "UPDATE `tasks` SET `task_title` = ?, `task_desc` = ?, `task_time` = ? WHERE `task_id` = ?";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "ssss", $title, $desc, $time, $id);
             $result = mysqli_stmt_execute($stmt);

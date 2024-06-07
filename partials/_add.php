@@ -1,7 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     session_start();
-    include("_dbconnect.php");
+    include ("_dbconnect.php");
     //check if user is logged in
     if (isset($_SESSION["log"]) == true) {
         //check if user account is even avaiable
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $status = "progress";
 
             //checking if maximum lists are added
-            $sqlChecker = "SELECT * FROM `work` WHERE `id` = ? AND `work_status` = ?";
+            $sqlChecker = "SELECT * FROM `work` WHERE `id` = ? AND `task_status` = ?";
             $stmtChecker = mysqli_prepare($conn, $sqlChecker);
             mysqli_stmt_bind_param($stmtChecker, "ss", $id, $status);
             mysqli_stmt_execute($stmtChecker);
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
 
-            $sql = "INSERT INTO `work` (`id`, `work_title`, `work_desc`, `work_time`, `work_status`) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO `work` (`id`, `task_title`, `task_desc`, `task_time`, `task_status`) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conn, $sql);
             mysqli_stmt_bind_param($stmt, "sssss", $id, $title, $desc, $time, $status);
             $result = mysqli_stmt_execute($stmt);

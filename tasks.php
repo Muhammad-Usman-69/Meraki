@@ -16,6 +16,24 @@ if ($_SESSION["admin"] != true) {
 }
 
 include ("partials/_dbconnect.php");
+
+//getting data
+$sql = "SELECT * FROM `tasks`";
+if (isset($_GET["id"])) {
+    $userid = $_GET['id'];
+    $sql = "SELECT * FROM `tasks` WHERE `id` = '$userid'";
+}
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$num = mysqli_num_rows($result);
+
+//check if no tasks
+if ($num == 0) {
+    header("location: dashboard.php?error=No Tasks");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -108,10 +126,10 @@ include ("partials/_dbconnect.php");
                     $stmt = mysqli_prepare($conn, $sql);
                     mysqli_stmt_bind_param($stmt, "s", $user_id);
                     mysqli_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-                    $row = mysqli_fetch_assoc($result);
-                    echo '<img src="profile/images/' . $row["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
-                    <p class="text-gray-700 text-sm">' . $row["name"] . '</p>
+                    $result2 = mysqli_stmt_get_result($stmt);
+                    $row2 = mysqli_fetch_assoc($result2);
+                    echo '<img src="profile/images/' . $row2["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
+                    <p class="text-gray-700 text-sm">' . $row2["name"] . '</p>
                     ';
                     ?>
                 </div>
@@ -136,50 +154,41 @@ include ("partials/_dbconnect.php");
                     <tbody>
                         <?php
 
-                        //getting data
-                        $sql = "SELECT * FROM `work`";
-                        if (isset($_GET["id"])) {
-                            $userid = $_GET['id'];
-                            $sql = "SELECT * FROM `work` WHERE `id` = '$userid'";
-                        }
-                        $stmt = mysqli_prepare($conn, $sql);
-                        mysqli_stmt_execute($stmt);
-                        $result = mysqli_stmt_get_result($stmt);
+                        // printing tasks
 
                         $i = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $work_id = $row["work_id"];
+                            $task_id = $row["task_id"];
                             $user_id = $row["id"];
-                            $title = $row["work_title"];
-                            $desc = $row["work_desc"];
-                            $time = $row["work_time"];
+                            $title = $row["task_title"];
+                            $desc = $row["task_desc"];
+                            $time = $row["task_time"];
                             //echoing data
                             echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
-                            <td class="text-center py-3">' . $work_id . '</td>
+                            <td class="text-center py-3">' . $task_id . '</td>
                             <td class="text-center py-3">' . $row["id"] . '</td>
                             <td class="text-center py-3">' . $title . '</td>
                             <td class="text-center py-3 px-3">' . $desc . '</td>
                             <td class="text-center py-3">
-                                <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $row["work_time"] . '">
+                                <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $row["task_time"] . '">
                             </td>
-                            <td class="text-center py-3 capitalize">' . $row["work_status"] . '</td>
+                            <td class="text-center py-3 capitalize">' . $row["task_status"] . '</td>
                             <td class="text-center py-3 space-y-1 grid place-items-center">
-                            
                                 <div class="flex space-x-1">
                                 <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '" href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
                                     <img class="invert w-5" src="../images/edit.png" alt="edit">
                                 </button>';
-                            if ($row["work_status"] == "progress") {
-                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $work_id . '&mark=finished" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
+                            if ($row["task_status"] == "progress") {
+                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $task_id . '&mark=finished" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
                                     <img class="invert w-5" src="../images/finish.png" alt="finish">
                                 </a>';
-                            } else if ($row["work_status"] == "finished") {
-                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $work_id . '&mark=progress" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
+                            } else if ($row["task_status"] == "finished") {
+                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $task_id . '&mark=progress" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
                                     <img class="invert w-5" src="../images/restore.png" alt="restore">
                                 </a>';
                             }
                             echo '</div>
-                                <a href="dashboard/_deletetask?id=' . $user_id . '&task=' . $work_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
+                                <a href="dashboard/_deletetask?id=' . $user_id . '&task=' . $task_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
                                     <img class="invert w-5" src="../images/delete.png" alt="delete">
                                 </a>
                             </td>
