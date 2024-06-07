@@ -1,14 +1,15 @@
 <?php
 session_start();
+
 //check if user is logged in
 if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
     include("_dbconnect.php");
     //check if word id is even avaiable
     $id = $_GET["id"];
-    $word_id = $_SESSION["id"];
+    $user_id = $_SESSION["id"];
     $sql = "SELECT * FROM `work` WHERE `work_id` = ? AND `id` = ?";
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "is", $id, $word_id);
+    mysqli_stmt_bind_param($stmt, "is", $id, $user_id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     $num = mysqli_num_rows($result);

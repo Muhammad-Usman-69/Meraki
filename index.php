@@ -4,7 +4,7 @@ session_start();
 
 //check if admin
 if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-    header("location:dashboard");
+    header("location: dashboard.php");
     exit();
 }
 ?>
@@ -133,13 +133,13 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                         <input type="text" maxlength="50" name="title" id="title"
                             placeholder="Enter a descriptive title (e.g., Task Title)"
                             class="border border-black outline-none px-3 py-2 rounded text-white bg-gray-700 placeholder:text-gray-500"
-                            required>
+                            required minlength="10">
                     </div>
                     <div class="flex flex-col space-y-3">
                         <label for="desc" class="text-gray-200">Description</label>
                         <textarea name="desc" id="desc" rows="6" placeholder="Enter a detailed description"
                             class="border border-black outline-none px-3 py-2 rounded resize-none  text-white bg-gray-700 placeholder:text-gray-500 hide-scrollbar"
-                            required></textarea>
+                            required minlength="30" maxlength="300"></textarea>
                     </div>
                     <div class="flex flex-col space-y-3">
                         <label for="time" class="text-gray-200">Time</label>

@@ -22,30 +22,21 @@
                     <div>
                         <label for="s-name" class="block mb-2 text-sm font-medium text-white">Your
                             name</label>
-                        <input type="text" minlength="5" autocomplete="off" id="s-name" name="s-name"
+                        <input type="text" minlength="5" autocomplete="off" id="s-name" name="name"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             placeholder="John Doe" required>
                     </div>
                     <div>
                         <label for="s-email" class="block mb-2 text-sm font-medium text-white">Your
                             email</label>
-                        <input type="email" autocomplete="off" id="s-email" name="s-email"
+                        <input type="email" minlength="12" autocomplete="off" id="s-email" name="email"
                             class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             placeholder="example@example.com" required>
                     </div>
                     <div>
                         <label for="s-pass" class="block mb-2 text-sm font-medium text-white">Your
                             password</label>
-                        <input type="password" minlength="8" autocomplete="new-password" id="s-pass" name="s-pass"
-                            placeholder="••••••••"
-                            class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-                            required>
-                    </div>
-                    <div>
-                        <label for="s-cpass"
-                            class="block mb-2 text-sm font-medium text-white">Confirm
-                            password</label>
-                        <input type="password" minlength="8" autocomplete="new-password" id="s-cpass" name="s-cpass"
+                        <input type="password" minlength="8" autocomplete="new-password" id="s-pass" name="pass"
                             placeholder="••••••••"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             required>

@@ -30,6 +30,19 @@ $row = mysqli_fetch_assoc($result);
 $name = $row["name"];
 $id = $row["id"];
 $admin = $row["admin"];
+
+//check if active or inactive
+$sql = "SELECT * FROM `users` WHERE `id` = ? AND `active` = 0";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$num = mysqli_num_rows($result);
+if ($num == 1) {
+    header("location: /?error=Your account is currently inactive");
+    exit();
+}
+
 //verifying
 if (password_verify($pass, $row["pass"])) {
     session_start();

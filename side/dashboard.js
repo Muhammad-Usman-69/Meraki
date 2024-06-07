@@ -11,4 +11,16 @@ function displayMenu() {
   }
 }
 
-displayMenu();
+// displayMenu();
+
+//alert
+function hideAlert(element) {
+
+  //hiding alert
+  element.parentNode.classList.add("opacity-0");
+
+  //removing alert
+  setTimeout(() => {
+      element.parentNode.remove();
+  }, 200);
+}

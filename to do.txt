@@ -1,4 +1,4 @@
-add admin panel
+add dashboard {done}
 admin can see all task
 admin can assign task to people
 admin can assign task to two people

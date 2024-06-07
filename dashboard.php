@@ -74,34 +74,31 @@ include ("partials/_dbconnect.php");
             <i class="fas fa-bars text-base text-white"></i>
         </button>
     </div>
-    <div class="flex z-20">
+    <div class="flex z-20 overflow-y-hidden max-h-screen">
         <!-- side menu -->
         <div class="flex flex-col no-scrollbar z-20">
             <div
                 class="menu w-0 overflow-hidden min-h-screen overflow-y-scroll no-scrollbar transition-all ease-linear duration-200 bg-gray-50 border-r border-gray-700">
                 <div class="flex items-center">
-                    <!-- <button class="m-4 bg-gray-900 w-9 h-9 grid place-items-center p-2 rounded-full" class="button"
-                        onclick="displayMenu()">
-                        <i class="fas fa-bars text-base text-white"></i>
-                    </button> -->
                     <a href=""
                         class="whitespace-nowrap block text-gray-700 p-2 m-3 rounded-md text-sm text-center hover:text-black ml-14"><i
                             class="fa fa-house text-gray-700"></i> Dashboard</a>
                 </div>
                 <hr class="mx-3 border-t border-gray-700">
                 <div class="space-y-4 my-6 flex flex-col">
-                    <a href=""
+                    <a href="#user"
                         class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
                             class="fa fa-user text-gray-700"></i> Accounts</a>
-                    <a href=""
-                        class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black">Tasks</a>
+                    <a href="tasks"
+                        class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
+                            class="fa fa-clipboard text-gray-700"></i> Tasks</a>
                 </div>
             </div>
         </div>
         <!-- current container -->
         <div class="overflow-y-scroll hide-scrollbar w-full">
             <header class="flex justify-between items-center mx-3">
-                <a href="/dashboard" class="dashboard-link flex items-center space-x-3 p-3 ml-10">
+                <a href="dashboard.php" class="dashboard-link flex items-center space-x-3 p-3 ml-10">
                     <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
                     <p class="text-gray-700 text-sm">Meraki</p>
                 </a>
@@ -113,14 +110,114 @@ include ("partials/_dbconnect.php");
                     mysqli_execute($stmt);
                     $result = mysqli_stmt_get_result($stmt);
                     $row = mysqli_fetch_assoc($result);
-                    echo '<img src="profile/images/' . $row["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
-                    <p class="text-gray-700 text-sm">' . $row["name"] . '</p>
-                    ';
+                    if ($row["img"] != "none") {
+                        echo '<img src="profile/images/' . $row["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">';
+                    } else {
+                        echo '<img src="images/user.png" alt="profile" class="h-9 w-9 rounded-full border-2 border-gray-800">';
+                    }
+                    echo '<p class="text-gray-700 text-sm">' . $row["name"] . '</p>';
                     ?>
                 </div>
             </header>
-
             <hr class="mx-3 border-t border-gray-700">
+
+            <!-- user container -->
+            <div class="m-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)]"
+                id="user">
+                <table class="w-full shadow-md">
+                    <thead>
+                        <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
+                            <th scope="col" class="p-4">User Id</th>
+                            <th scope="col" class="p-4">User Name</th>
+                            <th scope="col" class="p-4">Email</th>
+                            <th scope="col" class="p-4">Total Tasks</th>
+                            <th scope="col" class="p-4">Progress</th>
+                            <th scope="col" class="p-4">Completed</th>
+                            <th scope="col" class="p-4">Verified</th>
+                            <th scope="col" class="p-4">Status</th>
+                            <th scope="col" class="p-4">Change Status</th>
+                            <th scope="col" class="p-4">Tasks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        //getting data
+                        $sql = "SELECT * FROM `users`";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_execute($stmt);
+                        $result = mysqli_stmt_get_result($stmt);
+
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            //checking if admin
+                            if ($row["active"] == 1) {
+                                $status = "Active";
+                                $change_status = "Inactive";
+                                $change_status_id = 0;
+                            } else {
+                                $status = "Unactive";
+                                $change_status = "Active";
+                                $change_status_id = 1;
+                            }
+                            //admin can't change himself
+                            if ($_SESSION["id"] == $row["id"]) {
+                                $change_status = "Can't Change";
+                                $change_status_id = 2;
+                            }
+
+                            //check if verified
+                            if ($row["status"] == 1) {
+                                $verify = "Verified";
+                            } else {
+                                $verify = "Unverified";
+                            }
+                            $totalTasks = 0;
+                            $progress = 0;
+                            $finished = 0;
+                            //for tasks num
+                            $sql = "SELECT * FROM `work` WHERE `id` = ?";
+                            $stmt = mysqli_prepare($conn, $sql);
+                            mysqli_stmt_bind_param($stmt, "s", $row["id"]);
+                            mysqli_stmt_execute($stmt);
+                            $result2 = mysqli_stmt_get_result($stmt);
+                            while ($row2 = mysqli_fetch_assoc($result2)) {
+                                $totalTasks++;
+                                if ($row2["work_status"] == "progress") {
+                                    $progress++;
+                                } else if ($row2["work_status"] == "finished") {
+                                    $finished++;
+                                }
+                            }
+                            //echoing data
+                            echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
+                            <td class="text-center py-3">' . $row["id"] . '</td>
+                            <td class="text-center py-3">' . $row["name"] . '</td>
+                            <td class="text-center py-3">' . $row["email"] . '</td>
+                            <td class="text-center py-3">' . $totalTasks . '</td>
+                            <td class="text-center py-3">' . $progress . '</td>
+                            <td class="text-center py-3">' . $finished . '</td>
+                            <td class="text-center py-3">' . $verify . '</td>
+                            <td class="text-center py-3">' . $status . '</td>
+                            <td class="py-3 relative">
+                                <button onclick="window.location.assign(`partials/_changeuseractive?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-4 py-2 text-center whitespace-nowrap">' . $change_status . '</button>
+                            </td>
+                            <td class="py-3 relative">
+                                <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white bg-cyan-500 shadow-md hover:bg-cyan-400 rounded-md"
+                                onclick="window.location.assign(`tasks?id=' . $row["id"] . '`)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-eye">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </td>
+                            </tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- hiding all -->
@@ -170,6 +267,7 @@ Show Products
 </div>
 
 <!-- hiding all -->
+<?php /*
 <!-- order container -->
 <div class="mx-4 p-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] max-w-[calc(100%-32px)]"
 id="order">
