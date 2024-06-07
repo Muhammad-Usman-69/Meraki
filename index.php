@@ -82,11 +82,11 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
     }
     ?>
 
-    <!--alert and error-->
+    <!-- alert and error  -->
     <div class="alert transition-all duration-200">
         <?php
         if (isset($_GET["alert"])) {
-            echo '<div class="bg-green-100 border border-green-400 hover:bg-green-50 text-green-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200 z-20"
+            echo '<div class="bg-green-100 border border-green-400 hover:bg-green-50 text-green-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 ml-5 transition-all duration-200 z-20"
         role="alert">
                 <strong class="font-bold text-sm">' . $_GET["alert"] . '.</strong>
                 <span onclick="hideAlert(this);">
@@ -99,7 +99,7 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
                 </span>
             </div>';
         } else if (isset($_GET["error"])) {
-            echo '<div class="bg-red-100 border border-red-400 hover:bg-red-50 text-red-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 transition-all duration-200 z-20"
+            echo '<div class="bg-red-100 border border-red-400 hover:bg-red-50 text-red-700 px-4 py-3 rounded space-x-4 flex items-center justify-between fixed bottom-5 right-5 ml-5 transition-all duration-200 z-20"
         role="alert">
                 <strong class="font-bold text-sm">' . $_GET["error"] . '.</strong>
                 <span onclick="hideAlert(this);">
@@ -308,8 +308,8 @@ if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
     </div>
 
     <script src="side/script.js"></script>
-    <script src="side/pagination.js"></script>
     <script src="side/flowbite.js"></script>
+    <script src="side/pagination.js"></script>
     <?php
     if (!isset($_SESSION["log"])) {
         echo '<script> formHide(); </script>';
