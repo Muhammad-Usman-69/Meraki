@@ -15,6 +15,8 @@
                 class="fa fa-clipboard text-gray-700"></i> Tasks</a>
         <a href="comments" class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
                 class="fa fa-cloud text-gray-700"></i> Comments</a>
+        <a href="chat" class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
+                class="fa fa-phone text-gray-700"></i> Chats</a>
     </div>
 </div>
 </div>

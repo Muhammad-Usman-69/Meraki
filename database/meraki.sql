@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 11:03 AM
+-- Generation Time: Jun 10, 2024 at 02:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `meraki`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `user_id` varchar(30) NOT NULL,
+  `user_name` varchar(30) NOT NULL,
+  `time` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id`, `message`, `user_id`, `user_name`, `time`) VALUES
+(1, 'Hello World!', 'admin', 'admin', 'June 10 at 3:16 pm'),
+(2, 'Hi MOM', 'johndoe', 'John Doe', 'June 10 at 3:15 pm');
 
 -- --------------------------------------------------------
 
@@ -63,8 +85,8 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `task_id`, `task_title`, `task_desc`, `task_time`, `task_status`) VALUES
-('admin', 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-21T00:00', 'progress'),
-('johndoe', 124, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-06-12T13:56', 'progress'),
+('admin', 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-21T00:00', 'finished'),
+('johndoe', 124, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-06-12T13:56', 'finished'),
 ('johndoe119', 125, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-06-12T13:56', 'progress');
 
 -- --------------------------------------------------------
@@ -90,6 +112,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`, `admin`, `active`) VALUES
 ('admin', 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1, 1, 1),
+('admin433', 'admin', 'usmansaleem444@gmail.com', '$2y$10$lXhb.hT.4wZSc.GzPB2mQ.6Q8V1dM8ZAm5MALd51rrkY.kT1oqQnq', 'none', 0, 0, 1),
 ('johndoe', 'John Doe', 'symiti@imagepoet.net', '$2y$10$UpK3Gjx60j9rJ6h4uRAnae6sGmO7Ln0Y0L3F7GeWSfyoTV0MAH8PG', 'none', 1, 0, 1),
 ('johndoe119', 'John Doe', 'usmansaleem@gmail.com', '$2y$10$pea4pK2Hd/AuFNYU0nOsQ./vUuZQrNNXl4Qhi.KPgYGtXrExfSCJW', 'none', 0, 0, 1),
 ('johndoe923', 'John Doe', 'example@example.com', '$2y$10$pgFPAjQfNmxMpxe57oNJ4eSNcc1FevAZtgVJdPOlThNqwnZQJmz6G', 'none', 0, 0, 1);
@@ -110,6 +133,7 @@ CREATE TABLE `verify` (
 --
 
 INSERT INTO `verify` (`id`, `verification_code`) VALUES
+('admin433', NULL),
 ('APOCGCPy', 'Ll3cmhVPQkREvOEymoxrQWexbUp51jYiqVN2ugbZuZVdl7Sv91hRm2xXGtC0ntZg'),
 ('johndoe1', NULL),
 ('johndoe9', NULL),
@@ -118,6 +142,12 @@ INSERT INTO `verify` (`id`, `verification_code`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `comments`
@@ -149,6 +179,12 @@ ALTER TABLE `verify`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tasks`

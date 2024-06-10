@@ -109,7 +109,7 @@ if ($num == 0) {
                     <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
                     <p class="text-gray-700 text-sm">Meraki</p>
                 </a>
-                <div class="flex items-center space-x-3 p-3 bg-gray-50">
+                <a href="p" class="flex items-center space-x-3 p-3 bg-gray-50">
                     <?php
                     $sql = "SELECT * FROM `users` WHERE `id` = ?";
                     $stmt = mysqli_prepare($conn, $sql);
@@ -121,7 +121,7 @@ if ($num == 0) {
                     <p class="text-gray-700 text-sm">' . $row2["name"] . '</p>
                     ';
                     ?>
-                </div>
+                </a>
             </header>
             <hr class="mx-3 border-t border-gray-700">
             <!-- user container -->
@@ -157,7 +157,7 @@ if ($num == 0) {
                                 <td class="text-center py-3">' . $user_id . '</td>
                                 <td class="text-center py-3">' . $comment . '</td>
                                 <td class="text-center py-3">
-                                    <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $time . '">
+                                    <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $time . '" readonly>
                                 </td>
                                 <td class="text-center py-3 space-y-1 grid place-items-center"><a href="dashboard/_delete?comment=' . $comment_id . '&task=' . $task_id . '&id=' . $user_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
                                         <img class="invert w-5" src="../images/delete.png" alt="delete">

@@ -29,6 +29,15 @@ $status = 0;
 
 include ("_dbconnect.php");
 
+//creating link
+$previous_link = $_SERVER['HTTP_REFERER'];
+//redirecting according to where data came from
+if (str_contains($previous_link, "dashboard")) {
+    $header = "dashboard.php";
+} else {
+    $header = "";
+}
+
 //check if name is in use
 $sql = "SELECT * FROM `users` WHERE `name` = ?";
 $stmt = mysqli_prepare($conn, $sql);
@@ -41,7 +50,7 @@ if ($num != 0) {
 }
 
 if ($name == "" || $email == "" || $pass == "") {
-    header("location: /?error=Invalid cresidentials.");
+    header("location: /$header?error=Invalid cresidentials.");
     exit();
 }
 
@@ -50,11 +59,10 @@ $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
 $result = mysqli_query($conn, $sql);
 $num = mysqli_num_rows($result);
 if ($num != 0) {
-    header("location: /?error=Email already in use");
+    header("location: /$header?error=Email already in use");
     exit();
 }
 
-$previous_link = $_SERVER['HTTP_REFERER'];
 
 $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
@@ -71,12 +79,7 @@ mysqli_stmt_bind_param($stmt, "s", $id);
 mysqli_stmt_execute($stmt);
 
 
-//redirecting according to where data came from
-if (str_contains($previous_link, "dashboard")) {
-    header("location: /dashboard.php?alert=Account been signed up");
-    exit();
-}
 
 //reedirecting
-header("location: /?alert=You have been signed up");
+header("location: /$header?alert=You have been signed up");
 exit();
