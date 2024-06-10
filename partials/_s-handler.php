@@ -43,9 +43,7 @@ if ($num != 0) {
 if ($name == "" || $email == "" || $pass == "") {
     header("location: /?error=Invalid cresidentials.");
     exit();
-} else {
-
-}
+} 
 
 //check if name in use
 $sql = "SELECT * FROM `users` WHERE `email` = '$email'";

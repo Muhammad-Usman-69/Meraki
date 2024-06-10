@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2024 at 02:08 PM
+-- Generation Time: Jun 10, 2024 at 11:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,8 +41,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`comment_id`, `task_id`, `user_id`, `user_name`, `time`, `comment`) VALUES
-('xr2DX', 11, 'admin', 'admin', '2024-06-06T06:00', 'All Hail Lelouch'),
-('z4fA3', 10, 'admin', 'admin', '2024-06-07T05:01', 'Done THis/ THAT');
+('3D8wb', 1, 'admin', 'admin', '2024-06-10T02:00', 'dawdawdawdaaw');
 
 -- --------------------------------------------------------
 
@@ -56,7 +55,7 @@ CREATE TABLE `tasks` (
   `task_title` varchar(50) NOT NULL,
   `task_desc` varchar(300) NOT NULL,
   `task_time` text NOT NULL,
-  `task_status` varchar(10) NOT NULL
+  `task_status` varchar(10) NOT NULL DEFAULT 'progress'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,19 +64,8 @@ CREATE TABLE `tasks` (
 
 INSERT INTO `tasks` (`id`, `task_id`, `task_title`, `task_desc`, `task_time`, `task_status`) VALUES
 ('admin', 1, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-01-21T00:00', 'progress'),
-('admin', 6, 'Lorem ipsum dolor', 'Lorem 1 ipsum dolor sit amet 1 consectetur adipisicing elit. Laudantium quam awdcorrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae nodoloremque, earum fugiat dolores nesciunt a u', '2025-01-21T03:06', 'finished'),
-('admin', 7, 'Lorem ipsum 3 dolor sit amet consectetur adipisic', 'Lorem ipsum 3 dolor sit amet consectetur adipisicing elit. Laudantium quam corrupti adipisci voluptatum facere, omnis nulla expedita fuga molestiae non doloremque, earum fugiat dolores nesciunt a ulla', '2024-01-20T15:06', 'finished'),
-('admin', 8, 'Add security options', 'add function so that update handler and mark handler verify user.', '2024-02-22T11:00', 'progress'),
-('admin', 9, 'lorem', 'lorem', '2024-01-19T02:57', 'progress'),
-('admin', 10, 'lopppe', 'as', '2024-02-03T09:57', 'progress'),
-('admin', 11, 'adaw', 'dawdwa', '2024-01-04T09:57', 'finished'),
-('admin', 12, 'awwdawda', 'dawdwadwa', '2024-01-19T09:58', 'finished'),
-('admin', 13, 'faa', 'fafa', '2024-01-19T11:25', 'finished'),
-('admin', 14, 'a', 'a', '2024-01-19T23:22', 'finished'),
-('admin', 16, 'adawaa', 'awd', '2024-01-19T11:26', 'progress'),
-('admin', 18, 'ak', 'm4', '2024-01-29T09:12', 'progress'),
-('admin', 19, 'adwa', 'awd', '2024-01-29T09:29', 'finished'),
-('johndoe119', 20, 'Make A Dashboard', 'add dashboard {done}\r\nadmin can see all task\r\nadmin can assign task to people\r\nadmin can assign task to two people\r\nuser can put comments {done}\r\nadmin can active/inactive user\r\nadmin can add new acco', '2025-03-22T05:30', 'progress');
+('johndoe', 124, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-06-12T13:56', 'progress'),
+('johndoe119', 125, 'Complete the project of meraki!', 'Complete the project of meraki! As soon as possible so that You improve. Put back end, add funtionablity in your project.', '2024-06-12T13:56', 'progress');
 
 -- --------------------------------------------------------
 
@@ -103,7 +91,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`, `admin`, `active`) VALUES
 ('admin', 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1, 1, 1),
 ('johndoe', 'John Doe', 'symiti@imagepoet.net', '$2y$10$UpK3Gjx60j9rJ6h4uRAnae6sGmO7Ln0Y0L3F7GeWSfyoTV0MAH8PG', 'none', 1, 0, 1),
-('johndoe119', 'John Doe', 'usmansaleem@gmail.com', '$2y$10$pea4pK2Hd/AuFNYU0nOsQ./vUuZQrNNXl4Qhi.KPgYGtXrExfSCJW', 'none', 0, 0, 1);
+('johndoe119', 'John Doe', 'usmansaleem@gmail.com', '$2y$10$pea4pK2Hd/AuFNYU0nOsQ./vUuZQrNNXl4Qhi.KPgYGtXrExfSCJW', 'none', 0, 0, 1),
+('johndoe923', 'John Doe', 'example@example.com', '$2y$10$pgFPAjQfNmxMpxe57oNJ4eSNcc1FevAZtgVJdPOlThNqwnZQJmz6G', 'none', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -123,6 +112,7 @@ CREATE TABLE `verify` (
 INSERT INTO `verify` (`id`, `verification_code`) VALUES
 ('APOCGCPy', 'Ll3cmhVPQkREvOEymoxrQWexbUp51jYiqVN2ugbZuZVdl7Sv91hRm2xXGtC0ntZg'),
 ('johndoe1', NULL),
+('johndoe9', NULL),
 ('johndoea', NULL);
 
 --
@@ -139,8 +129,7 @@ ALTER TABLE `comments`
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`task_id`),
-  ADD UNIQUE KEY `work_title` (`task_title`);
+  ADD PRIMARY KEY (`task_id`);
 
 --
 -- Indexes for table `users`
@@ -165,7 +154,7 @@ ALTER TABLE `verify`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

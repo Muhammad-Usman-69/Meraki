@@ -124,9 +124,37 @@ if ($num == 0) {
                 </div>
             </header>
             <hr class="mx-3 border-t border-gray-700">
-            <!-- user container -->
-            <div class="m-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)]"
+            <!-- tasks container -->
+            <div class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4"
                 id="user">
+                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center"
+                    action="dashboard/_assign" method="post">
+                    <div class="flex m-4 space-x-3">
+                        <textarea name="title" class="bg-transparent outline-none resize-none hide-scrollbar"
+                            placeholder="Title" rows="2" cols="30" minlength="10" required></textarea>
+                        <textarea name="desc" class="bg-transparent outline-none resize-none hide-scrollbar"
+                            placeholder="Description" rows="2" cols="30" minlength="30" required></textarea>
+                        <input type="datetime-local" name="time"
+                            class="bg-transparent outline-none border-none text-gray-400"
+                            oninput="this.style.color='black'" required>
+                        <select name="users[]"
+                            class="bg-transparent outline-none min-w-40 text-gray-400 hide-scrollbar" size="2" multiple
+                            required>
+                            <?php
+                            //getting data
+                            $sql = "SELECT * FROM `users`";
+                            $stmt = mysqli_prepare($conn, $sql);
+                            mysqli_stmt_execute($stmt);
+                            $result2 = mysqli_stmt_get_result($stmt);
+                            while ($row = mysqli_fetch_assoc($result2)) {
+                                echo '<option value="' . $row["id"] . '">' . $row["id"] . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <button type="Submit" href="/"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Assign</button>
+                </form>
                 <table class="w-full shadow-md">
                     <thead>
                         <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">

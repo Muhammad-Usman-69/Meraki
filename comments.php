@@ -30,6 +30,13 @@ $num = mysqli_num_rows($result);
 
 //check if no tasks
 if ($num == 0) {
+
+    //check if redirecting from delete
+    if (isset($_GET["alert"]) && $_GET["alert"] == "Deleted Successfully") {
+        header("location: tasks?alert=Deleted Successfully. No comments available");
+        exit();
+    }
+
     header("location: tasks?error=No Comments Available");
     exit();
 }

@@ -35,7 +35,7 @@ mysqli_stmt_bind_param($stmt, "si", $commentid, $taskid);
 mysqli_stmt_execute($stmt);
 
 if (str_contains($previous_link, "comments")) {
-    header("location: /tasks?id=$id&alert=Deleted Successfully");
+    header("location: /comments?taskid=$taskid&alert=Deleted Successfully");
     exit();
 }
 
