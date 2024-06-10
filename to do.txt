@@ -4,4 +4,4 @@ admin can assign task to people {done}
 admin can assign task to two people {done}
 user can put comments {done}
 admin can active/inactive user {done}
-admin can add new accounts
+admin can add new accounts {done}

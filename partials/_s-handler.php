@@ -43,7 +43,7 @@ if ($num != 0) {
 if ($name == "" || $email == "" || $pass == "") {
     header("location: /?error=Invalid cresidentials.");
     exit();
-} 
+}
 
 //check if name in use
 $sql = "SELECT * FROM `users` WHERE `email` = '$email'";
@@ -54,6 +54,8 @@ if ($num != 0) {
     exit();
 }
 
+$previous_link = $_SERVER['HTTP_REFERER'];
+
 $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 $pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
@@ -61,17 +63,20 @@ $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
 $sql = "INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "sssssi", $id, $name, $email, $pass_hash, $p_img, $status);
-$result = mysqli_stmt_execute($stmt);
+mysqli_stmt_execute($stmt);
 
-if ($result) {
-    $sql = "INSERT INTO `verify` (`id`) VALUES (?)";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "s", $id);
-    mysqli_stmt_execute($stmt);
+$sql = "INSERT INTO `verify` (`id`) VALUES (?)";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $id);
+mysqli_stmt_execute($stmt);
 
-    header("location: /?alert=You have been signed up");
-    exit();
-} else {
-    header("location: /?error=Error occured. Please try again later");
+
+//redirecting according to where data came from
+if (str_contains($previous_link, "dashboard")) {
+    header("location: /dashboard.php?alert=Account been signed up");
     exit();
 }
+
+//reedirecting
+header("location: /?alert=You have been signed up");
+exit();

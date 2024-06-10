@@ -125,8 +125,7 @@ if ($num == 0) {
             </header>
             <hr class="mx-3 border-t border-gray-700">
             <!-- tasks container -->
-            <div class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4"
-                id="user">
+            <div class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
                 <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center"
                     action="dashboard/_assign" method="post">
                     <div class="flex m-4 space-x-3">
@@ -152,7 +151,7 @@ if ($num == 0) {
                             ?>
                         </select>
                     </div>
-                    <button type="Submit" href="/"
+                    <button type="Submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Assign</button>
                 </form>
                 <table class="w-full shadow-md">
