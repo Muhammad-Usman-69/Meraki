@@ -327,17 +327,14 @@ $status = $row["status"];
                                         </button>
                                 </td>';
 
-                        //echo detail modal
-                        include ("partials/_detailmodal.php");
-
                         //echo edit modal
                         include ("partials/_editmodal.php");
 
                         //echo finish mark modal
                         include ("partials/_finishmodal.php");
 
-                        //echo delete modal
-                        include ("partials/_deletemodal.php");
+                        //echo detail modal
+                        include ("partials/_detailmodal.php");
                     }
 
                     echo '<td class="px-3 py-4 capitalize status sm:px-8 text-center">' . $status . '</td>

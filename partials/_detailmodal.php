@@ -75,7 +75,7 @@ if ($num == 0) {
                 <div class="flex space-x-3 justify-end items-center">
                     <p>By <span class="font-bold">' . $row["user_name"] . '</span></p>
                     <input type="datetime-local" value="' . $row["time"] . '" class="bg-transparent outline-none hide-cal sm:text-base" readonly />
-            </div>';
+                </div>';
         $j++;
     }
 } //ending 

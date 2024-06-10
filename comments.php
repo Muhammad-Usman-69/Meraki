@@ -18,10 +18,10 @@ if ($_SESSION["admin"] != true) {
 include ("partials/_dbconnect.php");
 
 //getting data
-$sql = "SELECT * FROM `tasks`";
-if (isset($_GET["id"])) {
-    $userid = $_GET['id'];
-    $sql = "SELECT * FROM `tasks` WHERE `id` = '$userid'";
+$sql = "SELECT * FROM `comments`";
+if (isset($_GET["taskid"])) {
+    $taskid = $_GET['taskid'];
+    $sql = "SELECT * FROM `comments` WHERE `task_id` = '$taskid'";
 }
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_execute($stmt);
@@ -30,16 +30,9 @@ $num = mysqli_num_rows($result);
 
 //check if no tasks
 if ($num == 0) {
-    //check if redirecting from delete
-    if (isset($_GET["alert"]) && $_GET["alert"] == "Deleted Successfully") {
-        header("location: dashboard.php?alert=Deleted Successfully. No tasks available");
-        exit();
-    }
-
-    header("location: dashboard.php?error=No tasks available");
+    header("location: tasks?error=No Comments Available");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -130,15 +123,12 @@ if ($num == 0) {
                 <table class="w-full shadow-md">
                     <thead>
                         <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
+                            <th scope="col" class="p-4">Comment Id</th>
                             <th scope="col" class="p-4">Task Id</th>
                             <th scope="col" class="p-4">User Id</th>
-                            <th scope="col" class="p-4">Title</th>
-                            <th scope="col" class="p-4">Description</th>
+                            <th scope="col" class="p-4">Comment</th>
                             <th scope="col" class="p-4">Time</th>
-                            <th scope="col" class="p-4">Comments</th>
-                            <th scope="col" class="p-4">Status</th>
                             <th scope="col" class="p-4">Functions</th>
-                            <th scope="col" class="p-4">View Comments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,64 +138,26 @@ if ($num == 0) {
                         
                         $i = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
+                            $comment_id = $row["comment_id"];
                             $task_id = $row["task_id"];
-                            $user_id = $row["id"];
-                            $title = $row["task_title"];
-                            $desc = $row["task_desc"];
-                            $time = $row["task_time"];
-
-                            //taking comments
-                            $sql = "SELECT * FROM `comments` WHERE `task_id` = '$task_id'";
-                            $stmt = mysqli_prepare($conn, $sql);
-                            mysqli_stmt_execute($stmt);
-                            $result2 = mysqli_stmt_get_result($stmt);
-                            $num = mysqli_num_rows($result2);
-
+                            $user_id = $row["user_id"];
+                            $comment = $row["comment"];
+                            $time = $row["time"];
                             //echoing data
                             echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
-                            <td class="text-center py-3">' . $task_id . '</td>
-                            <td class="text-center py-3">' . $row["id"] . '</td>
-                            <td class="text-center py-3">' . $title . '</td>
-                            <td class="text-center py-3 px-3">' . $desc . '</td>
-                            <td class="text-center py-3">
-                                <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $row["task_time"] . '">
-                            </td>
-                            <td class="text-center py-3">' . $num . '</td>
-                            <td class="text-center py-3 capitalize">' . $row["task_status"] . '</td>
-                            <td class="text-center py-3 space-y-1 grid place-items-center">
-                                <div class="flex space-x-1">
-                                <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '" href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
-                                    <img class="invert w-5" src="../images/edit.png" alt="edit">
-                                </button>';
-                            if ($row["task_status"] == "progress") {
-                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $task_id . '&mark=finished" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
-                                    <img class="invert w-5" src="../images/finish.png" alt="finish">
-                                </a>';
-                            } else if ($row["task_status"] == "finished") {
-                                echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $task_id . '&mark=progress" class="rounded-md bg-gray-500 hover:bg-gray-600 p-2">
-                                    <img class="invert w-5" src="../images/restore.png" alt="restore">
-                                </a>';
-                            }
-                            echo '</div>
-                                <a href="dashboard/_delete?id=' . $user_id . '&task=' . $task_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                                    <img class="invert w-5" src="../images/delete.png" alt="delete">
-                                </a>
-                            </td>
-                            <td class="py-3 relative">
-                                <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white bg-cyan-500 shadow-md hover:bg-cyan-400 rounded-md"
-                                onclick="window.location.assign(`comments?taskid=' . $task_id . '&userid=' . $user_id . '`)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-eye">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                </button>
-                            </td>
+                                <td class="text-center py-3">' . $comment_id . '</td>
+                                <td class="text-center py-3">' . $task_id . '</td>
+                                <td class="text-center py-3">' . $user_id . '</td>
+                                <td class="text-center py-3">' . $comment . '</td>
+                                <td class="text-center py-3">
+                                    <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $time . '">
+                                </td>
+                                <td class="text-center py-3 space-y-1 grid place-items-center"><a href="dashboard/_delete?comment=' . $comment_id . '&task=' . $task_id . '&id=' . $user_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
+                                        <img class="invert w-5" src="../images/delete.png" alt="delete">
+                                    </a>
+                                </td>
                             </tr>';
 
-                            //echo edit modal
-                            include ("partials/_editmodal.php");
                             $i++;
                         }
                         ?>

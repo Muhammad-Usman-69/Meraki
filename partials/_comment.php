@@ -56,13 +56,22 @@ print_r($time);
 
 //unknown user checking
 if ($num == 0) {
-    echo "Work Not Found";
+    echo "Task Not Found";
     exit();
 }
+
+$previous_link = $_SERVER['HTTP_REFERER'];
 
 $sql = "INSERT INTO `comments` (`comment_id`, `task_id`, `user_id`, `user_name`, `time`, `comment`) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "sissss", $comment_id, $task_id, $user_id, $user_name, $time, $comment);
 mysqli_stmt_execute($stmt);
-header("location:/?alert=Commented Successfully");
+
+//if admin in commenting
+if (str_contains($previous_link, "tasks")) {
+    header("location: /tasks?alert=Commented Successfully");
+    exit();
+} 
+
+header("location: /?alert=Commented Successfully");
 exit();

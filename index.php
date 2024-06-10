@@ -262,14 +262,14 @@ session_start();
                                 </td>
                             </tr>';
 
-                            //echo detail modal
-                            include ("partials/_detailmodal.php");
-
                             //echo edit modal
                             include ("partials/_editmodal.php");
 
                             //echo finish mark modal
                             include ("partials/_finishmodal.php");
+
+                            //echo detail modal
+                            include ("partials/_detailmodal.php");
 
                             $i++;
                         }

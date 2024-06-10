@@ -14,22 +14,37 @@ if ($_SESSION["admin"] != true) {
 
 include ("../partials/_dbconnect.php");
 
-//taking id
-if (!isset($_GET["id"]) || !isset($_GET["task"])) {
-    header("location: ../tasks?error=Not Defined");
-    exit();
-}
-
 $id = $_GET["id"];
 $taskid = $_GET["task"];
+$commentid = $_GET["comment"];
 
-//updating
-$sql = "DELETE FROM `tasks` WHERE `id` = ? AND `task_id` = ?";
+$previous_link = $_SERVER['HTTP_REFERER'];
+
+//will work if coming from tasks not comments
+if (str_contains($previous_link, "tasks")) {
+    $sql = "DELETE FROM `tasks` WHERE `id` = ? AND `task_id` = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "si", $id, $taskid);
+    mysqli_stmt_execute($stmt);
+}
+
+//also deleting comment
+$sql = "DELETE FROM `comments` WHERE `comment_id` = ? AND `task_id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "si", $id, $taskid);
-$bool = mysqli_stmt_execute($stmt);
-if ($bool) {
-    //reedirecting for normal
-    header("location: ../tasks?alert=Deleted Successfully");
+mysqli_stmt_bind_param($stmt, "si", $commentid, $taskid);
+mysqli_stmt_execute($stmt);
+
+if (str_contains($previous_link, "comments")) {
+    header("location: /tasks?id=$id&alert=Deleted Successfully");
     exit();
 }
+
+if (str_contains($previous_link, "tasks?id")) {
+    header("location: /tasks?alert=Deleted Successfully&id=$id");
+    exit();
+}
+
+//reedirecting
+header("location: /tasks?alert=Deleted Successfully");
+exit();
+

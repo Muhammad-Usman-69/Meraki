@@ -3,7 +3,8 @@ module.exports = {
   content: [
     "*.php",
     "side/*.js",
-    "partials/*"
+    "partials/*",
+    "dashboard/*"
   ],
   theme: {
     extend: {

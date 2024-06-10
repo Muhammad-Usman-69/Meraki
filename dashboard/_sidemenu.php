@@ -13,7 +13,7 @@
                 class="fa fa-user text-gray-700"></i> Accounts</a>
         <a href="tasks" class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
                 class="fa fa-clipboard text-gray-700"></i> Tasks</a>
-        <a href="tasks" class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
+        <a href="comments" class="whitespace-nowrap block text-gray-700 rounded-md text-sm pl-8 hover:text-black"><i
                 class="fa fa-cloud text-gray-700"></i> Comments</a>
     </div>
 </div>
