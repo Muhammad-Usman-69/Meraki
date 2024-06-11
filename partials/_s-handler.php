@@ -81,5 +81,5 @@ mysqli_stmt_execute($stmt);
 
 
 //reedirecting
-header("location: /$header?alert=You have been signed up");
+header("location: /$header?alert=You have signed up successfully");
 exit();

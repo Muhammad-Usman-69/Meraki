@@ -45,14 +45,12 @@ $comment = $_POST["comment"];
 include ("_dbconnect.php");
 
 //check if work exist
-$sql = "SELECT * FROM `tasks` WHERE `task_id` = ? AND `id` = ?";
+$sql = "SELECT * FROM `tasks` WHERE `task_id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ss", $task_id, $user_id);
+mysqli_stmt_bind_param($stmt, "s", $task_id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
-
-print_r($time);
 
 //unknown user checking
 if ($num == 0) {

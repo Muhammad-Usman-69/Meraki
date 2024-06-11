@@ -207,7 +207,7 @@ session_start();
                             </button>
                         </div>
                     </th>
-                    <th scope="col" class="px-4 py-3 sm:min-w-48">Function</th>
+                    <th scope="col" class="px-4 py-3 text-center sm:px-8">Function</th>
                 </tr>
             </thead>
             <tbody>

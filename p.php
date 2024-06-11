@@ -256,7 +256,7 @@ $status = $row["status"];
                         </button>
                     </div>
                 </th>
-                <th scope="col" class="px-4 py-3 xl:min-w-56 text-center">Function</th>
+                <th scope="col" class="px-4 py-3 text-center sm:px-8">Function</th>
                 <th scope="col" class="px-4 py-3 sm:px-8 text-center">Status</th>
             </tr>
         </thead>

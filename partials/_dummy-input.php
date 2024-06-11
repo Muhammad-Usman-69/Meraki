@@ -1,14 +1,14 @@
 <tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#6969">
     <td class="px-6 py-4">#1</td>
     <!--max 150-->
-    <td class="py-4 text-sm sm:text-base">Add a list in Meraki!</td>
+    <td class="py-4 text-sm sm:text-base">Add a task in Meraki!</td>
     <td class="px-3 py-4">
         <input type="datetime-local" class="bg-gray-800 outline-none datetime hidden" value="2030-01-20T00:00">
         <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
         <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
     </td>
-    <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
-        <div class="w-fit">
+    <td class="py-4 grid place-items-center space-y-1">
+        <div class="flex space-x-1">
             <button data-modal-target="dummy-input-detail-modal" data-modal-toggle="dummy-input-detail-modal"
                 class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                 <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -22,10 +22,6 @@
             <button data-modal-target="dummy-input-finish-modal" data-modal-toggle="dummy-input-finish-modal" href=""
                 class="rounded-md bg-green-600 hover:bg-green-700 p-2">
                 <img class="invert w-6" src="../images/finish.png" alt="finish">
-            </button>
-            <button data-modal-target="dummy-input-delete-modal" data-modal-toggle="dummy-input-delete-modal" href=""
-                class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                <img class="invert w-6" src="../images/delete.png" alt="delete">
             </button>
         </div>
     </td>
@@ -72,7 +68,7 @@
                             Work Description</label>
                         <textarea id="work-desc-1" name="work-desc-1" rows="4"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none description"
-                            readonly>1) Go to form. &#013;2) Put info about your work. &#013;3) Add the list.</textarea>
+                            readonly>1) Go to form. &#013;2) Put info about your task. &#013;3) Add the task.</textarea>
                     </div>
                     <div>
                         <label for="work-time-1" class="block mb-2 text-sm font-medium text-white">Your
