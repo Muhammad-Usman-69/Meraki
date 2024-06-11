@@ -37,6 +37,12 @@ if ($num == 0) {
         exit();
     }
 
+    //if coming from specific
+    if (str_contains($_SERVER["HTTP_REFERER"], "tasks?id")) {
+        header("location: /tasks?id={$_GET["userid"]}&error=No Comments Available");
+        exit();
+    }
+
     header("location: tasks?error=No Comments Available");
     exit();
 }

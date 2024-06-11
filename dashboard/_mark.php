@@ -30,7 +30,13 @@ $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "ssi", $mark, $id, $taskid);
 $bool = mysqli_stmt_execute($stmt);
 if ($bool) {
+    //if coming from specific
+    if (str_contains($_SERVER["HTTP_REFERER"], "tasks?id")) {
+        header("location: /tasks?id=$id&alert=Marked Successfully");
+        exit();
+    }
+
     //reedirecting for normal
-    header("location: ../tasks?id=$id&alert=Marked Successfully");
+    header("location: ../tasks?alert=Marked Successfully");
     exit();
 }
