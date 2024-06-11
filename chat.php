@@ -26,7 +26,7 @@ include ("partials/_dbconnect.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="side/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/logo.jpg" type="image/x-icon">
-    <title>Dashboard Meraki</title>
+    <title>Chat - Dashboard Meraki</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
@@ -141,6 +141,10 @@ include ("partials/_dbconnect.php");
         let height = document.body.scrollHeight - (header.offsetHeight + seperator.offsetHeight + senderForm.offsetHeight);
         chatCont.style.height = height + "px";
 
+        /* document.getElementById("message-container").addEventListener("scroll", () => {
+            
+        }) */
+
         let triggered = 0;
 
         function chat() {
@@ -148,6 +152,14 @@ include ("partials/_dbconnect.php");
             p.then(res => {
                 return res.json();
             }).then(chats => {
+
+                //for scrolling to bottom incase of new message but only if other admin is at bottom
+                let msgCont = document.getElementById("message-container");
+                let scrollValue = document.getElementById("message-container").scrollTop;
+                let bottomValue = msgCont.scrollHeight - msgCont.offsetHeight;
+                let userScroll = Boolean(scrollValue == bottomValue);
+
+
                 //taking message container 
                 let msgContainer = document.getElementById("message-container");
                 chats.forEach(chat => {
@@ -163,9 +175,9 @@ include ("partials/_dbconnect.php");
                     }
 
                     container = `<div class="flex justify-${justify} text-gray-700">
-                        <div class="bg-gray-100 rounded-lg space-y-2 p-2 flex flex-col min-w-full md:min-w-[40%] min-w-full md:max-w-[40%]">
+                        <div class="bg-gray-100 rounded-lg space-y-2 p-2 flex flex-col min-w-[85%] md:min-w-[40%] min-w-[85%] md:max-w-[40%]">
                             <div class="flex justify-between text-xs space-x-3">
-                                <p class="hover:underline cursor-pointer">${id}</p>
+                                <p class="hover:underline cursor-pointer font-bold">${id}</p>
                                 <p>${time}</p>
                             </div>
                             <p>${message}</p>
@@ -181,6 +193,10 @@ include ("partials/_dbconnect.php");
                     document.getElementById("message-container").innerHTML += container;
                 });
 
+
+                if (userScroll == true) {
+                    bottom();
+                }
 
                 //if already triggerd then stop
                 if (triggered == 1) {
@@ -244,6 +260,7 @@ include ("partials/_dbconnect.php");
             document.getElementById("message").value = "";
 
         });
+
 
         //scrolling to the bottom
         function bottom() {

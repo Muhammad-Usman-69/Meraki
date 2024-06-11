@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2024 at 02:55 PM
+-- Generation Time: Jun 11, 2024 at 11:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat`
+-- Table structure for table `chats`
 --
 
-CREATE TABLE `chat` (
+CREATE TABLE `chats` (
   `id` int(11) NOT NULL,
   `message` text NOT NULL,
   `user_id` varchar(30) NOT NULL,
@@ -36,12 +36,14 @@ CREATE TABLE `chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `chat`
+-- Dumping data for table `chats`
 --
 
-INSERT INTO `chat` (`id`, `message`, `user_id`, `user_name`, `time`) VALUES
+INSERT INTO `chats` (`id`, `message`, `user_id`, `user_name`, `time`) VALUES
 (1, 'Hello World!', 'admin', 'admin', 'June 10 at 3:16 pm'),
-(2, 'Hi MOM', 'johndoe', 'John Doe', 'June 10 at 3:15 pm');
+(2, 'Hi MOM', 'johndoe', 'John Doe', 'June 10 at 3:15 pm'),
+(20, 'hi', 'admin', 'admin', 'June 11 at 11:57 am'),
+(24, 'hello senor', 'admin', 'admin', 'June 11 at 12:08 pm');
 
 -- --------------------------------------------------------
 
@@ -112,10 +114,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`, `admin`, `active`) VALUES
 ('admin', 'admin', 'usmansaleem4446996@gmail.com', '$2y$10$qZQ0EqmjNcpWF/pbRvF6xOk5L7yo4CdMPyWmbuCCdKf.LfQbA9GdW', '65c756a1d9d021.98410873.png', 1, 1, 1),
-('admin433', 'admin', 'usmansaleem444@gmail.com', '$2y$10$lXhb.hT.4wZSc.GzPB2mQ.6Q8V1dM8ZAm5MALd51rrkY.kT1oqQnq', 'none', 0, 0, 1),
-('johndoe', 'John Doe', 'symiti@imagepoet.net', '$2y$10$UpK3Gjx60j9rJ6h4uRAnae6sGmO7Ln0Y0L3F7GeWSfyoTV0MAH8PG', 'none', 1, 0, 1),
-('johndoe119', 'John Doe', 'usmansaleem@gmail.com', '$2y$10$pea4pK2Hd/AuFNYU0nOsQ./vUuZQrNNXl4Qhi.KPgYGtXrExfSCJW', 'none', 0, 0, 1),
-('johndoe923', 'John Doe', 'example@example.com', '$2y$10$pgFPAjQfNmxMpxe57oNJ4eSNcc1FevAZtgVJdPOlThNqwnZQJmz6G', 'none', 0, 0, 1);
+('admin433', 'admin', 'usmansaleem444@gmail.com', '$2y$10$lXhb.hT.4wZSc.GzPB2mQ.6Q8V1dM8ZAm5MALd51rrkY.kT1oqQnq', 'none', 0, 1, 1),
+('johndoe', 'John Doe', 'symiti@imagepoet.net', '$2y$10$UpK3Gjx60j9rJ6h4uRAnae6sGmO7Ln0Y0L3F7GeWSfyoTV0MAH8PG', 'none', 1, 0, 0),
+('johndoe119', 'John Doe', 'usmansaleem@gmail.com', '$2y$10$pea4pK2Hd/AuFNYU0nOsQ./vUuZQrNNXl4Qhi.KPgYGtXrExfSCJW', 'none', 0, 0, 0),
+('johndoe923', 'John Doe', 'example@example.com', '$2y$10$pgFPAjQfNmxMpxe57oNJ4eSNcc1FevAZtgVJdPOlThNqwnZQJmz6G', 'none', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -144,9 +146,9 @@ INSERT INTO `verify` (`id`, `verification_code`) VALUES
 --
 
 --
--- Indexes for table `chat`
+-- Indexes for table `chats`
 --
-ALTER TABLE `chat`
+ALTER TABLE `chats`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -181,10 +183,10 @@ ALTER TABLE `verify`
 --
 
 --
--- AUTO_INCREMENT for table `chat`
+-- AUTO_INCREMENT for table `chats`
 --
-ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `chats`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `tasks`
