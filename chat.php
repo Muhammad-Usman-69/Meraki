@@ -79,7 +79,7 @@ include ("partials/_dbconnect.php");
         include ("dashboard/_sidemenu.php");
         ?>
         <!-- current container -->
-        <div class="no-scrollbar w-full h-screen overflow-y-scroll">
+        <div class="no-scrollbar w-full h-screen flex flex-col overflow-y-scroll">
             <header class="flex justify-between items-center mx-3">
                 <a href="/" class="dashboard-link flex items-center space-x-3 p-3">
                     <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
@@ -102,27 +102,30 @@ include ("partials/_dbconnect.php");
                     ?>
                 </a>
             </header>
+
             <hr class="mx-3 border-t border-gray-700" id="seperator">
+
             <div class="chat w-full flex flex-col text-sm" id="chat">
                 <!-- chats -->
-                <div class="space-y-3 p-4" id="message-container">
-                </div>
-                <!-- inputs -->
-                <div class="mt-auto border-t border-gray-700 text-gray-700 flex flex-row">
-                    <input type="text" name="message" class="p-4 w-full outline-none border-none text-sm"
-                        placeholder="Type a message" id="message">
-                    <button onclick="sendMessage()"
-                        class="bg-gray-50 text-center px-4 outline-none border-l border-gray-700 active:bg-gray-200">
-                        <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class=""
-                            version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24">
-                            <title>send</title>
-                            <path fill="currentColor"
-                                d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z">
-                            </path>
-                        </svg>
-                    </button>
+                <div class="space-y-3 p-4 overflow-y-scroll hide-scrollbar" id="message-container">
                 </div>
             </div>
+
+            <!-- inputs -->
+            <form id="send-message" class="mt-auto border-t border-gray-700 text-gray-700 flex flex-row">
+                <input type="text" name="message" class="p-4 w-full outline-none border-none text-sm"
+                    placeholder="Type a message" id="message">
+                <button type="submit"
+                    class="bg-gray-50 text-center px-4 outline-none border-l border-gray-700 active:bg-gray-200">
+                    <svg viewBox="0 0 24 24" height="24" width="24" preserveAspectRatio="xMidYMid meet" class=""
+                        version="1.1" x="0px" y="0px" enable-background="new 0 0 24 24">
+                        <title>send</title>
+                        <path fill="currentColor"
+                            d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z">
+                        </path>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
     <script src="side/dashboard.js"></script>
@@ -134,9 +137,13 @@ include ("partials/_dbconnect.php");
         let chatCont = document.getElementById("chat");
         let seperator = document.getElementById("seperator");
         let header = document.querySelector("header");
-        let height = document.body.scrollHeight - (header.offsetHeight + seperator.offsetHeight);
+        let senderForm = document.getElementById("send-message");
+        let height = document.body.scrollHeight - (header.offsetHeight + seperator.offsetHeight + senderForm.offsetHeight);
         chatCont.style.height = height + "px";
-        setInterval(() => {
+
+        let triggered = 0;
+
+        function chat() {
             let p = fetch("dashboard/_chats.php");
             p.then(res => {
                 return res.json();
@@ -144,19 +151,21 @@ include ("partials/_dbconnect.php");
                 //taking message container 
                 let msgContainer = document.getElementById("message-container");
                 chats.forEach(chat => {
-                    let name = chat.user_name;
+                    let id = chat.user_id;
                     let time = chat.time;
                     let message = chat.message;
+
                     // if admin then show to right
                     if (adminId == chat.user_id) {
                         justify = "end";
                     } else {
                         justify = "start";
                     }
+
                     container = `<div class="flex justify-${justify} text-gray-700">
-                        <div class="bg-gray-100 rounded-lg space-y-2 p-2 flex flex-col min-w-[30%] max-w-[30%]">
-                            <div class="flex justify-between text-xs">
-                                <p class="hover:underline cursor-pointer">${name}</p>
+                        <div class="bg-gray-100 rounded-lg space-y-2 p-2 flex flex-col min-w-full md:min-w-[40%] min-w-full md:max-w-[40%]">
+                            <div class="flex justify-between text-xs space-x-3">
+                                <p class="hover:underline cursor-pointer">${id}</p>
                                 <p>${time}</p>
                             </div>
                             <p>${message}</p>
@@ -171,8 +180,27 @@ include ("partials/_dbconnect.php");
                     //changing
                     document.getElementById("message-container").innerHTML += container;
                 });
+
+
+                //if already triggerd then stop
+                if (triggered == 1) {
+                    return;
+                }
+
+                //triggering bottom function after info is loaded
+                bottom();
+
+                //increamenting if triggered
+                triggered++;
             })
-        }, 1000);
+        }
+
+
+        //triggering by default
+        chat();
+
+        //repeating every 1 second
+        setInterval(chat, 1000);
 
         function sendMessage() {
             //taking values
@@ -188,16 +216,39 @@ include ("partials/_dbconnect.php");
             // Create an XMLHttpRequest object
             const xhttp = new XMLHttpRequest();
 
-            // Define a callback function
+            // Define a callback function for when the request is complete
             xhttp.onload = function () {
-                // Here you can use the Data
+
+                //setting triggered to zero
+                triggered = 0;
+
+                //triggering chat
+                chat();
             }
 
             // Send a request
             xhttp.open("POST", "dashboard/_postchat.php");
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send(`message=${message}&userid=${id}&username=${name}`);
-
         }
+
+        //if submitting
+        let form = document.getElementById("send-message");
+
+        form.addEventListener("submit", (e) => {
+            //preventing form submission and sending message
+            e.preventDefault();
+            sendMessage();
+
+            // clearing input
+            document.getElementById("message").value = "";
+
+        });
+
+        //scrolling to the bottom
+        function bottom() {
+            document.getElementById("message-container").scrollTo(0, (document.getElementById("message-container").scrollHeight));
+        };
     </script>
 </body>
 

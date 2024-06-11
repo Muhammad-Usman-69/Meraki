@@ -108,8 +108,8 @@ include ("partials/_dbconnect.php");
             <div
                 class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
                 <!-- user signing form -->
-                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="partials/_s-handler.php"
-                    method="post">
+                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center"
+                    action="partials/_s-handler.php" method="post">
                     <div class="flex m-4 space-x-3">
                         <input type="text" name="name" class="bg-transparent outline-none border-none"
                             placeholder="John Doe" minlength="5" required></input>
@@ -120,7 +120,8 @@ include ("partials/_dbconnect.php");
                             required>
                     </div>
                     <button type="Submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Add Account</button>
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Add
+                        Account</button>
                 </form>
 
                 <table class="w-full shadow-md">
@@ -132,9 +133,11 @@ include ("partials/_dbconnect.php");
                             <th scope="col" class="p-4">Total Tasks</th>
                             <th scope="col" class="p-4">Progress</th>
                             <th scope="col" class="p-4">Completed</th>
-                            <th scope="col" class="p-4">Verified</th>
+                            <th scope="col" class="p-4">Verify</th>
                             <th scope="col" class="p-4">Status</th>
+                            <th scope="col" class="p-4">Admin</th>
                             <th scope="col" class="p-4">Change Status</th>
+                            <th scope="col" class="p-4">Change Admin</th>
                             <th scope="col" class="p-4">Tasks</th>
                         </tr>
                     </thead>
@@ -148,7 +151,7 @@ include ("partials/_dbconnect.php");
                         $result = mysqli_stmt_get_result($stmt);
 
                         while ($row = mysqli_fetch_assoc($result)) {
-                            //checking if admin
+                            //checking if account is activve
                             if ($row["active"] == 1) {
                                 $status = "Active";
                                 $change_status = "Inactive";
@@ -158,10 +161,23 @@ include ("partials/_dbconnect.php");
                                 $change_status = "Active";
                                 $change_status_id = 1;
                             }
+                            //check if admin
+                            if ($row["admin"] == 1) {
+                                $admin = "Admin";
+                                $change_admin = "User";
+                                $change_admin_id = 0;
+                            } else {
+                                $admin = "User";
+                                $change_admin = "Admin";
+                                $change_admin_id = 1;
+                            }
+
                             //admin can't change himself
                             if ($_SESSION["id"] == $row["id"]) {
-                                $change_status = "Can't Change";
+                                $change_status = "Can't";
                                 $change_status_id = 2;
+                                $change_admin = "Can't";
+                                $change_admin_id = 2;
                             }
 
                             //check if verified
@@ -199,8 +215,12 @@ include ("partials/_dbconnect.php");
                             <td class="text-center py-3">' . $finished . '</td>
                             <td class="text-center py-3">' . $verify . '</td>
                             <td class="text-center py-3">' . $status . '</td>
+                            <td class="text-center py-3">' . $admin . '</td>
                             <td class="py-3 relative">
                                 <button onclick="window.location.assign(`dashboard/_changeuseractive?id=' . $row["id"] . '&status=' . $change_status_id . '`)" class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-4 py-2 text-center whitespace-nowrap">' . $change_status . '</button>
+                            </td>
+                            <td class="py-3 relative">
+                                <button onclick="window.location.assign(`dashboard/_changeuseradmin?id=' . $row["id"] . '&admin=' . $change_admin_id . '`)" class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-4 py-2 text-center whitespace-nowrap">' . $change_admin . '</button>
                             </td>
                             <td class="py-3 relative">
                                 <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white bg-cyan-500 shadow-md hover:bg-cyan-400 rounded-md"

@@ -9,7 +9,7 @@ if ($conn == false) {
 $arr = array();
 
 //moving through each table
-$sql = "SELECT * FROM `chat`";
+$sql = "SELECT * FROM `chats`";
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
