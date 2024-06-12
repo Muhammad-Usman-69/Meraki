@@ -78,7 +78,7 @@ include ("partials/_dbconnect.php");
         <?php include ("dashboard/_sidemenu.php"); ?>
         <!-- current container -->
         <div class="overflow-y-scroll hide-scrollbar w-full">
-            
+
             <!-- header -->
             <?php include ("dashboard/_header.php"); ?>
 
@@ -88,23 +88,23 @@ include ("partials/_dbconnect.php");
             <div
                 class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
                 <!-- user signing form -->
-                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center"
+                <form class="w-full shadow-md bg-[#F3F2F7] flex justify-between items-center"
                     action="partials/_s-handler.php" method="post">
-                    <div class="flex m-4 space-x-3">
-                        <input type="text" name="name" class="bg-transparent outline-none border-none"
+                    <div class="flex m-4 flex-col space-y-3 w-full">
+                        <input type="text" name="name" class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none"
                             placeholder="John Doe" minlength="5" required></input>
-                        <input type="email" name="email" class="bg-transparent outline-none border-none"
+                        <input type="email" name="email" class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none"
                             placeholder="example@example.com" minlength="12" required></input>
                         <input type="password" autocomplete="new-password" name="pass"
-                            class="bg-transparent outline-none border-none" placeholder="••••••••" minlength="12"
-                            required>
+                            class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none" placeholder="••••••••"
+                            minlength="12" required>
                     </div>
                     <button type="Submit"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Add
                         Account</button>
                 </form>
 
-                <table class="w-full shadow-md">
+                <table class="w-full shadow-md text-sm">
                     <thead>
                         <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
                             <th scope="col" class="p-4">User Id</th>
@@ -220,6 +220,7 @@ include ("partials/_dbconnect.php");
                 </table>
             </div>
         </div>
+    </div>
     </div>
     <script src="side/dashboard.js"></script>
 </body>
