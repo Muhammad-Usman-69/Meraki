@@ -83,26 +83,95 @@ $status = $row["status"];
 
             <!--menu section-->
             <div class="mx-6">
-                <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-9 h-9">
-                    <img class="menu-img w-8 invert transition-all duration-300 absolute top-0 left-0"
-                        src="images/menu.png">
-                    <img class="close-img w-8 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
+                <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-10 h-10">
+                    <?php
+                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
+                        echo '<img class="menu-img w-10 transition-all duration-300 absolute top-0 left-0"
+                        src="' . $profile_img . '">';
+                    } else {
+                        echo '<img class="menu-img w-9 transition-all duration-300 absolute top-0 left-0 invert"
+                        src="images/menu.png">';
+                    }
+                    ?>
+                    <img class="close-img w-9 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
                         src="images/close.png">
                 </button>
                 <ul
                     class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
-                    <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
-                        <button data-modal-target="logout-modal" data-modal-toggle="logout-modal" type="button"
-                            class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
-                            out</button>
-                    </li>
                     <?php
-                    if ($_SESSION["admin"] == true) {
+                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                         echo '<li
-                        class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
-                        <a href="dashboard.php"
-                            class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Dashboard</a>
+                        class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600 flex justify-between group/id bg-gray-900">
+                        <p
+                            class="block w-full py-1.5 px-3 text-gray-300 group-hover/id:bg-gray-800 overflow-hidden whitespace-nowrap text-left">
+                            Id :
+                            <span id="id">' . $id . '</span>
+                        </p>
+                        <button onclick="copy(document.getElementById(`id`).innerHTML)"
+                            class="group-hover/id:bg-gray-800 px-2">
+                            <img src="images/copy-files.png" alt="" class="w-6 invert">
+                        </button>
+                    </li>
+                    <li
+                        class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600 flex justify-between group/name bg-gray-900">
+                        <p
+                            class="block w-full py-1.5 px-3 text-gray-300 group-hover/name:bg-gray-800 overflow-hidden whitespace-nowrap text-left">
+                            Name :
+                            <span id="name">' . $name . '</span>
+                        </p>
+                        <button onclick="copy(document.getElementById(`name`).innerHTML)"
+                            class="group-hover/name:bg-gray-800 px-2">
+                            <img src="images/copy-files.png" alt="" class="w-6 invert">
+                        </button>
+                    </li>
+                    <li
+                        class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600 flex justify-between group/email bg-gray-900">
+                        <p
+                            class="block w-full py-1.5 px-3 text-gray-300 group-hover/email:bg-gray-800 overflow-hidden whitespace-nowrap text-left">
+                            Email :
+                            <span id="email">' . $email . '</span>
+                        </p>
+                        <button onclick="copy(document.getElementById(`email`).innerHTML)"
+                            class="group-hover/email:bg-gray-800 px-2">
+                            <img src="images/copy-files.png" alt="" class="w-6 invert">
+                        </button>
+                    </li>
+                    <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600 relative">
+                        <p class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Change Picture</p>
+                        <form action="partials/_upload-img.php" method="POST" enctype="multipart/form-data"
+                            class="absolute z-20 opacity-0 h-full top-0 w-full">
+                            <input type="file" id="p_img" name="p_img" accept="image/jpg, image/jpeg, image/png"
+                                oninput="this.parentNode.submit();" class="h-full w-full" />
+                        </form>
+                    </li>
                     </li>';
+                    } else {
+                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-ou h-0 border-b-gray-600">
+                        <button data-modal-target="log-modal" data-modal-toggle="log-modal"
+                            class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
+                            in</button>
+                        </li>
+                        <li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                            <button data-modal-target="sign-modal" data-modal-toggle="sign-modal" type="button"
+                                class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Sign
+                                up</button>
+                        </li>';
+                    }
+
+
+
+                    if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                            <a href="dashboard.php" class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Dashboard</a>
+                            </li>';
+                    }
+
+                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
+                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                            <button data-modal-target="logout-modal" data-modal-toggle="logout-modal" type="button"
+                                class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
+                                out</button>  
+                        </li>';
                     }
                     ?>
                 </ul>
@@ -139,68 +208,6 @@ $status = $row["status"];
     }
     ?>
 
-
-    <div class="profile py-14 grid place-items-center md:grid-cols-[1fr_2px_1fr]">
-        <div class="profile-pic flex justify-center relative group w-64 h-64">
-
-            <?php
-            if ($profile_img != "none") {
-                echo '<img src="profile/images/' . $profile_img . '" alt="profile" class="rounded-full object-contain bg-white">';
-            } else {
-                echo '<img src="images/user.png" alt="profile" class="rounded-full object-contain bg-white">';
-            }
-            ?>
-
-            <img src="images/upload-image.png" alt="profile"
-                class="absolute opacity-0 h-full z-10 p-16 rounded-full transition-all duration-300 group-hover:bg-gray-100 group-hover:opacity-100">
-            <form action="partials/_upload-img.php" method="POST" enctype="multipart/form-data"
-                class="absolute z-20  opacity-0 h-full">
-                <input type="file" id="p_img" name="p_img" accept="image/jpg, image/jpeg, image/png"
-                    oninput="this.parentNode.submit();" class="h-full cursor-pointer" />
-            </form>
-
-        </div>
-
-        <div class="my-12 w-[calc(100%-64px)] h-0.5 bg-white md:h-full md:w-0.5"></div>
-
-        <ul class="info px-8 space-y-4">
-            <li class="grid grid-cols-1">
-                <h4 class="font-semibold text-sm text-gray-400">Name:</h4>
-                <p class="text-lg text-white flex justify-between items-center">
-                    <span class="break-all name">
-                        <?php echo $name; ?>
-                    </span>
-                    <button onclick="copy(document.querySelector('.name').innerHTML)">
-                        <img src="images/copy-files.png" alt="" class="w-6 invert">
-                    </button>
-                </p>
-            </li>
-            <li class="grid grid-cols-1">
-                <h4 class="font-semibold text-sm text-gray-400">Email:</h4>
-                <p class="text-lg text-white flex justify-between items-center space-x-4">
-                    <span class="break-all email">
-                        <?php echo $email; ?>
-                    </span>
-                    <button onclick="copy(document.querySelector('.email').innerHTML)">
-                        <img src="images/copy-files.png" alt="" class="w-6 invert">
-                    </button>
-                </p>
-            </li>
-            <li class="grid grid-cols-1">
-                <h4 class="font-semibold text-sm text-gray-400">User ID:</h4>
-                <p class="text-lg text-white flex justify-between items-center space-x-4">
-                    <span class="break-all id">
-                        <?php echo $id; ?>
-                    </span>
-                    <button onclick="copy(document.querySelector('.id').innerHTML)">
-                        <img src="images/copy-files.png" alt="" class="w-6 invert">
-                    </button>
-                </p>
-            </li>
-        </ul>
-    </div>
-
-    <hr>
 
 
     <!-- search and select -->

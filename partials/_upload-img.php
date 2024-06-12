@@ -66,6 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //taking id of user
     $id = $_SESSION["id"];
 
+    //adding addtional path
+    $fileNewName = "../profile/images/" . $fileNewName;
+
     //moving to database
     include("_dbconnect.php");
 

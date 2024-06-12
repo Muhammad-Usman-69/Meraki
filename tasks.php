@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 //checking if logged
 if ($_SESSION["log"] == false) {
@@ -99,31 +98,15 @@ if ($num == 0) {
         </button>
     </div>
     <div class="flex z-20 overflow-y-hidden max-h-screen">
-        <?php
-        include ("dashboard/_sidemenu.php");
-        ?>
+        <?php include ("dashboard/_sidemenu.php"); ?>
         <!-- current container -->
         <div class="overflow-y-scroll hide-scrollbar w-full">
-            <header class="flex justify-between items-center mx-3">
-                <a href="/" class="dashboard-link flex items-center space-x-3 p-3">
-                    <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
-                    <p class="text-gray-700 text-sm">Meraki</p>
-                </a>
-                <a href="p" class="flex items-center space-x-3 p-3 bg-gray-50">
-                    <?php
-                    $sql = "SELECT * FROM `users` WHERE `id` = ?";
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "s", $user_id);
-                    mysqli_execute($stmt);
-                    $result2 = mysqli_stmt_get_result($stmt);
-                    $row2 = mysqli_fetch_assoc($result2);
-                    echo '<img src="profile/images/' . $row2["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
-                    <p class="text-gray-700 text-sm">' . $row2["name"] . '</p>
-                    ';
-                    ?>
-                </a>
-            </header>
+
+            <!-- header -->
+            <?php include ("dashboard/_header.php"); ?>
+
             <hr class="mx-3 border-t border-gray-700">
+
             <!-- tasks container -->
             <div
                 class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
@@ -200,7 +183,7 @@ if ($num == 0) {
 
                             //echoing data
                             echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
-                            <td class="text-center py-3">' . $task_id . '</td>
+                            <td class="text-center py-3">#' . $task_id . '</td>
                             <td class="text-center py-3 px-3">' . $title . '</td>
                             <td class="text-center py-3">
                                 <input type="datetime-local" class="datetime hidden" value="' . $row["task_time"] . '">

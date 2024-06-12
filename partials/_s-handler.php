@@ -24,7 +24,6 @@ $unfiltered_id = strtolower($name);
 $id = str_replace(" ", "", $unfiltered_id);
 $email = $_POST["email"];
 $pass = $_POST["pass"];
-$p_img = "none";
 $status = 0;
 
 include ("_dbconnect.php");
@@ -68,9 +67,9 @@ $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 $pass = htmlspecialchars($pass, ENT_QUOTES, 'UTF-8');
 $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
-$sql = "INSERT INTO `users` (`id`, `name`, `email`, `pass`, `img`, `status`) VALUES (?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO `users` (`id`, `name`, `email`, `pass`, `status`) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "sssssi", $id, $name, $email, $pass_hash, $p_img, $status);
+mysqli_stmt_bind_param($stmt, "ssssi", $id, $name, $email, $pass_hash, $status);
 mysqli_stmt_execute($stmt);
 
 $sql = "INSERT INTO `verify` (`id`) VALUES (?)";

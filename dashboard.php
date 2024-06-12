@@ -75,33 +75,13 @@ include ("partials/_dbconnect.php");
         </button>
     </div>
     <div class="flex z-20 overflow-y-hidden max-h-screen">
-        <?php
-        include ("dashboard/_sidemenu.php");
-        ?>
+        <?php include ("dashboard/_sidemenu.php"); ?>
         <!-- current container -->
         <div class="overflow-y-scroll hide-scrollbar w-full">
-            <header class="flex justify-between items-center mx-3">
-                <a href="/" class="dashboard-link flex items-center space-x-3 p-3">
-                    <img src="images/logo.jpg" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">
-                    <p class="text-gray-700 text-sm">Meraki</p>
-                </a>
-                <a href="p" class="flex items-center space-x-3 p-3 bg-gray-50">
-                    <?php
-                    $sql = "SELECT * FROM `users` WHERE `id` = ?";
-                    $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "s", $user_id);
-                    mysqli_execute($stmt);
-                    $result = mysqli_stmt_get_result($stmt);
-                    $row = mysqli_fetch_assoc($result);
-                    if ($row["img"] != "none") {
-                        echo '<img src="profile/images/' . $row["img"] . '" alt="" class="h-9 w-9 rounded-full border-2 border-gray-800">';
-                    } else {
-                        echo '<img src="images/user.png" alt="profile" class="h-9 w-9 rounded-full border-2 border-gray-800">';
-                    }
-                    echo '<p class="text-gray-700 text-sm">' . $row["name"] . '</p>';
-                    ?>
-                </a>
-            </header>
+            
+            <!-- header -->
+            <?php include ("dashboard/_header.php"); ?>
+
             <hr class="mx-3 border-t border-gray-700">
 
             <!-- user container -->
