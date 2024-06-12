@@ -127,32 +127,41 @@ if ($num == 0) {
             <!-- tasks container -->
             <div
                 class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
-                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="dashboard/_assign"
+                <form class="w-full shadow-md bg-[#F3F2F7] flex justify-between items-center" action="dashboard/_assign"
                     method="post">
-                    <div class="flex m-4 space-x-3">
-                        <textarea name="title" class="bg-transparent outline-none resize-none hide-scrollbar"
-                            placeholder="Title" rows="2" cols="30" minlength="10" required></textarea>
-                        <textarea name="desc" class="bg-transparent outline-none resize-none hide-scrollbar"
-                            placeholder="Description" rows="2" cols="30" minlength="30" required></textarea>
-                        <input type="datetime-local" name="time"
-                            class="bg-transparent outline-none border-none text-gray-400"
-                            oninput="this.style.color='black'" required>
-                        <select name="users[]" class="bg-transparent outline-none min-w-40 text-gray-400 hide-scrollbar"
-                            size="2" multiple required>
-                            <?php
-                            //getting data
-                            $sql = "SELECT * FROM `users`";
-                            $stmt = mysqli_prepare($conn, $sql);
-                            mysqli_stmt_execute($stmt);
-                            $result2 = mysqli_stmt_get_result($stmt);
-                            while ($row = mysqli_fetch_assoc($result2)) {
-                                echo '<option value="' . $row["id"] . '">' . $row["id"] . '</option>';
-                            }
-                            ?>
-                        </select>
+                    <div class="flex m-4 flex-col space-y-3 w-full lg:flex-row lg:space-y-0 lg:space-x-3">
+                        <div class="grid grid-cols-2 gap-3 lg:w-[45%]">
+                            <textarea name="title"
+                                class="bg-[#F8F8F8] outline-none rounded-md resize-none hide-scrollbar p-2"
+                                placeholder="Title" rows="2" minlength="10" required></textarea>
+                            <textarea name="desc"
+                                class="bg-[#F8F8F8] outline-none rounded-md resize-none hide-scrollbar p-2"
+                                placeholder="Description" rows="2" minlength="30" required></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 lg:w-[45%]">
+                            <input type="datetime-local" name="time"
+                                class="bg-[#F8F8F8] outline-none rounded-md border-none text-gray-400 p-2"
+                                oninput="this.style.color='black'" required>
+                            <select name="users[]"
+                                class="bg-[#F8F8F8] outline-none rounded-md min-w-40 text-gray-400 hide-scrollbar p-2"
+                                size="2" multiple required>
+                                <?php
+                                //getting data
+                                $sql = "SELECT * FROM `users`";
+                                $stmt = mysqli_prepare($conn, $sql);
+                                mysqli_stmt_execute($stmt);
+                                $result2 = mysqli_stmt_get_result($stmt);
+                                while ($row = mysqli_fetch_assoc($result2)) {
+                                    echo '<option value="' . $row["id"] . '">' . $row["id"] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="lg:grid lg:place-items-center lg:w-[10%]">
+                            <button type="Submit"
+                                class="w-full lg:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Assign</button>
+                        </div>
                     </div>
-                    <button type="Submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Assign</button>
                 </form>
                 <table class="w-full shadow-md">
                     <thead>

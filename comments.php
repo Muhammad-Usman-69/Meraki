@@ -145,12 +145,12 @@ if ($num == 0) {
                 <table class="w-full shadow-md">
                     <thead>
                         <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
-                            <th scope="col" class="p-4">Comment Id</th>
+                            <th scope="col" class="p-4">Id</th>
                             <th scope="col" class="p-4">Task Id</th>
                             <th scope="col" class="p-4">User Id</th>
                             <th scope="col" class="p-4">Comment</th>
                             <th scope="col" class="p-4">Time</th>
-                            <th scope="col" class="p-4">Functions</th>
+                            <th scope="col" class="p-4">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -176,7 +176,8 @@ if ($num == 0) {
                                     <input type="date" class="bg-transparent w-[87px] hide-cal outline-none border-none date" readonly>
                                     <input type="time" class="bg-transparent w-[67px] hide-cal outline-none border-none time" readonly>
                                 </td>
-                                <td class="text-center py-3 space-y-1 grid place-items-center"><a href="dashboard/_delete?comment=' . $comment_id . '&task=' . $task_id . '&id=' . $user_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
+                                <td class="text-center py-3 space-y-1 grid place-items-center">
+                                    <a href="dashboard/_delete?comment=' . $comment_id . '&task=' . $task_id . '&id=' . $user_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
                                         <img class="invert w-5" src="../images/delete.png" alt="delete">
                                     </a>
                                 </td>
