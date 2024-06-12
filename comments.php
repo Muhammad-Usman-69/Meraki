@@ -130,6 +130,15 @@ if ($num == 0) {
                 </a>
             </header>
             <hr class="mx-3 border-t border-gray-700">
+            <?php
+            //if coming from specific
+            if (str_contains($_SERVER["HTTP_REFERER"], "tasks?id")) {
+                echo '
+                <div class="m-4 my-5">
+                    <a href="' . $_SERVER["HTTP_REFERER"] . '" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer">Return</a>
+                </div>';
+            }
+            ?>
             <!-- user container -->
             <div class="m-4 bg-white rounded-md shadow-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)]"
                 id="user">
@@ -163,7 +172,9 @@ if ($num == 0) {
                                 <td class="text-center py-3">' . $user_id . '</td>
                                 <td class="text-center py-3">' . $comment . '</td>
                                 <td class="text-center py-3">
-                                    <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $time . '" readonly>
+                                    <input type="datetime-local" class="datetime hidden" value="' . $time . '">
+                                    <input type="date" class="bg-transparent w-[87px] hide-cal outline-none border-none date" readonly>
+                                    <input type="time" class="bg-transparent w-[67px] hide-cal outline-none border-none time" readonly>
                                 </td>
                                 <td class="text-center py-3 space-y-1 grid place-items-center"><a href="dashboard/_delete?comment=' . $comment_id . '&task=' . $task_id . '&id=' . $user_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
                                         <img class="invert w-5" src="../images/delete.png" alt="delete">

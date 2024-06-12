@@ -285,6 +285,7 @@ $status = $row["status"];
                     $status = $row["task_status"];
                     $task_id = $row["task_id"];
                     $time = $row["task_time"];
+                    $user_id = $row["id"];
                     echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $task_id . '">
                     <td class="px-4 py-4 sm:px-8 text-center">#' . $task_id . '</td>
                     <td class="py-4 title">' . $title . '</td>

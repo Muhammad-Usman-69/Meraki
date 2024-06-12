@@ -1,7 +1,3 @@
-add dashboard {done}
-admin can see all task {done}
-admin can assign task to people {done}
-admin can assign task to two people {done}
-user can put comments {done}
-admin can active/inactive user {done}
-admin can add new accounts {done}
+edit profile functionabilitiy
+make task tables responsive by changing functions
+messages should be deleted after 15 days

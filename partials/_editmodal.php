@@ -5,7 +5,7 @@ class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full
         <div class="relative shadow bg-gray-700 border border-white rounded-md">
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
                 <h3 class="text-xl font-semibold text-white">
-                    Edit This Task
+                    Edit This Task (' . $user_id . ')
                 </h3>
                 <button type="button"
                     class="end-2.5 text-gray-400 bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center hover:bg-gray-600 hover:text-white"
@@ -20,30 +20,27 @@ class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full
             </div>
             <form action="partials/_update.php?id=' . $task_id . '" method="post">
             <div class="p-4 md:p-5 space-y-4">
+                    <input type="hidden" name="task-user-id-' . $task_id . '" value="' . $user_id . '">
                     <div>
-                        <label for="task-edit-id-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                            Task Id</label>
+                        <label for="task-edit-id-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Task Id</label>
                         <input type="text" id="task-edit-id-' . $task_id . '" name="task-edit-id-' . $task_id . '"
                             value="#' . $task_id . '"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             readonly>
                     </div>
                     <div>
-                        <label for="task-edit-title-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                            Task Title</label>
+                        <label for="task-edit-title-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Task Title</label>
                         <input type="text" id="task-edit-title-' . $task_id . '" name="task-edit-title-' . $task_id . '"
                             value="' . $title . '"
                             class="border text-sm rounded-lg  focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white" maxlength="50">
                     </div>
                     <div>
-                        <label for="task-edit-desc-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                            Task Description</label>
+                        <label for="task-edit-desc-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Task Description</label>
                         <textarea id="task-edit-desc-' . $task_id . '" name="task-edit-desc-' . $task_id . '" rows="4"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white hide-scrollbar resize-none" maxlength="300">' . $desc . '</textarea>
                     </div>
                     <div>
-                        <label for="task-edit-time-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Your
-                            Task Time</label>
+                        <label for="task-edit-time-' . $task_id . '" class="block mb-2 text-sm font-medium text-white">Task Time</label>
                         <input type="datetime-local" value="' . $time . '" id="task-edit-time-' . $task_id . '"
                             name="task-edit-time-' . $task_id . '"
                             class="border text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white calender">

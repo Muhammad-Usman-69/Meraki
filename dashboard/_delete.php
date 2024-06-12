@@ -39,8 +39,13 @@ if (str_contains($previous_link, "tasks")) {
     mysqli_stmt_execute($stmt);
 }
 
-if (str_contains($previous_link, "comments")) {
+if (str_contains($previous_link, "comments?taskid")) {
     header("location: /comments?taskid=$taskid&alert=Deleted Successfully");
+    exit();
+}
+
+if (str_contains($previous_link, "comments")) {
+    header("location: /comments?alert=Deleted Successfully");
     exit();
 }
 

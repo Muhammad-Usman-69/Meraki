@@ -1,5 +1,4 @@
 <?php
-// exit();
 //check if post
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("location:/?error=Access Denied");

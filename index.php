@@ -236,6 +236,7 @@ session_start();
                             $desc = $row["task_desc"];
                             $time = $row["task_time"];
                             $task_id = $row["task_id"];
+                            $user_id = $row["id"];
                             echo '<tr class="bg-gray-800 border-gray-700 text-white border-b hidden tr" id="#' . $task_id . '">
                                 <td class="px-3 py-4 text-sm sm:text-base text-center sm:px-8">#' . $task_id . '</td>
                                 <!--max 150-->

@@ -9,8 +9,6 @@ function displayMenu() {
   dashLink.classList.toggle("ml-10");
 }
 
-// displayMenu();
-
 //alert
 function hideAlert(element) {
   //hiding alert
@@ -21,3 +19,40 @@ function hideAlert(element) {
     element.parentNode.remove();
   }, 200);
 }
+
+//if width is small then close side menu
+if (document.body.scrollWidth <= 768) {
+  displayMenu();
+}
+
+//dividing the datetimes from database
+let datetimes = document.querySelectorAll(".datetime");
+let dates = document.querySelectorAll(".date");
+let times = document.querySelectorAll(".time");
+let arr = [];
+
+//looping through input
+datetimes.forEach((datetime) => {
+  let values = datetime.value;
+
+  //spliting the value and pushing them into array
+  arr.push(values.split("T"));
+});
+
+//declaring i as an index
+let i = 0;
+
+//putting value of date
+dates.forEach((date) => {
+  date.value = arr[i][0];
+  i++;
+});
+
+//reseting value of index
+i = 0;
+
+//putting value of time
+times.forEach((time) => {
+  time.value = arr[i][1];
+  i++;
+});

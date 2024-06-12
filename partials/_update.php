@@ -16,18 +16,17 @@ if (!isset($_SESSION["log"]) || $_SESSION["log"] != true) {
 //creating link
 $previous_link = $_SERVER['HTTP_REFERER'];
 //redirecting according to where data came from
-if (str_contains($previous_link, "dashboard")) {
-    $header = "dashboard.php";
+if (str_contains($previous_link, "tasks")) {
+    $header = "tasks";
 } else {
     $header = "";
 }
 
 //check if task id is even avaiable
 $taskid = $_GET["id"];
-$id = $_SESSION["id"];
-$sql = "SELECT * FROM `tasks` WHERE `task_id` = ? AND `id` = ?";
+$sql = "SELECT * FROM `tasks` WHERE `task_id` = ?";
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "is", $taskid, $id);
+mysqli_stmt_bind_param($stmt, "i", $taskid);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 $num = mysqli_num_rows($result);
@@ -42,6 +41,12 @@ $desc = htmlspecialchars($desc, ENT_QUOTES, 'UTF-8');
 $time = htmlspecialchars($time, ENT_QUOTES, 'UTF-8');
 
 if ($num == 0 || $title == "" || $desc == "" || $time == "") {
+    //if coming from specific
+    if (str_contains($_SERVER["HTTP_REFERER"], "tasks?id")) {
+        header("location: /tasks?id={$_POST["task-user-id-$taskid"]}&error=Invalid cresidentials");
+        exit();
+    }
+
     header("location: /$header?error=Invalid cresidentials");
     exit();
 }
@@ -51,7 +56,14 @@ $sql = "UPDATE `tasks` SET `task_title` = ?, `task_desc` = ?, `task_time` = ? WH
 $stmt = mysqli_prepare($conn, $sql);
 mysqli_stmt_bind_param($stmt, "ssss", $title, $desc, $time, $taskid);
 $result = mysqli_stmt_execute($stmt);
+
 if ($result) {
+    //if coming from specific
+    if (str_contains($_SERVER["HTTP_REFERER"], "tasks?id")) {
+        header("location: /tasks?id={$_POST["task-user-id-$taskid"]}&alert=Updated Successfully");
+        exit();
+    }
+
     header("location: /$header?alert=Updated successfully");
     exit();
 } else {

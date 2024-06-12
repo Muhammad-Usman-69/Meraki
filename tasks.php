@@ -125,9 +125,10 @@ if ($num == 0) {
             </header>
             <hr class="mx-3 border-t border-gray-700">
             <!-- tasks container -->
-            <div class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
-                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center"
-                    action="dashboard/_assign" method="post">
+            <div
+                class="m-4 bg-white rounded-md container min-w-[calc(100%-32px)] text-sm max-w-[calc(100%-32px)] space-y-4">
+                <form class="w-full shadow-md bg-[#F8F8F8] flex justify-between items-center" action="dashboard/_assign"
+                    method="post">
                     <div class="flex m-4 space-x-3">
                         <textarea name="title" class="bg-transparent outline-none resize-none hide-scrollbar"
                             placeholder="Title" rows="2" cols="30" minlength="10" required></textarea>
@@ -136,9 +137,8 @@ if ($num == 0) {
                         <input type="datetime-local" name="time"
                             class="bg-transparent outline-none border-none text-gray-400"
                             oninput="this.style.color='black'" required>
-                        <select name="users[]"
-                            class="bg-transparent outline-none min-w-40 text-gray-400 hide-scrollbar" size="2" multiple
-                            required>
+                        <select name="users[]" class="bg-transparent outline-none min-w-40 text-gray-400 hide-scrollbar"
+                            size="2" multiple required>
                             <?php
                             //getting data
                             $sql = "SELECT * FROM `users`";
@@ -158,14 +158,10 @@ if ($num == 0) {
                     <thead>
                         <tr class="border-b-gray-600 border-b bg-[#F3F2F7]">
                             <th scope="col" class="p-4">Task Id</th>
-                            <th scope="col" class="p-4">User Id</th>
                             <th scope="col" class="p-4">Title</th>
-                            <th scope="col" class="p-4">Description</th>
                             <th scope="col" class="p-4">Time</th>
-                            <th scope="col" class="p-4">Comments</th>
                             <th scope="col" class="p-4">Status</th>
                             <th scope="col" class="p-4">Functions</th>
-                            <th scope="col" class="p-4">View Comments</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -187,23 +183,42 @@ if ($num == 0) {
                             mysqli_stmt_execute($stmt);
                             $result2 = mysqli_stmt_get_result($stmt);
                             $num = mysqli_num_rows($result2);
+                            if ($num == 0) {
+                                $color = "bg-red-600 hover:bg-red-500";
+                            } else {
+                                $color = "bg-cyan-500 hover:bg-cyan-400";
+                            }
 
                             //echoing data
                             echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
                             <td class="text-center py-3">' . $task_id . '</td>
-                            <td class="text-center py-3">' . $row["id"] . '</td>
-                            <td class="text-center py-3">' . $title . '</td>
-                            <td class="text-center py-3 px-3">' . $desc . '</td>
+                            <td class="text-center py-3 px-3">' . $title . '</td>
                             <td class="text-center py-3">
-                                <input type="datetime-local" class="bg-transparent hide-cal py-3 outline-none border-none" value="' . $row["task_time"] . '" readonly>
+                                <input type="datetime-local" class="datetime hidden" value="' . $row["task_time"] . '">
+                                <input type="date" class="bg-transparent w-[87px] hide-cal outline-none border-none date" readonly>
+                                <input type="time" class="bg-transparent w-[67px] hide-cal outline-none border-none time" readonly>
                             </td>
-                            <td class="text-center py-3">' . $num . '</td>
                             <td class="text-center py-3 capitalize">' . $row["task_status"] . '</td>
-                            <td class="text-center py-3 space-y-1 grid place-items-center">
-                                <div class="flex space-x-1">
-                                <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '" href="" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
-                                    <img class="invert w-5" src="../images/edit.png" alt="edit">
-                                </button>';
+                            <td class="text-center space-y-1 py-3 grid place-items-center lg:flex lg:space-y-0 lg:space-x-1 lg:justify-center lg:items-center">
+                            <div class="flex space-x-1">
+                                <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '"
+                                    class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
+                                    <img class="invert min-w-5 w-5" src="../images/detail.png" alt="detail">
+                                </button>
+                                <button data-modal-target="edit-modal-' . $i . '" data-modal-toggle="edit-modal-' . $i . '" class="rounded-md bg-yellow-500 hover:bg-yellow-600 p-2">
+                                    <img class="invert min-w-5 w-5" src="../images/edit.png" alt="edit">
+                                </button>
+                                <button class="flex items-center p-2 text-white ' . $color . ' shadow-md rounded-md"
+                                onclick="window.location.assign(`comments?taskid=' . $task_id . '&userid=' . $user_id . '`)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-eye">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex space-x-1">';
                             if ($row["task_status"] == "progress") {
                                 echo '<a href="dashboard/_mark?id=' . $user_id . '&task=' . $task_id . '&mark=finished" class="rounded-md bg-green-600 hover:bg-green-700 p-2">
                                     <img class="invert w-5" src="../images/finish.png" alt="finish">
@@ -213,26 +228,18 @@ if ($num == 0) {
                                     <img class="invert w-5" src="../images/restore.png" alt="restore">
                                 </a>';
                             }
-                            echo '</div>
-                                <a href="dashboard/_delete?id=' . $user_id . '&task=' . $task_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                                    <img class="invert w-5" src="../images/delete.png" alt="delete">
-                                </a>
-                            </td>
-                            <td class="py-3 relative">
-                                <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white bg-cyan-500 shadow-md hover:bg-cyan-400 rounded-md"
-                                onclick="window.location.assign(`comments?taskid=' . $task_id . '&userid=' . $user_id . '`)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                    class="feather feather-eye">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                </button>
+                            echo '<a href="dashboard/_delete?id=' . $user_id . '&task=' . $task_id . '" class="rounded-md bg-red-600 hover:bg-red-700 p-2">
+                                        <img class="invert w-5" src="../images/delete.png" alt="delete">
+                                    </a>
+                                </div>
                             </td>
                             </tr>';
 
                             //echo edit modal
                             include ("partials/_editmodal.php");
+
+                            //echo detail modal
+                            include ("partials/_detailmodal.php");
                             $i++;
                         }
                         ?>
@@ -244,6 +251,9 @@ if ($num == 0) {
 
     <script src="side/dashboard.js"></script>
     <script src="side/flowbite.js"></script>
+    <script>
+
+    </script>
 </body>
 
 </html>

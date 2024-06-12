@@ -7,8 +7,8 @@
         <input type="date" class="bg-gray-800 outline-none w-[87px] hide-cal date" readonly>
         <input type="time" class="bg-gray-800 outline-none w-[87px] hide-cal time" readonly>
     </td>
-    <td class="py-4 grid grid-cols-1 gap-1 sm:flex">
-        <div class="w-fit">
+    <td class="py-4 grid place-items-center space-y-1">
+        <div class="flex space-x-1">
             <button data-modal-target="dummy-login-detail-modal" data-modal-toggle="dummy-login-detail-modal"
                 class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
                 <img class="invert w-6" src="../images/detail.png" alt="detail">
@@ -22,10 +22,6 @@
             <button data-modal-target="dummy-login-finish-modal" data-modal-toggle="dummy-login-finish-modal" href=""
                 class="rounded-md bg-green-600 hover:bg-green-700 p-2">
                 <img class="invert w-6" src="../images/finish.png" alt="finish">
-            </button>
-            <button data-modal-target="dummy-login-delete-modal" data-modal-toggle="dummy-login-delete-modal" href=""
-                class="rounded-md bg-red-600 hover:bg-red-700 p-2">
-                <img class="invert w-6" src="../images/delete.png" alt="delete">
             </button>
         </div>
     </td>
