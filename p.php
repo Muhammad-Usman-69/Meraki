@@ -82,25 +82,28 @@ $status = $row["status"];
 
 
             <!--menu section-->
-            <div class="mx-6">
-                <button onclick="menu()" type="button" class="border-2 rounded border-white relative w-10 h-10">
-                    <?php
-                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
-                        echo '<img class="menu-img w-10 transition-all duration-300 absolute top-0 left-0"
-                        src="' . $profile_img . '">';
-                    } else {
-                        echo '<img class="menu-img w-9 transition-all duration-300 absolute top-0 left-0 invert"
-                        src="images/menu.png">';
-                    }
-                    ?>
-                    <img class="close-img w-9 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
-                        src="images/close.png">
-                </button>
-                <ul
-                    class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
-                    <?php
-                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
-                        echo '<li
+            <div class="mx-6 flex space-x-5">
+                <?php
+                if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
+                    echo '<a href="dashboard.php" type="button"
+                    class="w-10 h-10 grid place-items-center">
+                    <img class="w-7 invert" src="images/dashboard.png">
+                </a>';
+                }
+                ?>
+                <div>
+                    <button onclick="menu()" type="button" class="rounded relative w-10 h-10">
+                        <?php
+                        echo '<img class="rounded-full menu-img w-10 transition-all duration-300 absolute top-0 left-0" src="' . $profile_img . '">';
+                        ?>
+                        <img class="close-img w-10 invert opacity-0 transition-all duration-300 absolute top-0 left-0"
+                            src="images/close.png">
+                    </button>
+                    <ul
+                        class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
+                        <?php
+                        if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
+                            echo '<li
                         class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600 flex justify-between group/id bg-gray-900">
                         <p
                             class="block w-full py-1.5 px-3 text-gray-300 group-hover/id:bg-gray-800 overflow-hidden whitespace-nowrap text-left">
@@ -145,8 +148,8 @@ $status = $row["status"];
                         </form>
                     </li>
                     </li>';
-                    } else {
-                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-ou h-0 border-b-gray-600">
+                        } else {
+                            echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-ou h-0 border-b-gray-600">
                         <button data-modal-target="log-modal" data-modal-toggle="log-modal"
                             class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
                             in</button>
@@ -156,25 +159,18 @@ $status = $row["status"];
                                 class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Sign
                                 up</button>
                         </li>';
-                    }
+                        }
 
-
-
-                    if (isset($_SESSION["admin"]) && $_SESSION["admin"] == true) {
-                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
-                            <a href="dashboard.php" class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900  border-gray-600 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Dashboard</a>
-                            </li>';
-                    }
-
-                    if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
-                        echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
+                        if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
+                            echo '<li class="list-none overflow-hidden transition-all duration-300 ease-in-out h-0 border-b-gray-600">
                             <button data-modal-target="logout-modal" data-modal-toggle="logout-modal" type="button"
                                 class="block w-full py-1.5 px-3 text-gray-300 bg-gray-900 hover:bg-gray-800 overflow-hidden whitespace-nowrap text-left">Log
                                 out</button>  
                         </li>';
-                    }
-                    ?>
-                </ul>
+                        }
+                        ?>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
