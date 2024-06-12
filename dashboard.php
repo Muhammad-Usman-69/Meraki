@@ -90,7 +90,7 @@ include ("partials/_dbconnect.php");
                 <!-- user signing form -->
                 <form class="w-full shadow-md bg-[#F3F2F7] flex justify-between items-center"
                     action="partials/_s-handler.php" method="post">
-                    <div class="flex m-4 flex-col space-y-3 w-full">
+                    <div class="flex m-4 flex-col space-y-3 w-full lg:grid lg:grid-cols-4 lg:space-y-0 lg:space-x-3">
                         <input type="text" name="name" class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none"
                             placeholder="John Doe" minlength="5" required></input>
                         <input type="email" name="email" class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none"
@@ -98,10 +98,10 @@ include ("partials/_dbconnect.php");
                         <input type="password" autocomplete="new-password" name="pass"
                             class="bg-[#F8F8F8] rounded-md p-2 outline-none border-none" placeholder="••••••••"
                             minlength="12" required>
+                        <button type="Submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 text-center">Add
+                            Account</button>
                     </div>
-                    <button type="Submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-3">Add
-                        Account</button>
                 </form>
 
                 <table class="w-full shadow-md text-sm">
@@ -177,6 +177,7 @@ include ("partials/_dbconnect.php");
                             mysqli_stmt_bind_param($stmt, "s", $row["id"]);
                             mysqli_stmt_execute($stmt);
                             $result2 = mysqli_stmt_get_result($stmt);
+                            $num = mysqli_num_rows($result2);
                             while ($row2 = mysqli_fetch_assoc($result2)) {
                                 $totalTasks++;
                                 if ($row2["task_status"] == "progress") {
@@ -185,6 +186,13 @@ include ("partials/_dbconnect.php");
                                     $finished++;
                                 }
                             }
+                            //for eye icon
+                            if ($num == 0) {
+                                $color = "bg-red-600 hover:bg-red-500";
+                            } else {
+                                $color = "bg-cyan-500 hover:bg-cyan-400";
+                            }
+
                             //echoing data
                             echo '<tr class="border-b-gray-500 border-b bg-[#F8F8F8] last:border-b-0">
                             <td class="text-center py-3">' . $row["id"] . '</td>
@@ -203,9 +211,9 @@ include ("partials/_dbconnect.php");
                                 <button onclick="window.location.assign(`dashboard/_changeuseradmin?id=' . $row["id"] . '&admin=' . $change_admin_id . '`)" class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  px-4 py-2 text-center whitespace-nowrap">' . $change_admin . '</button>
                             </td>
                             <td class="py-3 relative">
-                                <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white bg-cyan-500 shadow-md hover:bg-cyan-400 rounded-md"
+                                <button class="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center p-2 text-white shadow-md ' . $color . ' rounded-md"
                                 onclick="window.location.assign(`tasks?id=' . $row["id"] . '`)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                     class="feather feather-eye">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>

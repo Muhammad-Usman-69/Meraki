@@ -100,7 +100,7 @@ if ($num == 0) {
     <div class="flex z-20 overflow-y-hidden max-h-screen">
         <?php include ("dashboard/_sidemenu.php"); ?>
         <!-- current container -->
-        <div class="overflow-y-scroll hide-scrollbar w-full">
+        <div class="overflow-y-scroll overflow-x-scroll hide-scrollbar w-full">
 
             <!-- header -->
             <?php include ("dashboard/_header.php"); ?>
@@ -126,7 +126,7 @@ if ($num == 0) {
                                 class="bg-[#F8F8F8] outline-none rounded-md border-none text-gray-400 p-2"
                                 oninput="this.style.color='black'" required>
                             <select name="users[]"
-                                class="bg-[#F8F8F8] outline-none rounded-md min-w-40 text-gray-400 hide-scrollbar p-2"
+                                class="bg-[#F8F8F8] outline-none rounded-md text-gray-400 hide-scrollbar p-2"
                                 size="2" multiple required>
                                 <?php
                                 //getting data
@@ -142,7 +142,7 @@ if ($num == 0) {
                         </div>
                         <div class="lg:grid lg:place-items-center lg:w-[10%]">
                             <button type="Submit"
-                                class="w-full lg:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Assign</button>
+                                class="w-full h-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Assign</button>
                         </div>
                     </div>
                 </form>
@@ -191,7 +191,7 @@ if ($num == 0) {
                                 <input type="time" class="bg-transparent w-[67px] hide-cal outline-none border-none time" readonly>
                             </td>
                             <td class="text-center py-3 capitalize">' . $row["task_status"] . '</td>
-                            <td class="text-center space-y-1 py-3 grid place-items-center lg:flex lg:space-y-0 lg:space-x-1 lg:justify-center lg:items-center">
+                            <td class="text-center space-y-1 py-1 grid place-items-center lg:flex lg:space-y-0 lg:space-x-1 lg:justify-center lg:items-center">
                             <div class="flex space-x-1">
                                 <button data-modal-target="detail-modal-' . $i . '" data-modal-toggle="detail-modal-' . $i . '"
                                     class="rounded-md bg-blue-500 hover:bg-blue-600 p-2">
