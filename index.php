@@ -69,7 +69,7 @@ if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                             src="images/close.png">
                     </button>
                     <ul
-                        class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[22px] ease-in-out overflow-hidden duration-200 transition-all">
+                        class="menu absolute flex flex-col list-none w-full right-1/2 translate-x-1/2 translate-y-[18px] ease-in-out overflow-hidden duration-200 transition-all">
                         <?php
                         if (isset($_SESSION["log"]) && $_SESSION["log"] == true) {
                             echo '<li
